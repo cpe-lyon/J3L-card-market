@@ -1,0 +1,28 @@
+html{
+    font-size: 10px
+}
+
+body{
+    font-size: 10px
+}
+
+.imageCard{
+    height: 100px;
+}
+
+.limitText{
+    text-overflow:ellipsis;
+}
+
+.ui.messageLight{
+    background: #ffffff;
+    padding: 1em 1.5em;
+    line-height: 1.4285em;
+    border-radius: .28571429rem;
+    -webkit-box-shadow: 0 0 0 1px rgba(252, 252, 252, 0.22) inset, 0 0 0 0 transparent;
+    box-shadow: 0 0 0 1px rgba(252, 252, 252, 0.22) inset, 0 0 0 0 transparent;
+}
+
+.overflowHiden{
+    overflow:  auto;
+}
