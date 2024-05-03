@@ -1,5 +1,6 @@
 package j3lcardmarket.atelier1.controller;
 
+import j3lcardmarket.atelier1.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -27,10 +28,37 @@ public class RequestCrt {
 
     @Autowired
     CardDao cardDao;
+
     @RequestMapping(value = { "/view"}, method = RequestMethod.GET)
     public String view(Model model) {
         model.addAttribute("myCard",cardDao.getRandomCard() );
         return "cardView";
+    }
+
+
+    @RequestMapping(value = { "/cards"}, method = RequestMethod.GET)
+    public String cards() {
+        // See all cards, todo Josse
+        return "cardView";
+    }
+
+    @RequestMapping(value = { "/cards/{id}"}, method = RequestMethod.GET)
+    public String card(String id) {
+        //See one card, todo Leo
+        return "seeCard";
+    }
+
+
+    @RequestMapping(value = { "/card"}, method = RequestMethod.GET)
+    public String newCard(Card card) {
+        // Todo Louis
+        return "create-card";
+    }
+
+    @RequestMapping(value = { "/card"}, method = RequestMethod.POST)
+    public void createCard(Card card) {
+        // Todo Léon
+        return ;
     }
 
 }
