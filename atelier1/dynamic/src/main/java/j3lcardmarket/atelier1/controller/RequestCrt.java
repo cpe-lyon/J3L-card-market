@@ -57,8 +57,7 @@ public class RequestCrt {
 
     @RequestMapping(value = { "/card"}, method = RequestMethod.POST)
     public void createCard(Card card) {
-        // Todo Léon
-        return ;
+        cardDao.addCard(card);
     }
 
 }

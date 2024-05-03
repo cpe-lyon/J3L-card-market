@@ -1,56 +1,73 @@
 package j3lcardmarket.atelier1.model;
 
 public class Card  {
-    private String color;
-    private String superPower;
     private String name;
+    private String description;
+    private String family;
+    private String affinity;
     private String imgUrl;
+    private String smallImgUrl;
+    private int id;
+    private int energy;
+    private int defence;
+    private int attack;
+    private int price;
 
-    public Card() {
-        this.color = "";
-        this.superPower = "";
-        this.name = "";
-        this.imgUrl="";
-    }
-    public Card(String name,String color,String superPower, String imgUrl) {
-        this.color = color;
-        this.superPower = superPower;
+    public Card(String name, String description, String family, String affinity, String imgUrl, String smallImgUrl, int id, int energy, int defence, int attack, int price) {
         this.name = name;
-        this.imgUrl=imgUrl;
-    }
-
-    // GETTER AND SETTER
-
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getSuperPower() {
-        return superPower;
-    }
-
-    public void setSuperPower(String superPower) {
-        this.superPower = superPower;
+        this.description = description;
+        this.family = family;
+        this.affinity = affinity;
+        this.imgUrl = imgUrl;
+        this.smallImgUrl = smallImgUrl;
+        this.id = id;
+        this.energy = energy;
+        this.defence = defence;
+        this.attack = attack;
+        this.price = price;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getDescription() {
+        return description;
+    }
+
+    public String getFamily() {
+        return family;
+    }
+
+    public String getAffinity() {
+        return affinity;
     }
 
     public String getImgUrl() {
         return imgUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public String getSmallImgUrl() {
+        return smallImgUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefence() {
+        return defence;
+    }
+
+    public int getPrice() {
+        return price;
     }
 }
