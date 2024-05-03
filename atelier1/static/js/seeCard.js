@@ -1,39 +1,24 @@
 function fetchData() {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      const url = "http://tp.cpe.fr:8083/cards";
-  
-      xhr.open('GET', url, true);
-  
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(JSON.parse(xhr.responseText)); // Résoudre la promesse avec les données
-          } else {
-            reject(new Error(xhr.statusText)); // Rejeter la promesse en cas d'erreur
-          }
-        }
-      };
-  
-      xhr.send();
-    });
+    const id = window.location.search.replace('?','');
+    let url = `http://tp.cpe.fr:8083/card/${id}`;
+    return fetch(url).then(r => r.json());
 }
 
 fetchData()
-  .then(cardList => {
+  .then(card => {
     let template = document.querySelector("#selectedCard");
     let clone = document.importNode(template.content, true);
 
     newContent= clone.firstElementChild.innerHTML
-                .replace(/{{family_src}}/g, cardList[0].smallImgUrl)
-                .replace(/{{family_name}}/g, cardList[0].family)
-                .replace(/{{img_src}}/g, cardList[0].imgUrl)
-                .replace(/{{name}}/g, cardList[0].name)
-                .replace(/{{description}}/g, cardList[0].description)
-                .replace(/{{hp}}/g, cardList[0].hp)
-                .replace(/{{energy}}/g, cardList[0].energy)
-                .replace(/{{attack}}/g, cardList[0].attack)
-                .replace(/{{defense}}/g, cardList[0].defence);
+                .replace(/{{family_src}}/g, card.smallImgUrl)
+                .replace(/{{family_name}}/g, card.family)
+                .replace(/{{img_src}}/g, card.imgUrl)
+                .replace(/{{name}}/g, card.name)
+                .replace(/{{description}}/g, card.description)
+                .replace(/{{hp}}/g, card.hp)
+                .replace(/{{energy}}/g, card.energy)
+                .replace(/{{attack}}/g, card.attack)
+                .replace(/{{defense}}/g, card.defence);
     clone.firstElementChild.innerHTML= newContent;
 
     let cardContainer= document.querySelector("#cardContainer");
