@@ -22,7 +22,7 @@
     <div class="ui segment">
             <div class="ui five column grid" id="gridContainer">
                 <div class="column">1</div>
-                <template id="selectedCard" th:each="card: ${cards}">
+                <div id="selectedCard" th:each="card: ${cards}">
                     <div class="column">
                         <div class="ui special cards">
                             <div class="card">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                </template>
+                </div>
             </div>
         </div>
     
@@ -64,7 +64,6 @@
         <script src="/lib/jquery-3.3.1.min.js"></script>
         <script src="/lib/Semantic-UI-CSS-master/semantic.js"></script>
         <script src="/js/animation-custom.js"></script>
-        <script src="/js/card.js"></script>
 
     </body>
 </html>
