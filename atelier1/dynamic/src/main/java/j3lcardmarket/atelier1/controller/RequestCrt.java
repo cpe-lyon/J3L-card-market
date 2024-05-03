@@ -42,9 +42,9 @@ public class RequestCrt {
         return "cardView";
     }
 
-    @RequestMapping(value = { "/cards/{id}"}, method = RequestMethod.GET)
-    public String card(String id) {
-        //See one card, todo Leo
+    @RequestMapping(value = { "/cards/{name}"}, method = RequestMethod.GET)
+    public String card(Model model, String name) {
+        model.addAttribute("myCard", cardDao.getCardByName(name));
         return "seeCard";
     }
 

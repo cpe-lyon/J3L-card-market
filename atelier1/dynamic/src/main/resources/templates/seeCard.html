@@ -40,7 +40,7 @@
                         <div class="card">
 
                             <div class="content">
-                                <img id="cardFamilyImgId" class="ui avatar image" src={{family_src}}> <span id="cardFamilyNameId">{{family_name}} </span>
+                                <img id="cardFamilyImgId" class="ui avatar image" th:src="${myCard.getImgUrl()}"> <span th:text="${myCard.getFamilyName()}"></span>
                             </div>
                             <div class="image imageCard">
                                 <div class="blurring dimmable image">
@@ -51,31 +51,31 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <img id="cardImgId" class="ui centered tiny image" src={{img_src}}>
+                                    <img id="cardImgId" class="ui centered tiny image" th:src="${myCard.getImgUrl()}">
                                 </div>
                             </div>
                             <div class="content">
                                 <div class="ui form tiny">
                                     <div class="field">
-                                        <label id="cardNameId">{{name}}</label>
-                                        <textarea id="cardDescriptionId" class="overflowHiden" readonly="" rows="5">{{description}}</textarea>
+                                        <label th:text="${myCard.getName()}">$</label>
+                                        <textarea th:text="${myCard.getDescription()}" class="overflowHiden" readonly="" rows="5"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="content">
-                                <i class="heart outline icon"></i><span id="cardHPId">{{hp}}</span> 
+                                <i class="heart outline icon"></i><span th:text="${myCard.getHp()}"></span>
                                 <div class="right floated ">
                                     <i class="lightning outline icon"></i>
-                                    <span id="cardEnergyId">{{energy}}</span> 
+                                    <span th:text="${myCard.getEnergy()}"></span>
                                 </div>
                             </div>
                             <div class="content">
                                 <span class="right floated">
                                     <i class=" wizard icon"></i>
-                                    <span id="cardAttackId">{{attack}}</span> 
+                                    <span th:text="${myCard.getAttack()}"></span>
                                 </span>
                                 <i class="protect icon"></i>
-                            <span id="cardDefenceId">{{defense}} </span> 
+                            <span th:text="${myCard.getDefense()}"></span>
                             </div>
 
                         </div>
