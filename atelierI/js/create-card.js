@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "family": document.getElementById('family').value,
             "affinity": document.getElementById('affinity').value,
             "imgUrl": document.getElementById('img-url').value,
+            "smallImgUrl": document.getElementById('small-img-url').value,
             "hp": document.getElementById('hp').value,
             "energy": document.getElementById('energy').value,
             "defence": document.getElementById('defense').value,
