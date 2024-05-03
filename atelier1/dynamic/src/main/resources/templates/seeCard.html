@@ -9,23 +9,14 @@
         <!-- Site Properties -->
         <title>Grid Example - Semantic</title>
 
-        <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="./css/custom.css">
+        <link rel="stylesheet" type="text/css" href="/lib/Semantic-UI-CSS-master/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/custom.css">
 
     </head>
 
     <body>
-    <div class="ui pointing menu">
-        <a class="item" href="createCard.html">
-            Create Card
-        </a>
-        <div class="right menu">
-            <div class="item">
-                <a class="item" href="cardView.html">
-                    Home
-                </a>
-            </div>
-        </div>
+    <div th:replace="~{fragments/header :: header}">
+        <h1> THIS IS A DEFAULT HEADER</h1>
     </div>
         <!------------------------------------------------------------------------->
         <!--    ----------------------------- CARD ----------------------------- -->
@@ -36,11 +27,12 @@
             <div class="column"></div>
             <div class="column">
                 <div class="ui special cards" id="cardContainer">
-                    <template id="selectedCard">
+                    <div id="selectedCard">
                         <div class="card">
 
                             <div class="content">
-                                <img id="cardFamilyImgId" class="ui avatar image" th:src="${myCard.getImgUrl()}"> <span th:text="${myCard.getFamilyName()}"></span>
+                                <img id="cardFamilyImgId" class="ui avatar image" th:src="${myCard.getImgUrl()}">
+                                <span th:text="${myCard.getFamily()}"></span>
                             </div>
                             <div class="image imageCard">
                                 <div class="blurring dimmable image">
@@ -63,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="content">
-                                <i class="heart outline icon"></i><span th:text="${myCard.getHp()}"></span>
+                                <i class="heart outline icon"></i><span th:text="${myCard.getAffinity()}"></span>
                                 <div class="right floated ">
                                     <i class="lightning outline icon"></i>
                                     <span th:text="${myCard.getEnergy()}"></span>
@@ -75,17 +67,13 @@
                                     <span th:text="${myCard.getAttack()}"></span>
                                 </span>
                                 <i class="protect icon"></i>
-                            <span th:text="${myCard.getDefense()}"></span>
+                            <span th:text="${myCard.getDefence()}"></span>
                             </div>
 
                         </div>
-                </template>
+                </div>
                 </div>
             </div>
         </div>
-        <script src="./lib/jquery-3.3.1.min.js"></script>
-        <script src="./lib/Semantic-UI-CSS-master/semantic.js"></script>
-        <script src="js/seeCard.js"></script>
-
     </body>
 </html>

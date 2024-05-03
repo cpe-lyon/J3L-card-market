@@ -50,7 +50,7 @@
                                     <i class="comment icon"></i>
                                     <span th:text="0"></span>
                                 </div>
-                                <a class="ui bottom attached button" th:href="seeCard.html?${card.getId()}">
+                                <a class="ui bottom attached button" th:href="@{/cards/{id}(id=${card.getId()})}">
                                     Display
                                 </a>
                             </div>
