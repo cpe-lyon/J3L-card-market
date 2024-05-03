@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}">
+  <h1> THIS IS A DEFAULT HEADER</h1>
+</div>
+<div>
+  <img th:src="${myCard.imgUrl}" alt="">
+
+  <h3 th:utext="${myCard.name}">...</h3>
+
+  <div th:style="'background-color:'+${myCard.color}">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+      do eiusmod tempor incididunt.
+    </p>
+  </div>
+
+  <h5 th:text="'Color:  '+${myCard.color}">...</h5>
+  <h5 th:text="'SuperPower:  '+${myCard.superPower}">...</h5>
+</div>
+</body>
+</html>
