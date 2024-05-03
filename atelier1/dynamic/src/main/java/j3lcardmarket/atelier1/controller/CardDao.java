@@ -52,6 +52,15 @@ public class CardDao {
         this.myCardList.add(card);
         return card;
     }
+
+    public Card getCarById(int id) {
+        for (Card CardBean : myCardList) {
+            if(CardBean.getId() == id){
+                return CardBean;
+            }
+        }
+        return null;
+    }
 }
 
 
