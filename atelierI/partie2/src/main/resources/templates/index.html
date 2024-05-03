@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}">
+    <h1> THIS IS A DEFAULT HEADER</h1>
+</div>
+<h1>Welcome</h1>
+<h2 th:utext="${message}">..!..</h2>
+<div>
+    <img class="uk-comment-avatar" src="/img/img1.jpg" width="80"
+         height="80" alt="">
+    <h4>
+        <a href="#" th:utext="${message}">...</a>
+    </h4>
+    <ul>
+        <li><a href="#">First Introduction</a></li>
+        <li><a href="#">More Info</a></li>
+    </ul>
+</div>
+<div>
+    <p th:utext="${messageLocal}">...</p>
+</div>
+<div>
+    <ul>
+        <li><a href="/view"><img src="/img/img2.jpg" width="100"
+                                 alt="">Display</a></li>
+        <li><a href="/addPoney"><img src="/img/img3.jpg" width="100"
+                                     alt="">Add</a></li>
+        <li><a href="/list"><img src="/img/img4.jpg" width="100"
+                                 alt="">List</a></li>
+    </ul>
+</div>
+</body>
+</html>
