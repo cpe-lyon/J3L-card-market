@@ -20,7 +20,7 @@
             <div class="column"></div>
             <div class="column"></div>
             <div class="column">
-                <form class="ui form" id="card-form">
+                <form class="ui form" id="card-form" action="/card" method="post">
                     <h3 class="ui dividing header">Add Card</h3>
                     <div class="field">
                         <label>Name</label>
@@ -40,11 +40,11 @@
                     </div>
                     <div class="field">
                         <label>Image URL</label>
-                        <input type="text" name="img-url" id="img-url" placeholder="Image URL">
+                        <input type="text" name="imgUrl" id="img-url" placeholder="Image URL">
                     </div>
                     <div class="field">
                         <label>Preview Image URL</label>
-                        <input type="text" name="small-img-url" id="small-img-url" placeholder="Preview Image URL">
+                        <input type="text" name="smallImgUrl" id="small-img-url" placeholder="Preview Image URL">
                     </div>
                     <div class="field">
                         <label>Enery</label>
@@ -73,6 +73,5 @@
 
         <script src="./lib/jquery-3.3.1.min.js"></script>
         <script src="./lib/Semantic-UI-CSS-master/semantic.js"></script>
-        <script src="./js/createCard.js"></script>
     </body>
 </html>
