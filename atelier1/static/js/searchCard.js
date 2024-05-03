@@ -25,7 +25,7 @@ fetchData()
     let clone = document.importNode(template.content, true);
 
     newContent= clone.firstElementChild.innerHTML
-                .replace(/{{family_src}}/g, cardList[0].family_src)
+                .replace(/{{family_src}}/g, cardList[0].smallImgUrl)
                 .replace(/{{family_name}}/g, cardList[0].family)
                 .replace(/{{img_src}}/g, cardList[0].imgUrl)
                 .replace(/{{name}}/g, cardList[0].name)
