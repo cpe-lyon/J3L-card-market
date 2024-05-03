@@ -15,7 +15,9 @@ Ces sources peuvent être servies sur le cloud (en utilisant un CDN)\
 ## Approche Web dynamique
 Cette approche délègue une grande partie de la logique au serveur pour limiter le nombre d'appels AJAX.\
 On a donc un serveur qui centralise tout le fonctionnel
+
 ![Web Dynamique](img%2Fatelier1-mvc.jpg)
+
 ### Avantages
 * Même base de code pour la majorité de l'applicatif
 * Plus de contrôle sur la logique opérée, moins de besoin de sécurité entre la vue et le contrôleur puisque c'est sur la même machine
