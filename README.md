@@ -3,5 +3,5 @@
 
 ![CPE Lyon](https://img.shields.io/badge/school-cpe_lyon-blue)
 ![Module](https://img.shields.io/badge/module-ASI_WebDynamique-blue)
-## Atelier 1
-### 
+## Ateliers
+[Atelier 1](./docs/atelier1.md)
