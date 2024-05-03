@@ -15,26 +15,19 @@
     </head>
 
     <body>
-        <div class="ui pointing menu">
-            <a class="item">
-                Home
-            </a>
-            <a class="item">
-                Messages
-            </a>
-            <a class="item active">
-                Friends
-            </a>
-            <div class="right menu">
-                <div class="item">
-                    <div class="ui transparent icon input">
-                        <input type="text" placeholder="Search...">
-                        <i class="search link icon"></i>
-                    </div>
-                </div>
+
+    <div class="ui pointing menu">
+        <a class="item" href="create-card.html">
+            Create Card
+        </a>
+        <div class="right menu">
+            <div class="item">
+                <a class="item" href="card.html">
+                    Home
+                </a>
             </div>
         </div>
-        <div class="ui segment">
+    </div>        <div class="ui segment">
             <div class="ui five column grid" id="gridContainer">
                 <div class="column">1</div>
                 <template id="selectedCard">
@@ -65,16 +58,9 @@
                                     <i class="comment icon"></i>
                                     {{comment}}
                                 </div>
-                                <div class="extra content">
-                                    <div class="ui large transparent left icon input">
-                                        <i class="heart outline icon"></i>
-                                        <input type="text" placeholder="Add Comment...">
-                                    </div>
-                                </div>
-                                <div class="ui bottom attached button">
-                                    <i class="add icon"></i>
+                                <a class="ui bottom attached button" href="seeCard.html?{{card_id}}">
                                     {{button}}
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
