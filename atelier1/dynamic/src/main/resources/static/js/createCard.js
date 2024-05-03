@@ -23,13 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function createCard(card) {
-    const POST_CARD_URL = "http://tp.cpe.fr:8083/card";
+    const POST_CARD_URL = "http://localhost:8080/card";
     let context = { method: 'POST', body: JSON.stringify(card), headers: { 'Content-Type': 'application/json' } };
 
     fetch(POST_CARD_URL, context)
         .then(response => response.json())
         .catch(error => err_callback(error))
-        .then(() => window.location.href = "card.html")
+        .then(() => window.location.href = "cards")
 }
 
 function err_callback(error) {
