@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         createCard(card);
+        window.location.href = "card.html";
     });
 });
 
