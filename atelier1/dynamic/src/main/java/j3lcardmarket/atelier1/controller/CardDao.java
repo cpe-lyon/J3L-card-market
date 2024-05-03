@@ -48,10 +48,9 @@ public class CardDao {
         return this.myCardList.get(index);
     }
 
-    public Card addCard(String name, String color, String superPower, String imgUrl) {
-        Card p=new Card(name, color, superPower, imgUrl);
-        this.myCardList.add(p);
-        return p;
+    public Card addCard(Card card) {
+        this.myCardList.add(card);
+        return card;
     }
 }
 
