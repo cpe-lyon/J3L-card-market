@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         createCard(card);
-        window.location.href = "card.html";
     });
 });
 
@@ -29,9 +28,11 @@ function createCard(card) {
 
     fetch(POST_CARD_URL, context)
         .then(response => response.json())
-        .catch(error => err_callback(error));
+        .catch(error => err_callback(error))
+        .then(() => window.location.href = "card.html")
 }
 
 function err_callback(error) {
     console.log(error);
+    alert("Erreur submit");
 }
