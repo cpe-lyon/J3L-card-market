@@ -2,7 +2,9 @@
 ## Approche Web Statique + WebService
 Cette approche consiste en des sources CSS et HTML, ainsi que des scripts JS, qui indiquent aux clients les opérations à effectuer. Parmi ces opérations se trouvent des appels à une API\
 Ces sources peuvent être servies sur le cloud (en utilisant un CDN)\
+
 ![Statique + Webservice](img%2Fatelier1-webservice.jpg)
+
 ### Avantages
 * Moins coûteux en ressources serveur car on n'a pas de templating HTML côté serveur
 * Scalabilité horizontale facilitée car on peut facilement séparer l'API entre plusieurs machines
