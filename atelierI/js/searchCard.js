@@ -27,7 +27,7 @@ fetchData()
     newContent= clone.firstElementChild.innerHTML
                 .replace(/{{family_src}}/g, cardList[0].family_src)
                 .replace(/{{family_name}}/g, cardList[0].family)
-                .replace(/{{img_src}}/g, cardList[0].image_src)
+                .replace(/{{img_src}}/g, cardList[0].imgUrl)
                 .replace(/{{name}}/g, cardList[0].name)
                 .replace(/{{description}}/g, cardList[0].description)
                 .replace(/{{hp}}/g, cardList[0].hp)
