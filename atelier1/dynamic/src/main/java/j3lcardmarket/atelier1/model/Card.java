@@ -1,5 +1,7 @@
 package j3lcardmarket.atelier1.model;
 
+import java.util.Date;
+
 public class Card  {
     private String name;
     private String description;
@@ -12,6 +14,7 @@ public class Card  {
     private int defence;
     private int attack;
     private int price;
+    private Date date;
 
     public Card(String name, String description, String family, String affinity, String imgUrl, String smallImgUrl, int id, int energy, int defence, int attack, int price) {
         this.name = name;
@@ -25,6 +28,7 @@ public class Card  {
         this.defence = defence;
         this.attack = attack;
         this.price = price;
+        this.date = new Date();
     }
 
     public String getName() {
@@ -69,5 +73,9 @@ public class Card  {
 
     public int getPrice() {
         return price;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

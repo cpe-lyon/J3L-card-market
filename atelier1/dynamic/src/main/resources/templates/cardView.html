@@ -9,8 +9,8 @@
         <!-- Site Properties -->
         <title>Grid Example - Semantic</title>
 
-        <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="./css/custom.css">
+        <link rel="stylesheet" type="text/css" href="/lib/Semantic-UI-CSS-master/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/custom.css">
 
     </head>
 
@@ -22,13 +22,13 @@
     <div class="ui segment">
             <div class="ui five column grid" id="gridContainer">
                 <div class="column">1</div>
-                <template id="selectedCard">
+                <template id="selectedCard" th:each="card: ${cards}">
                     <div class="column">
                         <div class="ui special cards">
                             <div class="card">
                                 <div class="content">
-                                    <div class="right floated meta">{{date}}</div>
-                                    <img class="ui avatar image" src={{family_src}}> {{family_name}}
+                                    <div class="right floated meta" th:text="${card.getDate()}"></div>
+                                    <img class="ui avatar image" th:src="${card.getSmallImgUrl()}"> <span ${card.familyName}></span>
                                 </div>
                                 <div class="image imageCard">
                                     <div class="blurring dimmable image">
@@ -39,19 +39,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img class="ui centered tiny  image" src={{image_src}}>
+                                        <img class="ui centered tiny  image" th:src="${card.getImgUrl()}">
                                     </div>
                                 </div>
                                 <div class="content">
                                     <span class="right floated">
                                         <i class="heart outline like icon"></i>
-                                        {{like}}
+                                        <span th:text="0"></span>
                                     </span>
                                     <i class="comment icon"></i>
-                                    {{comment}}
+                                    <span th:text="0"></span>
                                 </div>
-                                <a class="ui bottom attached button" href="seeCard.html?{{card_id}}">
-                                    {{button}}
+                                <a class="ui bottom attached button" th:href="seeCard.html?${card.getId()}">
+                                    Display
                                 </a>
                             </div>
                         </div>
@@ -61,10 +61,10 @@
         </div>
     
 
-        <script src="./lib/jquery-3.3.1.min.js"></script>
-        <script src="./lib/Semantic-UI-CSS-master/semantic.js"></script>
-        <script src="js/animation-custom.js"></script> 
-        <script src="js/card.js"></script> 
+        <script src="/lib/jquery-3.3.1.min.js"></script>
+        <script src="/lib/Semantic-UI-CSS-master/semantic.js"></script>
+        <script src="/js/animation-custom.js"></script>
+        <script src="/js/card.js"></script>
 
     </body>
 </html>

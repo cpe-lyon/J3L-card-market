@@ -28,9 +28,11 @@ public class CardDao {
         Card card4 = new Card("Summoned Skull", "A skull-faced fiend that attacks without mercy.", "Fiend", "DARK", "https://example.com/summoned-skull.jpg", "https://example.com/small-summoned-skull.jpg", 4, 2500, 1200, 6, 3000);
         Card card5 = new Card("Obelisk the Tormentor", "The strongest of the three Egyptian God Cards.", "Divine-Beast", "LIGHT", "https://example.com/obelisk-the-tormentor.jpg", "https://example.com/small-obelisk-the-tormentor.jpg", 5, 4000, 4000, 10, 10000);
 
-        this.myCardList.add(
-                new Card("Dragon Blanc aux yeux bleus")
-        )
+        this.myCardList.add(card1);
+        this.myCardList.add(card2);
+        this.myCardList.add(card3);
+        this.myCardList.add(card4);
+        this.myCardList.add(card5);
     }
     public List<Card> getCardList() {
         return this.myCardList;

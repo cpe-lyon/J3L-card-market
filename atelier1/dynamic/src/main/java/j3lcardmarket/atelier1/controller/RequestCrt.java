@@ -37,8 +37,8 @@ public class RequestCrt {
 
 
     @RequestMapping(value = { "/cards"}, method = RequestMethod.GET)
-    public String cards() {
-        // See all cards, todo Josse
+    public String cards(Model model) {
+        model.addAttribute("cards",cardDao.getCardList());
         return "cardView";
     }
 
