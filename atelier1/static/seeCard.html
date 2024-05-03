@@ -15,37 +15,23 @@
     </head>
 
     <body>
-        <div class="ui five column grid">
-            <div class="row"></div>
-            <div class="row">
-                <div class="five column"></div>
+    <div class="ui pointing menu">
+        <a class="item" href="create-card.html">
+            Create Card
+        </a>
+        <div class="right menu">
+            <div class="item">
+                <a class="item" href="card.html">
+                    Home
+                </a>
             </div>
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column">
-                <form class="ui form" action="./getCard" method="GET" name="mySearch">
-                    <h3 class="ui dividing header">Select the Card Name to Search</h3>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Card Name</label>
-                        </div>
-                        <div class="field">
-                            <div class="ui transparent icon input">
-                                <input type="text" placeholder="Search..." name="search">
-                                <i class="search link icon"  onclick="mySearch.submit();"></i>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="column"></div>
-            <div class="column"></div>
         </div>
+    </div>
         <!------------------------------------------------------------------------->
         <!--    ----------------------------- CARD ----------------------------- -->
         <!------------------------------------------------------------------------->
 
-        <div class="ui five column grid">
+        <div class="ui five column grid" style="margin:auto;">
             <div class="column"></div>
             <div class="column"></div>
             <div class="column">
@@ -99,7 +85,7 @@
         </div>
         <script src="./lib/jquery-3.3.1.min.js"></script>
         <script src="./lib/Semantic-UI-CSS-master/semantic.js"></script>
-        <script src="js/searchCard.js"></script> 
+        <script src="js/seeCard.js"></script>
 
     </body>
 </html>

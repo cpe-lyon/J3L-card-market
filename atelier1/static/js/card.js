@@ -44,9 +44,10 @@ fetchData()
             let clone = document.importNode(template.content, true);
     
             newContent= clone.firstElementChild.innerHTML
-              .replace(/{{family_src}}/g, card.family_src)
+              .replace(/{{family_src}}/g, card.smallImgUrl)
               .replace(/{{family_name}}/g, card.family)
               .replace(/{{image_src}}/g, card.imgUrl)
+                .replace(/{{card_id}}/g, card.id)
               .replace(/{{date}}/g, "01/01/1999")
               .replace(/{{comment}}/g, 0)
               .replace(/{{like}}/g, 0)
