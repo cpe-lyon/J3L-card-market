@@ -29,13 +29,11 @@ public class RequestCrt {
 
     @Autowired
     CardDao cardDao;
-
     @RequestMapping(value = { "/view"}, method = RequestMethod.GET)
     public String view(Model model) {
         model.addAttribute("myCard",cardDao.getRandomCard() );
         return "cardView";
     }
-
 
     @RequestMapping(value = { "/cards"}, method = RequestMethod.GET)
     public String cards(Model model) {
@@ -61,7 +59,3 @@ public class RequestCrt {
         cardDao.addCard(card);
         return "redirect:/cards";
     }
-
-}
-
-
