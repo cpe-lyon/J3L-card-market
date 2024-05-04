@@ -7,8 +7,17 @@
 </head>
 <body>
 
-<div th:fragment="header">
-  <h1>This is the Fragment Header</h1>
+<div class="ui pointing menu" th:fragment="header">
+  <a class="item" href="/card">
+    Create Card
+  </a>
+  <div class="right menu">
+    <div class="item">
+      <a class="item" href="/cards">
+        Home
+      </a>
+    </div>
+  </div>
 </div>
 </body>
 </html>

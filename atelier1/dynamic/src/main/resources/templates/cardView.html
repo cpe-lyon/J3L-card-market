@@ -1,28 +1,69 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8" />
-  <title>Welcome</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-</head>
-<body>
-<div th:replace="~{fragments/header :: header}">
-  <h1> THIS IS A DEFAULT HEADER</h1>
-</div>
-<div>
-  <img th:src="${myCard.imgUrl}" alt="">
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Standard Meta -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <h3 th:utext="${myCard.name}">...</h3>
+        <!-- Site Properties -->
+        <title>Grid Example - Semantic</title>
 
-  <div th:style="'background-color:'+${myCard.color}">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-      do eiusmod tempor incididunt.
-    </p>
-  </div>
+        <link rel="stylesheet" type="text/css" href="/lib/Semantic-UI-CSS-master/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/custom.css">
 
-  <h5 th:text="'Color:  '+${myCard.color}">...</h5>
-  <h5 th:text="'SuperPower:  '+${myCard.superPower}">...</h5>
-</div>
-</body>
+    </head>
+
+    <body>
+    <div th:replace="~{fragments/header :: header}">
+        <h1> THIS IS A DEFAULT HEADER</h1>
+    </div>
+
+    <div class="ui segment">
+            <div class="ui five column grid" id="gridContainer">
+                <div class="column">1</div>
+                <div id="selectedCard" th:each="card: ${cards}">
+                    <div class="column">
+                        <div class="ui special cards">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="right floated meta" th:text="${card.getDate()}"></div>
+                                    <img class="ui avatar image" th:src="${card.getSmallImgUrl()}"> <span ${card.familyName}></span>
+                                </div>
+                                <div class="image imageCard">
+                                    <div class="blurring dimmable image">
+                                        <div class="ui inverted dimmer">
+                                            <div class="content">
+                                                <div class="center">
+                                                    <div class="ui primary button">Add Friend</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img class="ui centered tiny  image" th:src="${card.getImgUrl()}">
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <span class="right floated">
+                                        <i class="heart outline like icon"></i>
+                                        <span th:text="0"></span>
+                                    </span>
+                                    <i class="comment icon"></i>
+                                    <span th:text="0"></span>
+                                </div>
+                                <a class="ui bottom attached button" th:href="@{/cards/{id}(id=${card.getId()})}">
+                                    Display
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+        <script src="/lib/jquery-3.3.1.min.js"></script>
+        <script src="/lib/Semantic-UI-CSS-master/semantic.js"></script>
+        <script src="/js/animation-custom.js"></script>
+
+    </body>
 </html>

@@ -21,18 +21,16 @@ public class CardDao {
     }
 
     private void createCardList() {
+        this.myCardList = new ArrayList<>();
+        Card card1 = new Card("Dark Magician", "The ultimate wizard in terms of attack and defense.", "Spellcaster", "DARK", "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/192788bc-39d8-4892-a13f-ded75db42e69/dbwjsqd-34616a6d-8b30-469d-9253-a4ff4f838acf.png/v1/fill/w_894,h_894,q_70,strp/dark_magician__7th_artwork__by_omgitsjohannes_dbwjsqd-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTYwMCIsInBhdGgiOiJcL2ZcLzE5Mjc4OGJjLTM5ZDgtNDg5Mi1hMTNmLWRlZDc1ZGI0MmU2OVwvZGJ3anNxZC0zNDYxNmE2ZC04YjMwLTQ2OWQtOTI1My1hNGZmNGY4MzhhY2YucG5nIiwid2lkdGgiOiI8PTE2MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.CoZaLXf-gsDhQLrc2QaYkMGfnBfokq72RI6uSfOue00", "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/192788bc-39d8-4892-a13f-ded75db42e69/dbwjsqd-34616a6d-8b30-469d-9253-a4ff4f838acf.png/v1/fill/w_894,h_894,q_70,strp/dark_magician__7th_artwork__by_omgitsjohannes_dbwjsqd-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTYwMCIsInBhdGgiOiJcL2ZcLzE5Mjc4OGJjLTM5ZDgtNDg5Mi1hMTNmLWRlZDc1ZGI0MmU2OVwvZGJ3anNxZC0zNDYxNmE2ZC04YjMwLTQ2OWQtOTI1My1hNGZmNGY4MzhhY2YucG5nIiwid2lkdGgiOiI8PTE2MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.CoZaLXf-gsDhQLrc2QaYkMGfnBfokq72RI6uSfOue00", 1, 2500, 2100, 7, 5000);
+        Card card2 = new Card("Blue-Eyes White Dragon", "This legendary dragon is a powerful engine of destruction.", "Dragon", "LIGHT", "https://wallpapercave.com/wp/wp2772500.jpg", "https://wallpapercave.com/wp/wp2772500.jpg", 2, 3000, 2500, 8, 8000);
+        Card card3 = new Card("Red-Eyes Black Dragon", "A ferocious dragon with a powerful attack.", "Dragon", "FIRE", "https://s1.zerochan.net/Red-Eyes.Black.Dragon.600.1421143.jpg", "https://s1.zerochan.net/Red-Eyes.Black.Dragon.600.1421143.jpg", 3, 2400, 2000, 7, 4000);
+        Card card4 = new Card("Summoned Skull", "A skull-faced fiend that attacks without mercy.", "Fiend", "DARK", "https://s1.zerochan.net/Summoned.Skull.600.3789417.jpg", "https://s1.zerochan.net/Summoned.Skull.600.3789417.jpg", 4, 2500, 1200, 6, 3000);
 
-        Card p1=new Card("John", "pink", "super pink", "http://ekladata.com/9-cPSlYvrenNHMVawFmf_gLx8Jw.gif");
-        Card p2=new Card("Roberto", "blue", "super lazy", "http://ekladata.com/JEVyY9DkwX4vVkakeBfikSyPROA.gif");
-        Card p3=new Card("Anna", "orange", "super music girl", "http://ekladata.com/fMJl--_v-3CmisaynTHju1DMeXE.gif");
-        Card p4=new Card("Angry Joe", "purple", "super angry power", "http://ekladata.com/AmbNNNvv-4YFEMZR8XD8e54WoHc.gif");
-        Card p5=new Card("Ursula", "green", "super cloning power", "http://ekladata.com/CXJhi2YLUbNz6__e0Ct6ZP-XOds.gif");
-
-        myCardList.add(p1);
-        myCardList.add(p2);
-        myCardList.add(p3);
-        myCardList.add(p4);
-        myCardList.add(p5);
+        this.myCardList.add(card1);
+        this.myCardList.add(card2);
+        this.myCardList.add(card3);
+        this.myCardList.add(card4);
     }
     public List<Card> getCardList() {
         return this.myCardList;
@@ -50,10 +48,18 @@ public class CardDao {
         return this.myCardList.get(index);
     }
 
-    public Card addCard(String name, String color, String superPower, String imgUrl) {
-        Card p=new Card(name, color, superPower, imgUrl);
-        this.myCardList.add(p);
-        return p;
+    public Card addCard(Card card) {
+        this.myCardList.add(card);
+        return card;
+    }
+
+    public Card getCarById(int id) {
+        for (Card CardBean : myCardList) {
+            if(CardBean.getId() == id){
+                return CardBean;
+            }
+        }
+        return null;
     }
 }
 

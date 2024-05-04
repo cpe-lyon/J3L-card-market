@@ -1,10 +1,12 @@
 package j3lcardmarket.atelier1.controller;
 
+import j3lcardmarket.atelier1.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,6 +35,27 @@ public class RequestCrt {
         return "cardView";
     }
 
-}
+    @RequestMapping(value = { "/cards"}, method = RequestMethod.GET)
+    public String cards(Model model) {
+        model.addAttribute("cards",cardDao.getCardList());
+        return "cardView";
+    }
+
+    @RequestMapping(value = { "/cards/{id}"}, method = RequestMethod.GET)
+    public String card(Model model, @PathVariable Integer id) {
+        model.addAttribute("myCard", cardDao.getCarById(id));
+        return "seeCard";
+    }
 
 
+    @RequestMapping(value = { "/card"}, method = RequestMethod.GET)
+    public String newCard() {
+        return "createCard";
+    }
+
+    @RequestMapping(value = { "/card"}, method = RequestMethod.POST)
+    public String createCard(@ModelAttribute Card card) {
+
+        cardDao.addCard(card);
+        return "redirect:/cards";
+    }
