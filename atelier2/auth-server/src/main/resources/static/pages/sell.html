@@ -4,65 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sell</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            margin: 20px;
-        }
-
-        table {
-            width: 75%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            cursor: pointer;
-            display: inline-block;
-            vertical-align: top;
-            table-layout: fixed;
-        }
-
-        th, td {
-            width: 50%;
-            border: 1px solid #000;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .profile {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
-        .card-details {
-            width: 20%;
-            display: inline-block;
-            vertical-align: top;
-            border: 1px solid #000;
-            padding: 10px;
-            margin-left: 20px;
-        }
-
-        .card-details img {
-            width: 100%;
-        }
-
-        .card-details button {
-            padding: 10px;
-            background-color: #f44336;
-            color: white;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <div class="profile">
@@ -110,17 +52,6 @@
         </div>
     </div>
 
-    <script>
-        function updateCardDetails(row) {
-            const cells = row.getElementsByTagName('td');
-            document.getElementById('card-name').innerText = 'Card Name: ' + cells[0].innerText;
-            document.getElementById('card-description').innerText = 'Description: ' + cells[1].innerText;
-            document.getElementById('card-price').innerText = 'Price: ' + cells[2].innerText;
-            document.getElementById('sell-button').onclick = function() {
-                alert('Sold ' + cells[0].innerText + ' for ' + cells[2].innerText);
-                // Add your sell logic here
-            };
-        }
-    </script>
+    <script src="../script/sell.js"></script>
 </body>
 </html>
