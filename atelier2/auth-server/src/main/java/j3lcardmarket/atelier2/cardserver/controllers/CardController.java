@@ -1,8 +1,9 @@
 package j3lcardmarket.atelier2.cardserver.controllers;
 
 import j3lcardmarket.atelier2.cardserver.dto.CreateCardDto;
+import j3lcardmarket.atelier2.cardserver.dto.SellCardDto;
 import j3lcardmarket.atelier2.cardserver.models.Card;
-import j3lcardmarket.atelier2.cardserver.models.Transaction;
+import j3lcardmarket.atelier2.cardserver.models.UserCard;
 import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class CardsAPI {
+public class CardController {
     @Autowired
     TransactionalCardManager cardService;
 
@@ -21,9 +22,9 @@ public class CardsAPI {
         return cardService.getAll();
     }
 
-    @GetMapping("/cards/{id}")
-    public Card getById(@PathVariable Integer id) {
-        return cardService.getById(id);
+    @GetMapping("/cards/{cardId}")
+    public Card getById(@PathVariable Integer cardId) {
+        return cardService.getById(cardId);
     }
 
     @PostMapping("/cards/create")
@@ -31,13 +32,14 @@ public class CardsAPI {
         return cardService.create(createCardDto.getName());
     }
 
-    @PutMapping("/cards/buy/{id}")
-    public Transaction buy(@PathVariable Integer id) {
-        return cardService.buy(id);
+    @PutMapping("/cards/buy/{userCardId}")
+    public UserCard buy(@PathVariable Integer userCardId) {
+        // TODO: get buyer from request
+        return cardService.buy(userCardId, "");
     }
 
-    @PutMapping("/cards/sell/{id}")
-    public Transaction sell(@PathVariable Integer id) {
-        return cardService.sell(id);
+    @PutMapping("/cards/sell/{userCardId}")
+    public UserCard sell(@Valid @RequestBody SellCardDto sellCardDto, @PathVariable Integer userCardId) {
+        return cardService.sell(userCardId, sellCardDto.getPrice());
     }
 }
