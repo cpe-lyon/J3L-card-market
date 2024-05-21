@@ -1,6 +1,8 @@
 package j3lcardmarket.atelier2.authserver.controllers;
 
+import j3lcardmarket.atelier2.authserver.models.AuthDTO;
 import j3lcardmarket.atelier2.authserver.models.BasicAuthInfoImpl;
+import j3lcardmarket.atelier2.authserver.models.RegisterAuthDTO;
 import j3lcardmarket.atelier2.authserver.models.TokenAuthInfo;
 import j3lcardmarket.atelier2.authserver.services.TokenLoginChecker;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,9 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.function.Supplier;
 
@@ -41,27 +41,27 @@ public class LoginAPI {
     }
 
     // HTTP Endpoint
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login",  method = RequestMethod.POST)
     public String login(
             @RequestHeader("Authorization") String authorizationHeader,
-            @RequestParam("redirectUrl") String redirect,
+            @ModelAttribute AuthDTO authDto,
             HttpServletResponse response) {
         return responseFromSupplier(
                 authorizationHeader,
-                redirect,
+                authDto.getRedirect(),
                 response,
                 () -> loginService.checkLogin(new BasicAuthInfoImpl(authorizationHeader))
         );
     }
 
-    @RequestMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(
             @RequestHeader("Authorization") String authorizationHeader,
-            @RequestParam("redirectUrl") String redirect,
+            @ModelAttribute RegisterAuthDTO authDto,
             HttpServletResponse response) {
         return responseFromSupplier(
                 authorizationHeader,
-                redirect,
+                authDto.getRedirect(),
                 response,
                 () -> loginService.register(new BasicAuthInfoImpl(authorizationHeader))
         );
