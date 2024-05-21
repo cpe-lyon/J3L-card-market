@@ -1,46 +1,43 @@
 package j3lcardmarket.atelier2.cardserver.controllers;
 
+import j3lcardmarket.atelier2.cardserver.dto.CreateCardDto;
+import j3lcardmarket.atelier2.cardserver.models.Card;
+import j3lcardmarket.atelier2.cardserver.models.Transaction;
 import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class CardsAPI {
     @Autowired
     TransactionalCardManager cardService;
 
-    @RequestMapping(value = {"/cards"}, method = RequestMethod.GET)
-    public String cards(Model model) {
-        model.addAttribute("cards", cardService.getAll());
-        return "cardView";
+    @GetMapping("/cards")
+    public List<Card> getAll() {
+        return cardService.getAll();
     }
 
-    @RequestMapping(value = {"/cards/{id}"}, method = RequestMethod.GET)
-    public String card(Model model, @PathVariable Integer id) {
-        model.addAttribute("myCard", cardService.getById(id));
-        return "cardView";
+    @GetMapping("/cards/{id}")
+    public Card getById(@PathVariable Integer id) {
+        return cardService.getById(id);
     }
 
-    @RequestMapping(value = {"/cards"}, method = RequestMethod.POST)
-    public String createCard(Model model) {
-        model.addAttribute("myCard", cardService.create());
-        return "cardView";
+    @PostMapping("/cards/create")
+    public Card create(@Valid @RequestBody CreateCardDto createCardDto) {
+        return cardService.create(createCardDto.getName());
     }
 
-    @RequestMapping(value = {"/cards/{id}/buy"}, method = RequestMethod.PUT)
-    public String buyCard(Model model, @PathVariable Integer id) {
-        model.addAttribute("myCard", cardService.buy(id));
-        return "cardView";
+    @PutMapping("/cards/buy/{id}")
+    public Transaction buy(@PathVariable Integer id) {
+        return cardService.buy(id);
     }
 
-    @RequestMapping(value = {"/cards/{id}/sell"}, method = RequestMethod.PUT)
-    public String sellCard(Model model, @PathVariable Integer id) {
-        model.addAttribute("myCard", cardService.sell(id));
-        return "cardView";
+    @PutMapping("/cards/sell/{id}")
+    public Transaction sell(@PathVariable Integer id) {
+        return cardService.sell(id);
     }
-
 }
