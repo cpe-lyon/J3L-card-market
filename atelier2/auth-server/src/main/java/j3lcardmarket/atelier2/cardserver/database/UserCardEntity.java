@@ -8,12 +8,14 @@ import lombok.Data;
 @Table(name = "user_card")
 public class UserCardEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private Integer cardId;
+    @ManyToOne
+    private CardEntity cardId;
 
-    private String owner;
+    @ManyToOne
+    private UserEntity owner;
 
     private int price;
 }

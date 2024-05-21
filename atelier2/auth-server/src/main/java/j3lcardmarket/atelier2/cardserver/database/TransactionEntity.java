@@ -10,14 +10,17 @@ import java.time.LocalDate;
 @Table(name = "transaction")
 public class TransactionEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private Integer userCardId;
+    @ManyToOne
+    private UserCardEntity userCard;
 
-    private String seller;
+    @ManyToOne
+    private UserEntity seller;
 
-    private String buyer;
+    @ManyToOne
+    private UserEntity buyer;
 
     private int price;
 
