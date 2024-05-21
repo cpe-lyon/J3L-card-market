@@ -1,7 +1,5 @@
 package j3lcardmarket.atelier2.authserver.models;
 
-import j3lcardmarket.atelier2.commons.models.UserInfo;
-import j3lcardmarket.atelier2.commons.models.UserInfoRecord;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 public class BasicAuthInfoImpl implements BasicAuthInfo{
