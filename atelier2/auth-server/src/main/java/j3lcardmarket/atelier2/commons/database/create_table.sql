@@ -18,7 +18,7 @@ CREATE TABLE cards.public.user_card (
     id SERIAL PRIMARY KEY,
     card_id INT NOT NULL,
     owner_surname VARCHAR(255) NOT NULL,
-    price INT NOT NULL,
+    price INT,
     FOREIGN KEY (card_id) REFERENCES card(id),
     FOREIGN KEY (owner_surname) REFERENCES user_identifier(surname)
 );
