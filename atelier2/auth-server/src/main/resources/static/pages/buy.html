@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="profile">
+        <span>Jdoe</span>
+        <img src="profile-icon.png" alt="Profile Icon" width="30">
+    </div>
+    <nav>
+        <a href="../index.html">Home</a> |
+        <a href="buy.html">Buy</a> |
+        <a href="sell.html">Sell</a> |
+        <a href="transactions.html">Transactions</a> |
+        <a href="create.html">Create Card</a>
+    </nav>
+    <div class="container">
+        <div>5000 $</div>
+        <h1>BUY</h1>
+        <table id="market-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="updateCardDetails(this)">
+                    <td>Super John</td>
+                    <td>A powerful card.</td>
+                    <td>50$</td>
+                </tr>
+                <tr onclick="updateCardDetails(this)">
+                    <td>Blabla</td>
+                    <td>A mystical creature.</td>
+                    <td>40$</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        <div class="card-details">
+            <img id="card-image" src="card-placeholder.png" alt="Card Image">
+            <p id="card-name">Card Name: </p>
+            <p id="card-description">Description: </p>
+            <p id="card-price">Price: </p>
+            <button id="buy-button">Buy</button>
+        </div>
+    </div>
+    <script src="../script/buy.js"></script>
+</body>
+</html>
