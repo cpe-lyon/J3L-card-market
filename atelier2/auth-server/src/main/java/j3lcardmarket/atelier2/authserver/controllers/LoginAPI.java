@@ -1,8 +1,10 @@
 package j3lcardmarket.atelier2.authserver.controllers;
 
-import j3lcardmarket.atelier2.authserver.models.*;
+import j3lcardmarket.atelier2.authserver.models.BasicAuthInfoImpl;
+import j3lcardmarket.atelier2.authserver.models.RegisterAuthDTO;
+import j3lcardmarket.atelier2.authserver.models.TokenAuthInfo;
+import j3lcardmarket.atelier2.authserver.models.User;
 import j3lcardmarket.atelier2.authserver.services.TokenLoginChecker;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,7 +1,6 @@
 package j3lcardmarket.atelier2.commons.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.security.*;
@@ -16,7 +15,7 @@ public class SignatureUtils {
     public PrivateKey privateKey;
 
     public String sign(String src){
-        Signature signer = null;
+        Signature signer;
         try {
             signer = Signature.getInstance("SHA256withRSA");
             signer.initSign(privateKey);

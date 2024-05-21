@@ -12,9 +12,6 @@ const loginOnlies = document.querySelectorAll(".login-only");
 
 let isRegister = false;
 
-/**
- * @param {boolean} isRegister
- */
 function refreshRegister(){
     let onlies = [registerOnlies, loginOnlies];
     if (isRegister) onlies = onlies.reverse();
@@ -24,7 +21,7 @@ function refreshRegister(){
 
 document.querySelectorAll('input[name="register"]').forEach(function(radioButton) {
     radioButton.addEventListener('change', function(event) {
-        isRegister = event.target.value == 'true';
+        isRegister = event.target.value === 'true';
         refreshRegister();
     });
 });
