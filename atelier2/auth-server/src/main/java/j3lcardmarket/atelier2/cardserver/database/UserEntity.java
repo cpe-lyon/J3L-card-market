@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "app_user")
+@Table(name = "user_identifier")
 public class UserEntity {
     @Id
     private String surname;
