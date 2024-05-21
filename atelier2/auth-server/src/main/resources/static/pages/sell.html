@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        table {
+            width: 75%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: top;
+            table-layout: fixed;
+        }
+
+        th, td {
+            width: 50%;
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .profile {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .card-details {
+            width: 20%;
+            display: inline-block;
+            vertical-align: top;
+            border: 1px solid #000;
+            padding: 10px;
+            margin-left: 20px;
+        }
+
+        .card-details img {
+            width: 100%;
+        }
+
+        .card-details button {
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile">
+        <span>Jdoe</span>
+        <img src="profile-icon.png" alt="Profile Icon" width="30">
+    </div>
+    <nav>
+        <a href="../index.html">Home</a> |
+        <a href="buy.html">Buy</a> |
+        <a href="sell.html">Sell</a> |
+        <a href="transactions.html">Transactions</a> |
+        <a href="create.html">Create Card</a>
+    </nav>
+    <div class="container">
+        <div>5000 $</div>
+        <h1>SELL</h1>
+        <table id="my-cards-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="updateCardDetails(this)">
+                    <td>Super John</td>
+                    <td>A powerful card.</td>
+                    <td>50$</td>
+                </tr>
+                <tr onclick="updateCardDetails(this)">
+                    <td>Blabla</td>
+                    <td>A mystical creature.</td>
+                    <td>40$</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        <div class="card-details">
+            <img id="card-image" src="card-placeholder.png" alt="Card Image">
+            <p id="card-name">Card Name: </p>
+            <p id="card-description">Description: </p>
+            <p id="card-price">Price: </p>
+            <button id="sell-button">Sell</button>
+        </div>
+    </div>
+
+    <script>
+        function updateCardDetails(row) {
+            const cells = row.getElementsByTagName('td');
+            document.getElementById('card-name').innerText = 'Card Name: ' + cells[0].innerText;
+            document.getElementById('card-description').innerText = 'Description: ' + cells[1].innerText;
+            document.getElementById('card-price').innerText = 'Price: ' + cells[2].innerText;
+            document.getElementById('sell-button').onclick = function() {
+                alert('Sold ' + cells[0].innerText + ' for ' + cells[2].innerText);
+                // Add your sell logic here
+            };
+        }
+    </script>
+</body>
+</html>
