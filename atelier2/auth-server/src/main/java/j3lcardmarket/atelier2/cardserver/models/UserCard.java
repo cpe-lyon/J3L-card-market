@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class UserCard {
     private int id;
-    private int userId;
-    private int cardId;
+    private String user;
+    private Card card;
     private int price;
 }
