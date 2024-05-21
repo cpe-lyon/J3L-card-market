@@ -2,7 +2,7 @@ package j3lcardmarket.atelier2.cardserver.models;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class Transaction {
@@ -11,5 +11,5 @@ public class Transaction {
     private String seller;
     private String buyer;
     private int price;
-    private Date soldOn;
+    private LocalDate soldOn;
 }
