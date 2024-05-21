@@ -17,9 +17,8 @@ public class DbLoginChecker implements LoginChecker<UserInfo, DbUserInfo> {
     public UserInfo checkLogin(DbUserInfo info) {
        if(user.login(info.userName(), info.password())){
            return info;
-       }else{
-           return null;
        }
+       return null;
     }
 
     @Override
