@@ -6,10 +6,10 @@ import java.time.LocalDate;
 
 @Data
 public class Transaction {
-    private int id;
-    private Card card;
+    private Integer id;
+    private UserCard userCard;
     private String seller;
     private String buyer;
-    private int price;
+    private Integer price;
     private LocalDate soldOn;
 }
