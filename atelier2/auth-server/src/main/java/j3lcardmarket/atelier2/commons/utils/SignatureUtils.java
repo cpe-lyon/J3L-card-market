@@ -1,5 +1,6 @@
 package j3lcardmarket.atelier2.commons.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,9 @@ import java.util.Base64;
 @Component
 public class SignatureUtils {
 
+    @Autowired
     public PublicKey publicKey;
+    @Autowired
     public PrivateKey privateKey;
 
     public String sign(String src){

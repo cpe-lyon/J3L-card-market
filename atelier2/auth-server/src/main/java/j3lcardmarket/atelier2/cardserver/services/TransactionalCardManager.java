@@ -6,7 +6,7 @@ import j3lcardmarket.atelier2.cardserver.models.UserCard;
 import j3lcardmarket.atelier2.cardserver.repositories.CardRepository;
 import j3lcardmarket.atelier2.cardserver.repositories.TransactionRepository;
 import j3lcardmarket.atelier2.cardserver.repositories.UserCardRepository;
-import j3lcardmarket.atelier2.cardserver.repositories.UserRepository;
+import j3lcardmarket.atelier2.cardserver.repositories.UserIdentifierRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class TransactionalCardManager {
     @Autowired
     TransactionRepository transactionRepo;
     @Autowired
-    UserRepository userRepo;
+    UserIdentifierRepository userRepo;
 
     public List<Card> getAll() {
         return cardRepo.findAll();

@@ -1,17 +1,14 @@
 package j3lcardmarket.atelier2.authserver.controllers;
 
-import j3lcardmarket.atelier2.authserver.models.AuthDTO;
-import j3lcardmarket.atelier2.authserver.models.BasicAuthInfoImpl;
-import j3lcardmarket.atelier2.authserver.models.RegisterAuthDTO;
-import j3lcardmarket.atelier2.authserver.models.TokenAuthInfo;
+import j3lcardmarket.atelier2.authserver.models.*;
 import j3lcardmarket.atelier2.authserver.services.TokenLoginChecker;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.function.Supplier;
 
 @Controller
@@ -20,50 +17,53 @@ public class LoginAPI {
     @Autowired
     TokenLoginChecker loginService;
 
-    private String responseFromSupplier(
+    private void responseFromSupplier(
             String authHeader,
-            String redirect,
             HttpServletResponse response,
             Supplier<TokenAuthInfo> tokenSupplier
-    ){
+    ) throws IOException {
         if (authHeader == null || !authHeader.startsWith("Basic")){
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return "Forbidden: need basic auth";
+            return;
         }
         TokenAuthInfo tokenAuthInfo = tokenSupplier.get();
         if (tokenAuthInfo == null){
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return "Unauthorized: invalid credentials";
+            return;
         }
-        response.setStatus(HttpServletResponse.SC_SEE_OTHER);
-        response.setHeader("Location", redirect);
-        return null;
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().print(tokenAuthInfo.getToken());
     }
 
     // HTTP Endpoint
     @RequestMapping(value = "/login",  method = RequestMethod.POST)
-    public String login(
+    @ResponseBody
+    public void login(
             @RequestHeader("Authorization") String authorizationHeader,
-            @ModelAttribute AuthDTO authDto,
-            HttpServletResponse response) {
-        return responseFromSupplier(
+            HttpServletResponse response) throws IOException {
+        responseFromSupplier(
                 authorizationHeader,
-                authDto.getRedirect(),
                 response,
-                () -> loginService.checkLogin(new BasicAuthInfoImpl(authorizationHeader))
+                () -> loginService.checkLogin( new User(
+                        new BasicAuthInfoImpl(authorizationHeader)
+                ))
         );
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(
+    @ResponseBody
+    public void register(
             @RequestHeader("Authorization") String authorizationHeader,
             @ModelAttribute RegisterAuthDTO authDto,
-            HttpServletResponse response) {
-        return responseFromSupplier(
+            HttpServletResponse response) throws IOException {
+        responseFromSupplier(
                 authorizationHeader,
-                authDto.getRedirect(),
                 response,
-                () -> loginService.register(new BasicAuthInfoImpl(authorizationHeader))
+                () -> loginService.register( new User(
+                        new BasicAuthInfoImpl(authorizationHeader),
+                        authDto.getSurname(),
+                        authDto.getAvatarUrl()
+                ))
         );
     }
 }

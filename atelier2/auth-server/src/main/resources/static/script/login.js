@@ -46,27 +46,28 @@ form.addEventListener("submit", event => {
     const formData = new FormData(form);
 
     /**
-     * @type {redirect: string} | {surname:string, avatarUrl:string, redirect:string}
+     * @type {{surname:string, avatarUrl:string}}
      */
-    let params = {redirect: redirectUrl}
-    if (isRegister) params = {
-        ...params,
+    let params = isRegister ? {
         surname: formData.get("surname"),
         avatarUrl: formData.get("avatarUrl")
-    };
-    const processedFormData = new FormData();
-    fetch(isRegister ? "/register": "/login", {
+    } : {};
+    const urlParams = new URLSearchParams();
+    urlParams.set("redirect", redirectUrl)
+    fetch(isRegister ? `/register?${urlParams}`: `/login?${urlParams}`, {
+        redirect: "manual",
         method: form.method,
         body: JSON.stringify(params),
         headers: {
             Accept: '*/*',
+            "Content-Type": "application/json",
             Authorization: getAuthHeader()
         }
-    }).then(res => {
-        if (res.status >= 400) throw res.body;
-        if (res.status >= 300 && res.headers.has("Location")){
-            location.href = res.headers.get("Location")
-        }
+    }).then(async res => {
+        if (res.status !== 200) throw res.body;
+        const url = new URL(redirectUrl);
+        url.searchParams.set("token",await res.text());
+        location.href = url.toString();
     }).catch(reason => console.error(reason));
 });
 

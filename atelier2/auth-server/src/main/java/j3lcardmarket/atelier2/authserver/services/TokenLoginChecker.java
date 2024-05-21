@@ -1,37 +1,30 @@
 package j3lcardmarket.atelier2.authserver.services;
 
-import j3lcardmarket.atelier2.authserver.models.BasicAuthInfo;
-import j3lcardmarket.atelier2.authserver.models.DbUserInfo;
+import j3lcardmarket.atelier2.authserver.models.User;
 import j3lcardmarket.atelier2.authserver.models.TokenAuthInfo;
 import j3lcardmarket.atelier2.authserver.models.TokenAuthInfoFactory;
-import j3lcardmarket.atelier2.authserver.repositories.DbLoginChecker;
 import j3lcardmarket.atelier2.commons.models.UserInfo;
 import j3lcardmarket.atelier2.commons.utils.LoginChecker;
-import j3lcardmarket.atelier2.commons.utils.UserInfoSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TokenLoginChecker implements LoginChecker<TokenAuthInfo, BasicAuthInfo> {
+public class TokenLoginChecker implements LoginChecker<TokenAuthInfo, User> {
     @Autowired
-    DbLoginChecker repo;
+    DbLoginChecker dbService;
 
     @Autowired
     TokenAuthInfoFactory authInfoFactory;
 
     @Override
-    public TokenAuthInfo checkLogin(BasicAuthInfo info) {
-        UserInfo uInfo = repo.checkLogin(
-                new DbUserInfo(info.getUsername(), info.getPassword(), null, null)
-        );
+    public TokenAuthInfo checkLogin(User info) {
+        UserInfo uInfo = dbService.checkLogin(info);
         return authInfoFactory.createTokenAuthInfo(uInfo);
     }
 
     @Override
-    public TokenAuthInfo register(BasicAuthInfo info) {
-        UserInfo uInfo =  repo.register(
-                new DbUserInfo(info.getUsername(), info.getPassword(), "surname", "surname")
-        );
+    public TokenAuthInfo register(User info) {
+        UserInfo uInfo =  dbService.register(info);
         return authInfoFactory.createTokenAuthInfo(uInfo);
     }
 }
