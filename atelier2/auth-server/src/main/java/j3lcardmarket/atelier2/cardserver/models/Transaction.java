@@ -2,14 +2,14 @@ package j3lcardmarket.atelier2.cardserver.models;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class Transaction {
-    private int id;
-    private Card card;
+    private Integer id;
+    private UserCard userCard;
     private String seller;
     private String buyer;
-    private int price;
-    private Date soldOn;
+    private Integer price;
+    private LocalDate soldOn;
 }

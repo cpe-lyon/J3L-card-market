@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class UserCard {
-    private int id;
-    private String user;
+    private Integer id;
+    private String owner;
     private Card card;
-    private int price;
+    private Integer price;
 }

@@ -1,6 +1,7 @@
 package j3lcardmarket.atelier2.authserver.services;
 
 import j3lcardmarket.atelier2.authserver.models.BasicAuthInfo;
+import j3lcardmarket.atelier2.authserver.models.DbUserInfo;
 import j3lcardmarket.atelier2.authserver.models.TokenAuthInfo;
 import j3lcardmarket.atelier2.authserver.models.TokenAuthInfoFactory;
 import j3lcardmarket.atelier2.authserver.repositories.DbLoginChecker;
@@ -20,13 +21,17 @@ public class TokenLoginChecker implements LoginChecker<TokenAuthInfo, BasicAuthI
 
     @Override
     public TokenAuthInfo checkLogin(BasicAuthInfo info) {
-        UserInfo uInfo = repo.checkLogin(info);
+        UserInfo uInfo = repo.checkLogin(
+                new DbUserInfo(info.getUsername(), info.getPassword(), null, null)
+        );
         return authInfoFactory.createTokenAuthInfo(uInfo);
     }
 
     @Override
     public TokenAuthInfo register(BasicAuthInfo info) {
-        UserInfo uInfo =  repo.register(info);
+        UserInfo uInfo =  repo.register(
+                new DbUserInfo(info.getUsername(), info.getPassword(), "surname", "surname")
+        );
         return authInfoFactory.createTokenAuthInfo(uInfo);
     }
 }
