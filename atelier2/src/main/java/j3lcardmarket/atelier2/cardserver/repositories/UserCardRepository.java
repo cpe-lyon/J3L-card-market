@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface UserCardRepository extends JpaRepository<UserCard, Integer> {
-    List<UserCard> findAllByOwnerSurnameAndPriceIsNull(String ownerSurname);
-    List<UserCard> findAllByPriceIsNotNull();
+    List<UserCard> findAllByOwnerSurname(String ownerSurname);
+    List<UserCard> findAllByPriceIsNotNullAndOwnerSurnameIsNot(String ownerSurname);
 }

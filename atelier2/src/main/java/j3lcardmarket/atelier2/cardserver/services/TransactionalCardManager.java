@@ -36,11 +36,11 @@ public class TransactionalCardManager {
     }
 
     public List<UserCard> getAllByOwner(String ownerSurname) {
-        return userCardRepo.findAllByOwnerSurnameAndPriceIsNull(ownerSurname);
+        return userCardRepo.findAllByOwnerSurname(ownerSurname);
     }
 
-    public List<UserCard> getAllOnSale() {
-        return userCardRepo.findAllByPriceIsNotNull();
+    public List<UserCard> getPurchasableByOwner(String ownerSurname) {
+        return userCardRepo.findAllByPriceIsNotNullAndOwnerSurnameIsNot(ownerSurname);
     }
 
     @Transactional
