@@ -25,22 +25,17 @@ public class CardController {
         return cardService.getAll();
     }
 
+    @GetMapping("/cards/owned")
+    @ResponseBody
+    public List<UserCard> getAllOwned() {
+        // TODO: get buyer from request
+        return cardService.getAllByOwner("josse");
+    }
+
     @GetMapping("/cards/on-sale")
     @ResponseBody
     public List<UserCard> getAllOnSale() {
         return cardService.getAllOnSale();
-    }
-
-    @GetMapping("/cards/{cardId}")
-    @ResponseBody
-    public Card getById(@PathVariable Integer cardId) {
-        return cardService.getById(cardId);
-    }
-
-    @GetMapping("/cards/on-sale/{userCardId}")
-    @ResponseBody
-    public UserCard getOnSaleById(@PathVariable Integer userCardId) {
-        return cardService.getOnSaleById(userCardId);
     }
 
     @PostMapping("/cards")
