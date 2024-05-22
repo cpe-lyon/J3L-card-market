@@ -56,7 +56,7 @@ public class LoginAPI {
     @ResponseBody
     public void register(
             @RequestHeader("Authorization") String authorizationHeader,
-            @ModelAttribute RegisterAuthDTO authDto,
+            @RequestBody RegisterAuthDTO authDto,
             HttpServletResponse response) throws IOException {
         responseFromSupplier(
                 authorizationHeader,
