@@ -37,19 +37,19 @@ function sellCard() {
 }
 
 function getCardFromAPI() {
-    fetch('http://localhost:8080/api/cards')
+    fetch('http://localhost:8080/api/cards/owned')
         .then(response => response.json())
         .then(data => {
             const table = document.getElementById('card-table');
-            data.forEach(card => {
+            data.forEach(userCard => {
                 const row = table.insertRow();
                 row.onclick = function() {
                     updateCardDetails(row);
                 };
                 const idCell = row.insertCell();
-                idCell.innerText = card.id;
+                idCell.innerText = userCard.card.id;
                 const nameCell = row.insertCell();
-                nameCell.innerText = card.name;
+                nameCell.innerText = userCard.card.name;
             });
         });
 }
