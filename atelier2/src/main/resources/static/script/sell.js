@@ -59,9 +59,10 @@ function sellCard(cardId) {
 }
 
 function getCardFromAPI() {
-    fetch('http://localhost:8080/api/cards', {
+    fetch('http://localhost:8080/api/cards/owned', {
         method: 'GET',
         headers: {
+            'Content-Type': 'application/json',
             ...window.authHeader
         }
     })
@@ -76,7 +77,7 @@ function getCardFromAPI() {
                 const idCell = row.insertCell();
                 idCell.innerText = userCard.id;
                 const nameCell = row.insertCell();
-                nameCell.innerText = userCard.name;
+                nameCell.innerText = userCard.card.name;
             });
         });
 }
