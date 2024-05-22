@@ -71,9 +71,13 @@ function getCardFromAPI() {
             const table = document.getElementById('card-table');
             data.forEach(userCard => {
                 const row = table.insertRow();
-                row.onclick = function() {
-                    updateCardDetails(row, userCard.id);
-                };
+                if (userCard.price !== null) {
+                    row.style.backgroundColor = '#d3d3d3';
+                } else {
+                    row.onclick = function() {
+                        updateCardDetails(row, userCard.id);
+                    };
+                }
                 const idCell = row.insertCell();
                 idCell.innerText = userCard.id;
                 const nameCell = row.insertCell();
