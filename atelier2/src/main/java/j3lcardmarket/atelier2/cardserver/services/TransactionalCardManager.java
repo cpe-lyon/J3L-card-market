@@ -105,4 +105,8 @@ public class TransactionalCardManager {
 
         return userCardRepo.save(userCard);
     }
+
+    public List<Transaction> getTransactions(){
+        return transactionRepo.findAll();
+    }
 }
