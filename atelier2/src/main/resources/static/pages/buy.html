@@ -21,34 +21,23 @@
     <div class="container">
         <div>5000 $</div>
         <h1>BUY</h1>
-        <table id="market-table">
-            <thead>
+        <div class="market">
+            <table id="market-table">
+                <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
-                    <th>Description</th>
                     <th>Price</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr onclick="updateCardDetails(this)">
-                    <td>Super John</td>
-                    <td>A powerful card.</td>
-                    <td>50$</td>
-                </tr>
-                <tr onclick="updateCardDetails(this)">
-                    <td>Blabla</td>
-                    <td>A mystical creature.</td>
-                    <td>40$</td>
-                </tr>
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
-        <div class="card-details">
-            <img id="card-image" src="card-placeholder.png" alt="Card Image">
-            <p id="card-name">Card Name: </p>
-            <p id="card-description">Description: </p>
-            <p id="card-price">Price: </p>
-            <button id="buy-button">Buy</button>
+                </thead>
+                <tbody id="card-table"></tbody>
+            </table>
+            <div class="card-details">
+                <img id="card-image" src="card-placeholder.png" alt="Card Image">
+                <p id="card-name">Card Name: </p>
+                <p id="card-price">Card Price: </p>
+                <button id="buy-button">Buy</button>
+            </div>
         </div>
     </div>
     <script src="../script/buy.js"></script>
