@@ -35,9 +35,18 @@ public class TransactionalCardManager {
         return cardRepo.findAll();
     }
 
-    public Card getById(Integer id) {
-        Optional<Card> card = cardRepo.findById(id);
+    public List<UserCard> getAllOnSale() {
+        return userCardRepo.findAllByPriceIsNotNull();
+    }
+
+    public Card getById(Integer cardId) {
+        Optional<Card> card = cardRepo.findById(cardId);
         return card.orElse(null);
+    }
+
+    public UserCard getOnSaleById(Integer userCardId) {
+        Optional<UserCard> userCard = userCardRepo.findById(userCardId);
+        return userCard.orElse(null);
     }
 
     @Transactional
