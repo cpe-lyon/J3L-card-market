@@ -9,10 +9,15 @@ function updateCardDetails(row, cardId) {
 
 function addCard() {
     const name = document.getElementById('create-card-name').value;
+    if (name.trim() === undefined || name.trim() === '') {
+        document.getElementById('create-card-name').focus();
+        return;
+    }
     fetch('http://localhost:8080/api/cards', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...window.authHeader
         },
         body: JSON.stringify({ name: name })
     })
@@ -40,7 +45,8 @@ function sellCard(cardId) {
     fetch('http://localhost:8080/api/cards/sell/' + cardId, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...window.authHeader
         },
         body: JSON.stringify({ price: price })
     })
@@ -53,7 +59,12 @@ function sellCard(cardId) {
 }
 
 function getCardFromAPI() {
-    fetch('http://localhost:8080/api/cards/owned')
+    fetch('http://localhost:8080/api/cards', {
+        method: 'GET',
+        headers: {
+            ...window.authHeader
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const table = document.getElementById('card-table');
@@ -63,9 +74,9 @@ function getCardFromAPI() {
                     updateCardDetails(row, userCard.id);
                 };
                 const idCell = row.insertCell();
-                idCell.innerText = userCard.card.id;
+                idCell.innerText = userCard.id;
                 const nameCell = row.insertCell();
-                nameCell.innerText = userCard.card.name;
+                nameCell.innerText = userCard.name;
             });
         });
 }
