@@ -1,6 +1,5 @@
 function updateCardDetails(row) {
     const cells = row.getElementsByTagName('td');
-    const price = document.getElementById('card-price').innerText;
     document.getElementById('card-id').innerText = 'Card ID: ' + cells[0].innerText;
     document.getElementById('card-name').innerText = 'Card Name: ' + cells[1].innerText;
     document.getElementById('sell-button').onclick = function() {
