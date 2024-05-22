@@ -6,16 +6,39 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../css/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #000;
+            text-align: center;
+            cursor: pointer;
+            width: 200px;
+        }
+        .profile {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
     <title>Login to Card App</title>
 </head>
 <body>
-<div id="header"></div>
-<script>
-    $(function(){
-        $("#header").load("/pages/header.html");
-    });
-</script>
+<div class="container">
+    <a class="button" href="/">Home</a>
+    <a class="button" href="/pages/buy.html">Buy</a>
+    <a class="button" href="/pages/sell.html">Sell</a>
+    <a class="button" href="/pages/transactions.html">Transactions</a>
+    <a class="button" href="">Play</a>
+</div>
 
     <input type="radio" name="register" value="true" id="register-box" style="display: none;">
     <input type="radio" name="register" value="false" id="login-box" style="display: none;">
