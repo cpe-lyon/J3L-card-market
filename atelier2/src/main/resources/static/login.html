@@ -5,17 +5,44 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #000;
+            text-align: center;
+            cursor: pointer;
+            width: 200px;
+        }
+        .profile {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
     <title>Login to Card App</title>
 </head>
 <body>
+<div class="container">
+    <div class="button" onclick="location.href='index.html'">Home</div>
+    <div class="button" onclick="location.href='./pages/buy.html'">Buy</div>
+    <div class="button" onclick="location.href='./pages/create.html'">Add Card</div>
+    <div class="button" onclick="location.href='./pages/sell.html'">Sell</div>
+    <div class="button" onclick="location.href='./pages/transactions.html'">Transactions</div>
+    <div class="button" onclick="location.href=''">Play</div>
+</div>
     <input type="radio" name="register" value="true" id="register-box" style="display: none;">
     <input type="radio" name="register" value="false" id="login-box" style="display: none;">
-    <p class="login-only">
-        No Account ? <label for="register-box">Register</label>
-    </p>
-    <p class="register-only">
-        Already Account ? <label for="login-box">Login</label>
-    </p>
+
     <form id="loginForm" action="/login" method="post">
         <input type="text" name="username" placeholder="Username">
         <input type="password" name="password" placeholder="Password">
@@ -24,6 +51,12 @@
         <button class="login-only" type="submit">Login</button>
         <button class="register-only" type="submit">Register</button>
     </form>
+    <p class="login-only" style="display: flex;justify-content: center;">
+        No Account ? <label for="register-box">Register</label>
+    </p>
+    <p class="register-only" style="display: flex;justify-content: center;">
+        Already Account ? <label for="login-box">Login</label>
+    </p>
     <script src="./script/login.js"></script>
 </body>
 </html>
