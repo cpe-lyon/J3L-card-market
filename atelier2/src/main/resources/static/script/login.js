@@ -16,7 +16,7 @@ function refreshRegister(){
     let onlies = [registerOnlies, loginOnlies];
     if (isRegister) onlies = onlies.reverse();
     onlies[0].forEach(e => e.style.display = "none");
-    onlies[1].forEach(e => e.style.display = "inherit");
+    onlies[1].forEach(e => e.style.display = "flex");
 }
 
 document.querySelectorAll('input[name="register"]').forEach(function(radioButton) {
