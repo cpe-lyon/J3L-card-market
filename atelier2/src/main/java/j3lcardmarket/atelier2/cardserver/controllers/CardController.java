@@ -43,7 +43,7 @@ public class CardController {
         return cardService.getOnSaleById(userCardId);
     }
 
-    @PostMapping("/cards/create")
+    @PostMapping("/cards")
     @ResponseBody
     public Card create(@Valid @RequestBody CreateCardDto createCardDto) {
         return cardService.create(createCardDto.getName());

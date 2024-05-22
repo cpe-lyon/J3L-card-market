@@ -7,6 +7,29 @@ function updateCardDetails(row) {
     };
 }
 
+function addCard() {
+    const name = document.getElementById('create-card-name').value;
+    fetch('http://localhost:8080/api/cards', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: name })
+    })
+        .then(response => response.json())
+        .then(data => {
+            const table = document.getElementById('card-table');
+            const row = table.insertRow();
+            row.onclick = function() {
+                updateCardDetails(row);
+            };
+            const idCell = row.insertCell();
+            idCell.innerText = data.id;
+            const nameCell = row.insertCell();
+            nameCell.innerText = data.name;
+        });
+}
+
 function sellCard() {
     const cardId = document.getElementById('card-id').innerText;
     const price = document.getElementById('card-price').value;
