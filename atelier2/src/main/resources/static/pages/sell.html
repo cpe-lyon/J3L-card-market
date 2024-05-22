@@ -28,12 +28,13 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Image</th>
                 </tr>
                 </thead>
                 <tbody id="card-table"></tbody>
             </table>
             <div class="card-details">
-                <img id="card-image" src="card-placeholder.png" alt="Card Image">
+                <img id="card-image" src="" alt="Card Image">
                 <p id="card-id">Card ID: </p>
                 <p id="card-name">Card Name: </p>
                 <label for="card-price">Price: </label>
@@ -44,6 +45,7 @@
         <form class="create-card">
             <label for="create-card-name">Card Name: </label>
             <input id="create-card-name" type="text" placeholder="Card Name">
+            <input id="create-card-image-url" type="text" placeholder="Card Image URL">
             <button id="create-card-button" onclick="addCard()">Create Card</button>
         </form>
     </div>
