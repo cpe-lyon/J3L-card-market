@@ -2,6 +2,7 @@ package j3lcardmarket.atelier2.cardserver.services;
 
 import j3lcardmarket.atelier2.cardserver.models.Card;
 import j3lcardmarket.atelier2.cardserver.models.Transaction;
+import j3lcardmarket.atelier2.cardserver.models.UserIdentifier;
 import j3lcardmarket.atelier2.cardserver.models.UserCard;
 import j3lcardmarket.atelier2.cardserver.repositories.CardRepository;
 import j3lcardmarket.atelier2.cardserver.repositories.TransactionRepository;
@@ -65,14 +66,18 @@ public class TransactionalCardManager {
 
         Transaction transaction = new Transaction();
         transaction.setUserCard(userCard);
-        transaction.setBuyer(buyerSurname);
         transaction.setSeller(userCard.getOwner());
         transaction.setPrice(userCard.getPrice());
         transaction.setSoldOn(LocalDate.now());
-        transactionRepo.save(transaction);
 
-        userCard.setOwner(buyerSurname);
+        UserIdentifier buyer = new UserIdentifier();
+        buyer.setSurname(buyerSurname);
+        transaction.setBuyer(buyer);
+
+        userCard.setOwner(buyer);
         userCard.setPrice(null);
+
+        transactionRepo.save(transaction);
         return userCardRepo.save(userCard);
     }
 
