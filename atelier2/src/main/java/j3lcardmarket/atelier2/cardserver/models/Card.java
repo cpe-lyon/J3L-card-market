@@ -15,4 +15,6 @@ public class Card {
 
     @ManyToOne
     private UserIdentifier creator;
+
+    private String image;
 }

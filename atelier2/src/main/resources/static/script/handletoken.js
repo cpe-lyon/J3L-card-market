@@ -40,3 +40,13 @@ fetch("/api/userInfo", {redirect: "manual", headers: authHeader})
     .then(userInfoDto => {
         updateProfile(userInfoDto);
     })
+
+profile.addEventListener('click', function() {
+    const isConfirmed = window.confirm('Êtes-vous sûr de vouloir vous déconnecter ?');
+
+    if (isConfirmed) {
+        localStorage.removeItem('cardToken');
+
+        window.location.href = '/';
+    }
+});
