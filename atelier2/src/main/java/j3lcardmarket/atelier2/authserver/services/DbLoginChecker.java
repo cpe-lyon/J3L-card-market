@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import java.security.SecureRandom;
+import java.nio.charset.StandardCharsets;
 import java.security.spec.KeySpec;
 
 @Service
@@ -26,7 +26,7 @@ public class DbLoginChecker implements LoginChecker<UserInfo, User> {
         KeySpec spec = new PBEKeySpec(password.toCharArray(), info.getUserName().getBytes(), 65536, 128);
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         byte[] hash = factory.generateSecret(spec).getEncoded();
-       return repo.login(info.userName(), new String(hash, "UTF-8"));
+       return repo.login(info.userName(), new String(hash, StandardCharsets.UTF_8));
     }
 
     @SneakyThrows

@@ -3,11 +3,13 @@ package j3lcardmarket.atelier2.cardserver.controllers;
 import j3lcardmarket.atelier2.cardserver.dto.CreateCardDto;
 import j3lcardmarket.atelier2.cardserver.dto.SellCardDto;
 import j3lcardmarket.atelier2.cardserver.models.Card;
+import j3lcardmarket.atelier2.cardserver.models.Transaction;
 import j3lcardmarket.atelier2.cardserver.models.UserCard;
 import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
+import j3lcardmarket.atelier2.cardserver.utils.annotations.CardAuth;
+import j3lcardmarket.atelier2.commons.models.UserInfo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +28,10 @@ public class CardController {
     }
 
     @GetMapping("/cards/owned")
+    @CardAuth
     @ResponseBody
-    public List<UserCard> getAllOwned() {
-        // TODO: get buyer from request
-        return cardService.getAllByOwner("josse");
+    public List<UserCard> getAllOwned(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return cardService.getAllByOwner(cardUserInfo.surname());
     }
 
     @GetMapping("/cards/on-sale")
@@ -40,16 +42,15 @@ public class CardController {
 
     @PostMapping("/cards")
     @ResponseBody
-    public UserCard create(@Valid @RequestBody CreateCardDto createCardDto) {
-        // TODO: get creator from request
-        return cardService.create(createCardDto.getName(), "josse");
+    public UserCard create(@Valid @RequestBody CreateCardDto createCardDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return cardService.create(createCardDto.getName(), cardUserInfo.surname());
     }
 
     @PutMapping("/cards/buy/{userCardId}")
+    @CardAuth
     @ResponseBody
-    public UserCard buy(@PathVariable Integer userCardId) {
-        // TODO: get buyer from request
-        return cardService.buy(userCardId, "josse");
+    public Transaction buy(@PathVariable Integer userCardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return cardService.buy(userCardId, cardUserInfo.surname());
     }
 
     @PutMapping("/cards/sell/{userCardId}")
