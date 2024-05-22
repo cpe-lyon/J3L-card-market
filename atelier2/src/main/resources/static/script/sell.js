@@ -31,9 +31,20 @@ function addCard() {
 }
 
 function sellCard() {
-    const cardId = document.getElementById('card-id').innerText;
-    const price = document.getElementById('card-price').value;
-    alert('Sold ' + cardId + ' for ' + price);
+    const cardId = parseInt(document.getElementById('card-id').innerText.split(' ')[2]);
+    const price = parseInt(document.getElementById('card-price').value);
+    fetch('http://localhost:8080/api/cards/sell/' + cardId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ price: price })
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert('Card in sell for ' + data.price + ' gold');
+            document.getElementById('card-price').value = '';
+        });
 }
 
 function getCardFromAPI() {
@@ -47,7 +58,7 @@ function getCardFromAPI() {
                     updateCardDetails(row);
                 };
                 const idCell = row.insertCell();
-                idCell.innerText = userCard.card.id;
+                idCell.innerText = userCard.id;
                 const nameCell = row.insertCell();
                 nameCell.innerText = userCard.card.name;
             });
