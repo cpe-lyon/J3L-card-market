@@ -60,7 +60,7 @@ public class TransactionalCardManager {
     }
 
     @Transactional
-    public UserCard buy(Integer userCardId, String buyerSurname) {
+    public Transaction buy(Integer userCardId, String buyerSurname) {
         Optional<UserCard> userCardOpt = userCardRepo.findById(userCardId);
         if (userCardOpt.isEmpty()) {
             throw new IllegalArgumentException("User card not found");
@@ -89,8 +89,8 @@ public class TransactionalCardManager {
         userCard.setOwner(buyer);
         userCard.setPrice(null);
 
-        transactionRepo.save(transaction);
-        return userCardRepo.save(userCard);
+        userCardRepo.save(userCard);
+        return transactionRepo.save(transaction);
     }
 
     @Transactional
