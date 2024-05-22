@@ -1,9 +1,9 @@
-function updateCardDetails(row) {
+function updateCardDetails(row, cardId) {
     const cells = row.getElementsByTagName('td');
     document.getElementById('card-id').innerText = 'Card ID: ' + cells[0].innerText;
     document.getElementById('card-name').innerText = 'Card Name: ' + cells[1].innerText;
     document.getElementById('sell-button').onclick = function() {
-        sellCard();
+        sellCard(cardId);
     };
 }
 
@@ -21,7 +21,7 @@ function addCard() {
             const table = document.getElementById('card-table');
             const row = table.insertRow();
             row.onclick = function() {
-                updateCardDetails(row);
+                updateCardDetails(row, data.id);
             };
             const idCell = row.insertCell();
             idCell.innerText = data.id;
@@ -30,9 +30,13 @@ function addCard() {
         });
 }
 
-function sellCard() {
-    const cardId = parseInt(document.getElementById('card-id').innerText.split(' ')[2]);
+function sellCard(cardId) {
     const price = parseInt(document.getElementById('card-price').value);
+    if (price <= 0 || isNaN(price)) {
+        document.getElementById('card-price').value = '';
+        document.getElementById('card-price').focus();
+        return;
+    }
     fetch('http://localhost:8080/api/cards/sell/' + cardId, {
         method: 'PUT',
         headers: {
@@ -42,7 +46,8 @@ function sellCard() {
     })
         .then(response => response.json())
         .then(data => {
-            alert('Card in sell for ' + data.price + ' gold');
+            location.reload();
+            alert('Card ' + data.card.name + ' has been put on sale for ' + data.price + '$');
             document.getElementById('card-price').value = '';
         });
 }
@@ -55,10 +60,10 @@ function getCardFromAPI() {
             data.forEach(userCard => {
                 const row = table.insertRow();
                 row.onclick = function() {
-                    updateCardDetails(row);
+                    updateCardDetails(row, userCard.id);
                 };
                 const idCell = row.insertCell();
-                idCell.innerText = userCard.id;
+                idCell.innerText = userCard.card.id;
                 const nameCell = row.insertCell();
                 nameCell.innerText = userCard.card.name;
             });
