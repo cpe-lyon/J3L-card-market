@@ -1,5 +1,6 @@
-package j3lcardmarket.atelier2.authserver.models;
+package j3lcardmarket.atelier2.authserver.utils;
 
+import j3lcardmarket.atelier2.authserver.models.TokenAuthInfo;
 import j3lcardmarket.atelier2.commons.models.UserInfo;
 import j3lcardmarket.atelier2.commons.utils.SignatureUtils;
 import j3lcardmarket.atelier2.commons.utils.UserInfoSerializer;
@@ -14,7 +15,7 @@ public class TokenAuthInfoFactory{
     @Autowired
     SignatureUtils signatureUtils;
 
-    private class TokenAuthInfoAdapter implements TokenAuthInfo{
+    private class TokenAuthInfoAdapter implements TokenAuthInfo {
         private final UserInfo src;
         private final String token;
 

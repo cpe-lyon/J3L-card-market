@@ -2,7 +2,7 @@ package j3lcardmarket.atelier2.authserver.services;
 
 import j3lcardmarket.atelier2.authserver.models.User;
 import j3lcardmarket.atelier2.authserver.models.TokenAuthInfo;
-import j3lcardmarket.atelier2.authserver.models.TokenAuthInfoFactory;
+import j3lcardmarket.atelier2.authserver.utils.TokenAuthInfoFactory;
 import j3lcardmarket.atelier2.commons.models.UserInfo;
 import j3lcardmarket.atelier2.commons.utils.LoginChecker;
 import org.springframework.beans.factory.annotation.Autowired;

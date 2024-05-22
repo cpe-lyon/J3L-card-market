@@ -1,4 +1,4 @@
-package j3lcardmarket.atelier2.commons.configs;
+package j3lcardmarket.atelier2.commons.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
