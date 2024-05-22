@@ -11,7 +11,8 @@ function buyCard(cardId) {
     fetch('http://localhost:8080/api/cards/buy/' + cardId, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...window.authHeader
         }
     })
         .then(response => response.json())
@@ -23,7 +24,12 @@ function buyCard(cardId) {
 }
 
 function getCardFromAPI() {
-        fetch('http://localhost:8080/api/cards/on-sale')
+        fetch('http://localhost:8080/api/cards/on-sale', {
+            method: 'GET',
+            headers: {
+                ...window.authHeader
+            }
+        })
         .then(response => response.json())
         .then(data => {
             const table = document.getElementById('card-table');
