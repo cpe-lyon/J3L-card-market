@@ -50,6 +50,20 @@ button {
     margin: 20px;
 }
 
+.profile {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.market {
+    display: flex;
+}
+
+.create-card {
+    padding: 10px;
+}
+
 .card-details {
     width: 20%;
     display: inline-block;
@@ -71,14 +85,4 @@ button {
     cursor: pointer;
     width: 100%;
     margin-top: 10px;
-}
-
-.profile {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.market {
-    display: flex;
 }
