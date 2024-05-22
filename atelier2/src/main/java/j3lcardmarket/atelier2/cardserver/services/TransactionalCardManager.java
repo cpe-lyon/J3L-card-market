@@ -44,13 +44,14 @@ public class TransactionalCardManager {
     }
 
     @Transactional
-    public UserCard create(String cardName, String creatorSurname) {
+    public UserCard create(String cardName, String creatorSurname, String imageUrl) {
         UserIdentifier creator = new UserIdentifier();
         creator.setSurname(creatorSurname);
 
         Card newCard = new Card();
         newCard.setName(cardName);
         newCard.setCreator(creator);
+        newCard.setImageUrl(imageUrl);
         Card createdCard = cardRepo.save(newCard);
 
         UserCard userCard = new UserCard();

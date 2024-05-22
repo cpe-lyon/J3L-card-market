@@ -31,8 +31,7 @@ public class CardSetupInitialData {
         logService.saveUser("jorge");
         if (urepo.existsById("xavier")) return;
         logService.saveUser("xavier");
-        manager.create("Blue-Eyes White Dragon", "xavier");
-
+        manager.create("Blue-Eyes White Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
     }
 
 }

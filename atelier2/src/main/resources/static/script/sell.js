@@ -1,5 +1,8 @@
 function updateCardDetails(row, cardId) {
     const cells = row.getElementsByTagName('td');
+    console.log(document.getElementById('card-image').outerHTML)
+    console.log(cells[2].innerHTML);
+    document.getElementById('card-image').outerHTML = cells[2].innerHTML;
     document.getElementById('card-id').innerText = 'Card ID: ' + cells[0].innerText;
     document.getElementById('card-name').innerText = 'Card Name: ' + cells[1].innerText;
     document.getElementById('sell-button').onclick = function() {
@@ -13,13 +16,14 @@ function addCard() {
         document.getElementById('create-card-name').focus();
         return;
     }
+    const imageUrl = document.getElementById('create-card-image-url').value;
     fetch('http://localhost:8080/api/cards', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             ...window.authHeader
         },
-        body: JSON.stringify({ name: name })
+        body: JSON.stringify({ name, imageUrl })
     })
         .then(response => response.json())
         .then(data => {
@@ -32,6 +36,13 @@ function addCard() {
             idCell.innerText = data.id;
             const nameCell = row.insertCell();
             nameCell.innerText = data.name;
+            const imageCell = row.insertCell();
+            if (data.imageUrl !== null) {
+                const image = document.createElement('img');
+                image.src = data.imageUrl;
+                image.style.width = '120px';
+                imageCell.appendChild(image);
+            }
         });
 }
 
@@ -82,6 +93,13 @@ function getCardFromAPI() {
                 idCell.innerText = userCard.id;
                 const nameCell = row.insertCell();
                 nameCell.innerText = userCard.card.name;
+                const imageCell = row.insertCell();
+                if (userCard.card.imageUrl !== null) {
+                    const image = document.createElement('img');
+                    image.src = userCard.card.imageUrl;
+                    image.style.width = '120px';
+                    imageCell.appendChild(image);
+                }
             });
         });
 }

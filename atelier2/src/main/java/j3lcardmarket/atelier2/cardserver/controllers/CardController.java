@@ -45,7 +45,7 @@ public class CardController {
     @CardAuth
     @ResponseBody
     public UserCard create(@Valid @RequestBody CreateCardDto createCardDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.create(createCardDto.getName(), cardUserInfo.userName());
+        return cardService.create(createCardDto.getName(), cardUserInfo.userName(), createCardDto.getImageUrl());
     }
 
     @PutMapping("/cards/buy/{userCardId}")
