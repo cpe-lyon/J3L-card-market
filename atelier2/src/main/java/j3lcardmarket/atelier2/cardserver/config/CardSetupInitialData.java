@@ -27,9 +27,12 @@ public class CardSetupInitialData {
 
     @PostConstruct
     public void initialize() {
+        if (urepo.existsById("jorge")) return;
+        logService.saveUser("jorge");
         if (urepo.existsById("xavier")) return;
         logService.saveUser("xavier");
         manager.create("Blue-Eyes White Dragon", "xavier");
+
     }
 
 }

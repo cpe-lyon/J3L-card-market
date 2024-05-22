@@ -31,7 +31,7 @@ public class UserInfoSerializer {
     }
 
     public String toUnsignedToken(UserInfo src){
-        Long timestamp = new Date().getTime() + 1200000L;
+        Long timestamp = new Date().getTime() + 12_000_000L; // 3h20
         StringJoiner joiner = new StringJoiner("+");
         joiner.add(sanitize(src.userName()));
         joiner.add(sanitize(src.surname()));
