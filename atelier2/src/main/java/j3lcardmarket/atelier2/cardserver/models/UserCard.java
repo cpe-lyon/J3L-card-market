@@ -12,7 +12,7 @@ public class UserCard {
     private Integer id;
 
     @ManyToOne
-    private Card cardId;
+    private Card card;
 
     @ManyToOne
     private UserIdentifier owner;

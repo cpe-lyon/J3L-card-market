@@ -12,4 +12,7 @@ public class Card {
     private Integer id;
 
     private String name;
+
+    @ManyToOne
+    private UserIdentifier creator;
 }

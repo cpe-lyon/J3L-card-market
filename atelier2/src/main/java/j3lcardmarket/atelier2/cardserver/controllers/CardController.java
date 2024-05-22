@@ -45,8 +45,9 @@ public class CardController {
 
     @PostMapping("/cards")
     @ResponseBody
-    public Card create(@Valid @RequestBody CreateCardDto createCardDto) {
-        return cardService.create(createCardDto.getName());
+    public UserCard create(@Valid @RequestBody CreateCardDto createCardDto) {
+        // TODO: get creator from request
+        return cardService.create(createCardDto.getName(), "josse");
     }
 
     @PutMapping("/cards/buy/{userCardId}")
