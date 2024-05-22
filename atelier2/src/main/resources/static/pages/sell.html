@@ -16,7 +16,6 @@
         <a href="buy.html">Buy</a> |
         <a href="sell.html">Sell</a> |
         <a href="transactions.html">Transactions</a> |
-        <a href="create.html">Create Card</a>
     </nav>
     <div class="container">
         <div>5000 $</div>
@@ -40,6 +39,11 @@
                 <button id="sell-button">Sell</button>
             </div>
         </div>
+        <form action="" class="create-card">
+            <label for="create-card-name">Card Name: </label>
+            <input id="create-card-name" type="text" placeholder="Card Name">
+            <button id="create-card-button" onclick="addCard()">Create Card</button>
+        </form>
     </div>
 
     <script src="../script/sell.js"></script>
