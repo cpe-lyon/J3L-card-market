@@ -86,3 +86,13 @@ button {
     width: 100%;
     margin-top: 10px;
 }
+header{
+    display: flex;
+    align-items: flex-start;
+}
+.profile{
+    position: absolute;
+    top:0;
+    right:0;
+    padding: 1em;
+}

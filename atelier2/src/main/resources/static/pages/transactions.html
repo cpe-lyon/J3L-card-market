@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transactions</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <div class="profile">
-        <span>Jdoe</span>
-        <img src="profile-icon.png" alt="Profile Icon" width="30">
-    </div>
+<div class="profile">
+    <span>User</span>
+    <img src="/images/default-user.png" alt="Profile Icon" width="30">
+</div>
+
     <div id="header"></div>
     <script>
         $(function(){
@@ -19,12 +20,10 @@
         });
     </script>
     <div class="container">
-        <div>5000 $</div>
         <h1>Transactions</h1>
         <table>
             <thead>
                 <tr>
-                    <th>Transaction ID</th>
                     <th>Card Name</th>
                     <th>Buyer</th>
                     <th>Seller</th>
@@ -32,28 +31,21 @@
                     <th>Date</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Super John</td>
-                    <td>buyer1</td>
-                    <td>seller1</td>
-                    <td>50$</td>
-                    <td>2023-05-20</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Blabla</td>
-                    <td>buyer2</td>
-                    <td>seller2</td>
-                    <td>60$</td>
-                    <td>2023-05-21</td>
-                </tr>
-                <!-- Répétez les lignes ci-dessus pour chaque transaction -->
+            <tbody id="transactionsList">
+                <template>
+                    <tr>
+                        <td>{{userCard}}</td>
+                        <td>{{buyer}}</td>
+                        <td>{{seller}}</td>
+                        <td>{{price}}$</td>
+                        <td>{{soldOn}}</td>
+                    </tr>
+                </template>
             </tbody>
         </table>
     </div>
 
     <script src="/script/handletoken.js"></script>
+    <script src="/script/transactions.js"></script>
 </body>
 </html>
