@@ -2,28 +2,17 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.container {
-    margin: 20px;
-}
-
-.profile {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
 table {
     width: 75%;
     border-collapse: collapse;
     margin-bottom: 20px;
     cursor: pointer;
-    display: inline-block;
     vertical-align: top;
     table-layout: fixed;
 }
 
 th, td {
-    width: 50%;
+    width: 100%;
     border: 1px solid #000;
     padding: 8px;
     text-align: left;
@@ -57,6 +46,10 @@ button {
     cursor: pointer;
 }
 
+.container {
+    margin: 20px;
+}
+
 .card-details {
     width: 20%;
     display: inline-block;
@@ -78,4 +71,14 @@ button {
     cursor: pointer;
     width: 100%;
     margin-top: 10px;
+}
+
+.profile {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.market {
+    display: flex;
 }
