@@ -1,10 +1,10 @@
 const loginUrl = "/login.html"
 
-const searchParams = new URLSearchParams(location.search.substr(1));
-if (searchParams.has("token")){
-    localStorage.setItem("cardToken", searchParams.get("token"));
-    searchParams.delete("token");
-    location.search = "?"+searchParams.toString();
+const currentUrl = new URL(location.href);
+if (currentUrl.searchParams.has("token")){
+    localStorage.setItem("cardToken", currentUrl.searchParams.get("token"));
+    currentUrl.searchParams.delete("token");
+    history.replaceState(history.state, null, currentUrl.toString())
 }
 
 window.cardToken = localStorage.getItem("cardToken");

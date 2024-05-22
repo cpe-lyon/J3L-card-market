@@ -39,6 +39,7 @@ class AuthHandler implements HandlerInterceptor {
             String token = authHeader.substring("Bearer".length()).trim();
             TimedUserInfo userInfo = service.checkLogin(token);
             if (userInfo != null && userInfo.getExpireDate().after(new Date())) {
+                service.saveUser(userInfo.userName());
                 request.setAttribute("cardUserInfo", userInfo);
                 return true;
             }
