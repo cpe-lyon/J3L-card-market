@@ -17,14 +17,18 @@ import java.util.Optional;
 
 @Service
 public class TransactionalCardManager {
+
     @Autowired
-    CardRepository cardRepo;
+    private CardRepository cardRepo;
+
     @Autowired
-    UserCardRepository userCardRepo;
+    private UserCardRepository userCardRepo;
+
     @Autowired
-    TransactionRepository transactionRepo;
+    private TransactionRepository transactionRepo;
+
     @Autowired
-    UserIdentifierRepository userRepo;
+    private UserIdentifierRepository userRepo;
 
     public List<Card> getAll() {
         return cardRepo.findAll();
@@ -44,10 +48,20 @@ public class TransactionalCardManager {
 
     @Transactional
     public UserCard buy(Integer userCardId, String buyerSurname) {
-        UserCard userCard = userCardRepo.findById(userCardId);
-        if (userCard == null) throw new IllegalArgumentException("User card not found");
-        if (userCard.getPrice() == null) throw new IllegalArgumentException("User card not for sale");
-        if (userRepo.exists(buyerSurname)) throw new IllegalArgumentException("Buyer not found");
+        Optional<UserCard> userCardOpt = userCardRepo.findById(userCardId);
+        if (userCardOpt.isEmpty()) {
+            throw new IllegalArgumentException("User card not found");
+        }
+
+        UserCard userCard = userCardOpt.get();
+
+        if (userCard.getPrice() == null) {
+            throw new IllegalArgumentException("User card not for sale");
+        }
+
+        if (!userRepo.existsById(buyerSurname)) {
+            throw new IllegalArgumentException("Buyer not found");
+        }
 
         Transaction transaction = new Transaction();
         transaction.setUserCard(userCard);
@@ -64,9 +78,12 @@ public class TransactionalCardManager {
 
     @Transactional
     public UserCard sell(Integer userCardId, Integer price) {
-        UserCard userCard = userCardRepo.findById(userCardId);
-        if (userCard == null) throw new IllegalArgumentException("User card not found");
+        Optional<UserCard> userCardOpt = userCardRepo.findById(userCardId);
+        if (userCardOpt.isEmpty()) {
+            throw new IllegalArgumentException("User card not found");
+        }
 
+        UserCard userCard = userCardOpt.get();
         userCard.setPrice(price);
 
         return userCardRepo.save(userCard);

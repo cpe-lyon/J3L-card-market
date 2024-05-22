@@ -35,7 +35,7 @@ public class CardController {
     @PutMapping("/cards/buy/{userCardId}")
     public UserCard buy(@PathVariable Integer userCardId) {
         // TODO: get buyer from request
-        return cardService.buy(userCardId, "");
+        return cardService.buy(userCardId, "josse");
     }
 
     @PutMapping("/cards/sell/{userCardId}")
