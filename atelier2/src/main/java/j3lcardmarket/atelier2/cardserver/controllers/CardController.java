@@ -35,9 +35,10 @@ public class CardController {
     }
 
     @GetMapping("/cards/on-sale")
+    @CardAuth
     @ResponseBody
-    public List<UserCard> getAllOnSale() {
-        return cardService.getAllOnSale();
+    public List<UserCard> getAllOnSale(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return cardService.getPurchasableByOwner(cardUserInfo.surname());
     }
 
     @PostMapping("/cards")
