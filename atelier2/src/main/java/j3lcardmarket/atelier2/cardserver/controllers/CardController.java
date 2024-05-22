@@ -3,6 +3,7 @@ package j3lcardmarket.atelier2.cardserver.controllers;
 import j3lcardmarket.atelier2.cardserver.dto.CreateCardDto;
 import j3lcardmarket.atelier2.cardserver.dto.SellCardDto;
 import j3lcardmarket.atelier2.cardserver.models.Card;
+import j3lcardmarket.atelier2.cardserver.models.Transaction;
 import j3lcardmarket.atelier2.cardserver.models.UserCard;
 import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
 import j3lcardmarket.atelier2.cardserver.utils.annotations.CardAuth;
@@ -48,7 +49,7 @@ public class CardController {
     @PutMapping("/cards/buy/{userCardId}")
     @CardAuth
     @ResponseBody
-    public UserCard buy(@PathVariable Integer userCardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+    public Transaction buy(@PathVariable Integer userCardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return cardService.buy(userCardId, cardUserInfo.surname());
     }
 

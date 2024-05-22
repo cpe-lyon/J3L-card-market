@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <div class="profile">
         <span>Jdoe</span>
         <img src="profile-icon.png" alt="Profile Icon" width="30">
     </div>
-    <nav>
-        <a href="../index.html">Home</a> |
-        <a href="buy.html">Buy</a> |
-        <a href="sell.html">Sell</a> |
-        <a href="transactions.html">Transactions</a> |
-    </nav>
+    <div id="header"></div>
+    <script>
+        $(function(){
+            $("#header").load("/pages/header.html");
+        });
+    </script>
     <div class="container">
         <div>5000 $</div>
         <h1>BUY</h1>
