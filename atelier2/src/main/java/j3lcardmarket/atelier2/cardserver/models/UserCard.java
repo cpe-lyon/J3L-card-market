@@ -18,4 +18,8 @@ public class UserCard {
     private UserIdentifier owner;
 
     private Integer price;
+
+    public String toString(){
+        return String.format("[%d] %s",id,  card.getName());
+    }
 }
