@@ -50,10 +50,19 @@ public class TransactionalCardManager {
     }
 
     @Transactional
-    public Card create(String cardName) {
+    public UserCard create(String cardName, String creatorSurname) {
+        UserIdentifier creator = new UserIdentifier();
+        creator.setSurname(creatorSurname);
+
         Card newCard = new Card();
         newCard.setName(cardName);
-        return cardRepo.save(newCard);
+        newCard.setCreator(creator);
+        Card createdCard = cardRepo.save(newCard);
+
+        UserCard userCard = new UserCard();
+        userCard.setCard(createdCard);
+        userCard.setOwner(creator);
+        return userCardRepo.save(userCard);
     }
 
     @Transactional
