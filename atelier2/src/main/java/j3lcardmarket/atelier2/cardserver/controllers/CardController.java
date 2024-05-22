@@ -12,33 +12,40 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class CardController {
+
     @Autowired
     TransactionalCardManager cardService;
 
     @GetMapping("/cards")
+    @ResponseBody
     public List<Card> getAll() {
         return cardService.getAll();
     }
 
     @GetMapping("/cards/{cardId}")
+    @ResponseBody
     public Card getById(@PathVariable Integer cardId) {
         return cardService.getById(cardId);
     }
 
     @PostMapping("/cards/create")
+    @ResponseBody
     public Card create(@Valid @RequestBody CreateCardDto createCardDto) {
         return cardService.create(createCardDto.getName());
     }
 
     @PutMapping("/cards/buy/{userCardId}")
+    @ResponseBody
     public UserCard buy(@PathVariable Integer userCardId) {
         // TODO: get buyer from request
         return cardService.buy(userCardId, "josse");
     }
 
     @PutMapping("/cards/sell/{userCardId}")
+    @ResponseBody
     public UserCard sell(@Valid @RequestBody SellCardDto sellCardDto, @PathVariable Integer userCardId) {
         return cardService.sell(userCardId, sellCardDto.getPrice());
     }
