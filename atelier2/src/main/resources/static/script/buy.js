@@ -16,7 +16,8 @@ function buyCard(cardId) {
     })
         .then(response => response.json())
         .then(data => {
-            alert('Bought ' + data.card.name + ' for ' + data.price + ' gold');
+            location.reload();
+            alert('Bought ' + data.card.name + ' for ' + data.price + '$');
         });
 
 }
