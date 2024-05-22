@@ -31,7 +31,7 @@ public class CardController {
     @CardAuth
     @ResponseBody
     public List<UserCard> getAllOwned(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.getAllByOwner(cardUserInfo.surname());
+        return cardService.getAllByOwner(cardUserInfo.userName());
     }
 
     @GetMapping("/cards/on-sale")
@@ -41,16 +41,17 @@ public class CardController {
     }
 
     @PostMapping("/cards")
+    @CardAuth
     @ResponseBody
     public UserCard create(@Valid @RequestBody CreateCardDto createCardDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.create(createCardDto.getName(), cardUserInfo.surname());
+        return cardService.create(createCardDto.getName(), cardUserInfo.userName());
     }
 
     @PutMapping("/cards/buy/{userCardId}")
     @CardAuth
     @ResponseBody
     public Transaction buy(@PathVariable Integer userCardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.buy(userCardId, cardUserInfo.surname());
+        return cardService.buy(userCardId, cardUserInfo.userName());
     }
 
     @PutMapping("/cards/sell/{userCardId}")

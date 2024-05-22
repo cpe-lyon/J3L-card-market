@@ -1,18 +1,23 @@
-function updateCardDetails(row) {
+function updateCardDetails(row, cardId) {
     const cells = row.getElementsByTagName('td');
     document.getElementById('card-id').innerText = 'Card ID: ' + cells[0].innerText;
     document.getElementById('card-name').innerText = 'Card Name: ' + cells[1].innerText;
     document.getElementById('sell-button').onclick = function() {
-        sellCard();
+        sellCard(cardId);
     };
 }
 
 function addCard() {
     const name = document.getElementById('create-card-name').value;
+    if (name.trim() === undefined || name.trim() === '') {
+        document.getElementById('create-card-name').focus();
+        return;
+    }
     fetch('http://localhost:8080/api/cards', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...window.authHeader
         },
         body: JSON.stringify({ name: name })
     })
@@ -21,7 +26,7 @@ function addCard() {
             const table = document.getElementById('card-table');
             const row = table.insertRow();
             row.onclick = function() {
-                updateCardDetails(row);
+                updateCardDetails(row, data.id);
             };
             const idCell = row.insertCell();
             idCell.innerText = data.id;
@@ -30,26 +35,49 @@ function addCard() {
         });
 }
 
-function sellCard() {
-    const cardId = document.getElementById('card-id').innerText;
-    const price = document.getElementById('card-price').value;
-    alert('Sold ' + cardId + ' for ' + price);
+function sellCard(cardId) {
+    const price = parseInt(document.getElementById('card-price').value);
+    if (price <= 0 || isNaN(price)) {
+        document.getElementById('card-price').value = '';
+        document.getElementById('card-price').focus();
+        return;
+    }
+    fetch('http://localhost:8080/api/cards/sell/' + cardId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            ...window.authHeader
+        },
+        body: JSON.stringify({ price: price })
+    })
+        .then(response => response.json())
+        .then(data => {
+            location.reload();
+            alert('Card ' + data.card.name + ' has been put on sale for ' + data.price + '$');
+            document.getElementById('card-price').value = '';
+        });
 }
 
 function getCardFromAPI() {
-    fetch('http://localhost:8080/api/cards')
+    fetch('http://localhost:8080/api/cards/owned', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            ...window.authHeader
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const table = document.getElementById('card-table');
-            data.forEach(card => {
+            data.forEach(userCard => {
                 const row = table.insertRow();
                 row.onclick = function() {
-                    updateCardDetails(row);
+                    updateCardDetails(row, userCard.id);
                 };
                 const idCell = row.insertCell();
-                idCell.innerText = card.id;
+                idCell.innerText = userCard.id;
                 const nameCell = row.insertCell();
-                nameCell.innerText = card.name;
+                nameCell.innerText = userCard.card.name;
             });
         });
 }
