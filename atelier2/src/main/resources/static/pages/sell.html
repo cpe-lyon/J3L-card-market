@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="profile">
+    <span>User</span>
+    <strong class="admin">[ADMIN]</strong>
+    <img src="/images/default-user.png" alt="Profile Icon" width="30">
+</div>
+
+<div id="header"></div>
+    <script>
+        $(function(){
+            $("#header").load("/pages/header.html");
+        });
+    </script>
+    <div class="container">
+        <h1>SELL</h1>
+        <div class="market">
+            <table id="my-cards-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                </tr>
+                </thead>
+                <tbody id="card-table"></tbody>
+            </table>
+            <div class="card-details">
+                <img id="card-image" src="" alt="Card Image">
+                <p id="card-id">Card ID: </p>
+                <p id="card-name">Card Name: </p>
+                <label for="card-price">Price: </label>
+                <input id="card-price" type="number" placeholder="Price" min="1" required>
+                <button id="sell-button">Sell</button>
+            </div>
+        </div>
+        <form class="create-card admin" onsubmit="addCard()">
+            <label for="create-card-name">Card Name: </label>
+            <input id="create-card-name" type="text" placeholder="Card Name">
+            <input id="create-card-image-url" type="text" placeholder="Card Image URL">
+            <button type="submit">Create Card Model</button>
+        </form>
+        <form class="create-usercard admin" onsubmit="buildUserCard()">
+            <select id="cardsSelect" name="cardId">
+            </select>
+            <button type="submit">Build Card Unit</button>
+        </form>
+    </div>
+
+    <script src="/script/handletoken.js"></script>
+    <script src="../script/sell.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="profile">
+    <span>User</span>
+    <strong class="admin">[ADMIN]</strong>
+    <img src="/images/default-user.png" alt="Profile Icon" width="30">
+</div>
+
+    <div id="header"></div>
+    <script>
+        $(function(){
+            $("#header").load("/pages/header.html");
+        });
+    </script>
+    <div class="container">
+        <h1>Transactions</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Card Name</th>
+                    <th>Buyer</th>
+                    <th>Seller</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="transactionsList">
+                <template>
+                    <tr>
+                        <td>{{userCard}}</td>
+                        <td>{{buyer}}</td>
+                        <td>{{seller}}</td>
+                        <td>{{price}}$</td>
+                        <td>{{soldOn}}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/script/handletoken.js"></script>
+    <script src="/script/transactions.js"></script>
+</body>
+</html>
