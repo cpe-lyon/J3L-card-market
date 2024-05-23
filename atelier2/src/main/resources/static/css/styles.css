@@ -96,6 +96,6 @@ header{
     right:0;
     padding: 1em;
 }
-.admin{
+.admin, .card-details{
     visibility: hidden;
 }

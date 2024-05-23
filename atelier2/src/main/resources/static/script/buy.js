@@ -1,4 +1,5 @@
 function updateCardDetails(row, cardId) {
+    document.querySelectorAll(".card-details").forEach(details => details.style.visibility = "inherit")
     const cells = row.getElementsByTagName('td');
     document.getElementById('card-name').innerText = 'Card Name: ' + cells[1].innerText;
     document.getElementById('card-price').innerText = 'Card Price: ' + cells[2].innerText;
