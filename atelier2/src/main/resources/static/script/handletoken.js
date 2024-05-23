@@ -18,9 +18,10 @@ let profile = document.querySelector(".profile");
  * @param {string} username
  * @param {string} avatar
  */
-function updateProfile({surname, username, avatarUrl}){
+function updateProfile({surname, username, avatarUrl, admin}){
     profile.querySelector("span").innerText = surname;
     if (avatarUrl !== "") profile.querySelector("img").src = avatarUrl;
+    if(admin) document.querySelectorAll(".admin").forEach(admEl =>  admEl.style.visibility = "visible");
 }
 
 /**
