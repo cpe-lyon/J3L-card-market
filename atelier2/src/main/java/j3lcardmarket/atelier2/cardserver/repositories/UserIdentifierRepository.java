@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserIdentifierRepository extends JpaRepository<UserIdentifier, String> {
-    boolean existsById (String surname);
+    boolean existsBySurname (String surname);
 }

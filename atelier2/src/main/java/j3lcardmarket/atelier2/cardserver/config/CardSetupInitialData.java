@@ -1,8 +1,8 @@
 package j3lcardmarket.atelier2.cardserver.config;
 
 import j3lcardmarket.atelier2.cardserver.repositories.UserIdentifierRepository;
-import j3lcardmarket.atelier2.cardserver.services.ProxyLoginChecker;
-import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
+import j3lcardmarket.atelier2.cardserver.services.UserService;
+import j3lcardmarket.atelier2.cardserver.services.CardService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 public class CardSetupInitialData {
 
     private final UserIdentifierRepository urepo;
-    private final ProxyLoginChecker logService;
-    private final TransactionalCardManager manager;
+    private final UserService logService;
+    private final CardService manager;
 
     @Autowired
-    public CardSetupInitialData(UserIdentifierRepository urepo,  ProxyLoginChecker logService, TransactionalCardManager manager) {
+    public CardSetupInitialData(UserIdentifierRepository urepo, UserService logService, CardService manager) {
         this.urepo = urepo;
         this.logService = logService;
         this.manager = manager;

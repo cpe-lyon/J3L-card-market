@@ -20,7 +20,7 @@ import java.util.function.Consumer;
  * In the proxy, check = register
  */
 @Service
-public class ProxyLoginChecker implements LoginChecker<TimedUserInfo, String> {
+public class UserService implements LoginChecker<TimedUserInfo, String> {
 
     @Autowired
     SignatureUtils signatureUtils;
@@ -72,7 +72,7 @@ public class ProxyLoginChecker implements LoginChecker<TimedUserInfo, String> {
     @Cacheable(value="savedname", key="#username")
     public String newCardUser(String username, Consumer<UserIdentifier> onUserCreation){
         //If not new, do nothing
-        if(repo.existsById(username)) return username;
+        if(repo.existsBySurname(username)) return username;
         UserIdentifier savedUser = repo.save(new UserIdentifier(username));
         onUserCreation.accept(savedUser);
         return savedUser.getSurname();

@@ -2,7 +2,7 @@ package j3lcardmarket.atelier2.cardserver.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier2.cardserver.dto.UserInfoDto;
-import j3lcardmarket.atelier2.cardserver.services.ProxyLoginChecker;
+import j3lcardmarket.atelier2.cardserver.services.UserService;
 import j3lcardmarket.atelier2.cardserver.utils.annotations.CardAuth;
 import j3lcardmarket.atelier2.commons.models.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class UserController {
     String adminUsername;
 
     @Autowired
-    ProxyLoginChecker userService;
+    UserService userService;
 
     @GetMapping
     @CardAuth()

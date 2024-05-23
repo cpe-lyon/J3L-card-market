@@ -1,12 +1,9 @@
 package j3lcardmarket.atelier2.cardserver.config;
 
-import j3lcardmarket.atelier2.cardserver.repositories.UserCardRepository;
-import j3lcardmarket.atelier2.cardserver.services.ProxyLoginChecker;
-import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
-import jakarta.annotation.Resource;
+import j3lcardmarket.atelier2.cardserver.services.UserService;
+import j3lcardmarket.atelier2.cardserver.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -14,10 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CardHandlerManager implements WebMvcConfigurer {
     @Autowired
-    ProxyLoginChecker service;
+    UserService service;
 
     @Autowired
-    TransactionalCardManager manager;
+    CardService manager;
 
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthHandler(service, manager)).addPathPatterns("/api/**");

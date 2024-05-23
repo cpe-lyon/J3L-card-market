@@ -12,4 +12,6 @@ public interface CardRepository extends JpaRepository<Card, Integer> {
     @Query("SELECT c.id FROM Card c")
     public List<Integer> allIds();
 
+    public Card getReferenceById(int id);
+
 }
