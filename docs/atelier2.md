@@ -1,7 +1,12 @@
 # Atelier 1
 ## **Bilan de Réalisation de l'Application**
 
+### Architecture du projet
+
 ![Untitled](img/Atelier2-Merge.drawio.png)
+
+### Schéma de la base de données
+
 ![Untitled](img/Atelier2-DB.drawio.png)
 ### **Technologies Utilisées**
 
