@@ -17,7 +17,7 @@ function addCard() {
         return;
     }
     const imageUrl = document.getElementById('create-card-image-url').value;
-    fetch('/api/cards/', {
+    fetch('/api/cards', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -50,7 +50,7 @@ public class CardService {
         UserCard card = new UserCard();
         card.setCard(cardRepo.getReferenceById(cardId));
         card.setOwner(new UserIdentifier(creatorSurname));
-        card.setPrice(0);
+        card.setPrice(null);
         return userCardRepo.save(card);
     }
 

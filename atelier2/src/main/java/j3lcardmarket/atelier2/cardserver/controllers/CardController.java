@@ -1,5 +1,6 @@
 package j3lcardmarket.atelier2.cardserver.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier2.cardserver.dto.CardDto;
 import j3lcardmarket.atelier2.cardserver.dto.CreateCardDto;
 import j3lcardmarket.atelier2.cardserver.models.UserCard;
@@ -28,6 +29,7 @@ public class CardController {
 
     @PostMapping
     @CardAuth
+    @SecurityRequirement(name = "cardauth")
     @ResponseBody
     public Integer create(@Valid @RequestBody CreateCardDto createCardDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return cardService.createCard(createCardDto.getName(), cardUserInfo.userName(), createCardDto.getImageUrl()).getId();
@@ -35,6 +37,7 @@ public class CardController {
 
     @PostMapping("/{cardId}/user-card")
     @CardAuth
+    @SecurityRequirement(name = "cardauth")
     @ResponseBody
     public Integer buildUserCard(@PathVariable Integer cardId , @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return cardService.createUserCard(cardId, cardUserInfo.userName()).getId();
@@ -42,6 +45,7 @@ public class CardController {
 
     @GetMapping("/owned")
     @CardAuth
+    @SecurityRequirement(name = "cardauth")
     @ResponseBody
     public List<UserCard> getAllOwned(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return cardService.getAllByOwner(cardUserInfo.userName());
@@ -49,8 +53,9 @@ public class CardController {
 
     @GetMapping("/on-sale")
     @CardAuth
+    @SecurityRequirement(name = "cardauth")
     @ResponseBody
     public List<UserCard> getAllOnSale(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.getPurchasableByOwner(cardUserInfo.surname());
+        return cardService.getPurchasableByOwner(cardUserInfo.userName());
     }
 }
