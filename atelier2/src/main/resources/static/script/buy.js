@@ -26,7 +26,7 @@ function buyCard(cardId) {
 }
 
 function getCardFromAPI() {
-        fetch('/api/market/on-sale', {
+        fetch('/api/cards/on-sale', {
             method: 'GET',
             headers: {
                 ...window.authHeader
