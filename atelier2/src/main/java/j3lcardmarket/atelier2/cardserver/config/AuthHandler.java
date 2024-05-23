@@ -1,9 +1,8 @@
 package j3lcardmarket.atelier2.cardserver.config;
 
 import j3lcardmarket.atelier2.cardserver.models.UserIdentifier;
-import j3lcardmarket.atelier2.cardserver.repositories.UserCardRepository;
-import j3lcardmarket.atelier2.cardserver.services.ProxyLoginChecker;
-import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
+import j3lcardmarket.atelier2.cardserver.services.UserService;
+import j3lcardmarket.atelier2.cardserver.services.CardService;
 import j3lcardmarket.atelier2.cardserver.utils.annotations.CardAuth;
 import j3lcardmarket.atelier2.commons.models.TimedUserInfo;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +15,10 @@ import java.util.Date;
 import java.util.function.Consumer;
 
 class AuthHandler implements HandlerInterceptor {
-    private final ProxyLoginChecker service;
+    private final UserService service;
     private final Consumer<UserIdentifier> cardInitializer;
 
-    public AuthHandler(ProxyLoginChecker service, TransactionalCardManager manager) {
+    public AuthHandler(UserService service, CardService manager) {
         this.service = service;
         this.cardInitializer = manager::giveFiveRandomCards;
     }

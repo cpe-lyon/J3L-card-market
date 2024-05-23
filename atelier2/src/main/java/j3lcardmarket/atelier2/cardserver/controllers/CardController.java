@@ -3,7 +3,7 @@ package j3lcardmarket.atelier2.cardserver.controllers;
 import j3lcardmarket.atelier2.cardserver.dto.CardDto;
 import j3lcardmarket.atelier2.cardserver.dto.CreateCardDto;
 import j3lcardmarket.atelier2.cardserver.models.UserCard;
-import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
+import j3lcardmarket.atelier2.cardserver.services.CardService;
 import j3lcardmarket.atelier2.cardserver.utils.annotations.CardAuth;
 import j3lcardmarket.atelier2.commons.models.UserInfo;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class CardController {
 
     @Autowired
-    TransactionalCardManager cardService;
+    CardService cardService;
 
     @GetMapping
     @ResponseBody
@@ -45,5 +45,12 @@ public class CardController {
     @ResponseBody
     public List<UserCard> getAllOwned(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return cardService.getAllByOwner(cardUserInfo.userName());
+    }
+
+    @GetMapping("/on-sale")
+    @CardAuth
+    @ResponseBody
+    public List<UserCard> getAllOnSale(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return cardService.getPurchasableByOwner(cardUserInfo.surname());
     }
 }

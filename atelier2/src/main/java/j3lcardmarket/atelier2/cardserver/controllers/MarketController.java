@@ -5,7 +5,7 @@ import j3lcardmarket.atelier2.cardserver.dto.SellCardDto;
 import j3lcardmarket.atelier2.cardserver.dto.TransactionDto;
 import j3lcardmarket.atelier2.cardserver.models.Transaction;
 import j3lcardmarket.atelier2.cardserver.models.UserCard;
-import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
+import j3lcardmarket.atelier2.cardserver.services.MarketService;
 import j3lcardmarket.atelier2.cardserver.utils.annotations.CardAuth;
 import j3lcardmarket.atelier2.commons.models.UserInfo;
 import j3lcardmarket.atelier2.commons.utils.ForbiddenException;
@@ -24,21 +24,14 @@ public class MarketController {
     String adminUsername;
 
     @Autowired
-    TransactionalCardManager cardService;
-
-    @GetMapping("/on-sale")
-    @CardAuth
-    @ResponseBody
-    public List<UserCard> getAllOnSale(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.getPurchasableByOwner(cardUserInfo.surname());
-    }
+    MarketService marketService;
 
     @PutMapping("/user-cards/{userCardId}/buy")
     @SecurityRequirement(name = "cardauth")
     @CardAuth
     @ResponseBody
     public Transaction buy(@PathVariable Integer userCardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.buy(userCardId, cardUserInfo.userName());
+        return marketService.buy(userCardId, cardUserInfo.userName());
     }
 
     @PutMapping("/user-cards/{userCardId}/sell")
@@ -46,12 +39,8 @@ public class MarketController {
     @SecurityRequirement(name = "cardauth")
     @CardAuth
     public UserCard sell(@PathVariable Integer userCardId, @Valid @RequestBody SellCardDto sellCardDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.sell(userCardId, sellCardDto.getPrice(), cardUserInfo.userName());
+        return marketService.sell(userCardId, sellCardDto.getPrice(), cardUserInfo.userName());
     }
-
-
-    @Autowired
-    TransactionalCardManager transactionService;
 
     @GetMapping("/transactions")
     @ResponseBody
@@ -59,6 +48,6 @@ public class MarketController {
     @CardAuth
     public List<TransactionDto> getAll(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         if (!cardUserInfo.userName().equals(adminUsername)) throw new ForbiddenException();
-        return transactionService.getTransactions().stream().map(TransactionDto::new).collect(Collectors.toList());
+        return marketService.getTransactions().stream().map(TransactionDto::new).collect(Collectors.toList());
     }
 }
