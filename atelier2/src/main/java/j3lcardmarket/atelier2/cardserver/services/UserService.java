@@ -19,7 +19,7 @@ import java.util.function.Consumer;
  * In the proxy, check = register
  */
 @Service
-public class ProxyLoginChecker implements LoginChecker<TimedUserInfo, String> {
+public class UserService implements LoginChecker<TimedUserInfo, String> {
 
     @Autowired
     SignatureUtils signatureUtils;
