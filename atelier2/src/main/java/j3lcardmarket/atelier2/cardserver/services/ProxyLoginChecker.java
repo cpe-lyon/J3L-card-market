@@ -13,6 +13,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.security.SignatureException;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -29,6 +30,12 @@ public class ProxyLoginChecker implements LoginChecker<TimedUserInfo, String> {
 
     @Autowired
     UserIdentifierRepository repo;
+
+    public Integer getBalance(String username) {
+        Optional<UserIdentifier> user = repo.findById(username);
+        if (user.isEmpty()) return -1;
+        return user.get().getBalance();
+    }
 
     private class TokenAuthInfoImpl implements TokenAuthInfo{
         private final String token;

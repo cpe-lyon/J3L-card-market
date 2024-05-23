@@ -49,8 +49,7 @@ public class TransactionalCardManager {
 
     @Transactional
     public Card createCard(String cardName, String creatorSurname, String imageUrl) {
-        UserIdentifier creator = new UserIdentifier();
-        creator.setSurname(creatorSurname);
+        UserIdentifier creator = userRepo.getReferenceById(creatorSurname);
 
         Card newCard = new Card();
         newCard.setName(cardName);
@@ -63,7 +62,7 @@ public class TransactionalCardManager {
     public UserCard createUserCard(int cardId, String creatorSurname) {
         UserCard card = new UserCard();
         card.setCard(cardRepo.getReferenceById(cardId));
-        card.setOwner(new UserIdentifier(creatorSurname));
+        card.setOwner(userRepo.getReferenceById(creatorSurname));
         card.setPrice(0);
         return userCardRepo.save(card);
     }
@@ -91,7 +90,7 @@ public class TransactionalCardManager {
         transaction.setPrice(userCard.getPrice());
         transaction.setSoldOn(LocalDate.now());
 
-        UserIdentifier buyer = new UserIdentifier();
+        UserIdentifier buyer = userRepo.getReferenceById(buyerSurname);
         buyer.setSurname(buyerSurname);
         transaction.setBuyer(buyer);
 
