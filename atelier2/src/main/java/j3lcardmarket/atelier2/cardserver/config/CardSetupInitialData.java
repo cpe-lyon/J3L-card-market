@@ -1,9 +1,5 @@
 package j3lcardmarket.atelier2.cardserver.config;
 
-import j3lcardmarket.atelier2.authserver.models.BasicAuthInfo;
-import j3lcardmarket.atelier2.authserver.models.User;
-import j3lcardmarket.atelier2.authserver.services.DbLoginChecker;
-import j3lcardmarket.atelier2.cardserver.repositories.CardRepository;
 import j3lcardmarket.atelier2.cardserver.repositories.UserIdentifierRepository;
 import j3lcardmarket.atelier2.cardserver.services.ProxyLoginChecker;
 import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
@@ -31,7 +27,14 @@ public class CardSetupInitialData {
         logService.saveUser("jorge");
         if (urepo.existsById("xavier")) return;
         logService.saveUser("xavier");
-        manager.create("Blue-Eyes White Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
+        manager.createCard("Blue-Eyes White Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
+        manager.createCard("Black Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
+        manager.createCard("White Mage", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
+        manager.createCard("Super princess", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
+        manager.createCard("Red-Eyes White Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
+        manager.createCard("Yellow Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
+        manager.createCard("Blue Mage", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
+        manager.createCard("Mega princess", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
     }
 
 }

@@ -17,7 +17,7 @@ function addCard() {
         return;
     }
     const imageUrl = document.getElementById('create-card-image-url').value;
-    fetch('http://localhost:8080/api/cards', {
+    fetch('/api/cards/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -44,6 +44,7 @@ function addCard() {
                 imageCell.appendChild(image);
             }
         });
+    refreshCards();
 }
 
 function sellCard(cardId) {
@@ -53,7 +54,7 @@ function sellCard(cardId) {
         document.getElementById('card-price').focus();
         return;
     }
-    fetch('http://localhost:8080/api/cards/sell/' + cardId, {
+    fetch(`/api/usercards/${cardId}/sell`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -70,7 +71,7 @@ function sellCard(cardId) {
 }
 
 function getCardFromAPI() {
-    fetch('http://localhost:8080/api/cards/owned', {
+    fetch(`/api/usercards/owned`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ function getCardFromAPI() {
             const table = document.getElementById('card-table');
             data.forEach(userCard => {
                 const row = table.insertRow();
-                if (userCard.price !== null) {
+                if (!!userCard.price) {
                     row.style.backgroundColor = '#d3d3d3';
                 } else {
                     row.onclick = function() {
@@ -104,4 +105,40 @@ function getCardFromAPI() {
         });
 }
 
+function refreshCards(){
+    const cardsSelect = document.querySelector("#cardsSelect");
+    cardsSelect.innerHTML = "";
+    fetch(`/api/cards`, {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(cards => {
+            cards.forEach(({id, name}) =>
+                cardsSelect.appendChild(
+                    $(`<option value="${id}">${name}</option>`)[0]
+                ))
+        });
+}
+
+function buildUserCard(){
+    /**
+     *
+     * @type {HTMLSelectElement}
+     */
+    const cardsSelect = document.querySelector("#cardsSelect");
+    fetch(`/api/cards/${cardsSelect.value}/usercard`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            ...window.authHeader
+        }
+    })
+        .then(res => {
+            if (res.ok){
+                alert("You have a new card")
+            }
+        })
+}
+
 getCardFromAPI();
+refreshCards();

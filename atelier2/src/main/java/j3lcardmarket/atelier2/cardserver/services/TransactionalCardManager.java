@@ -1,5 +1,6 @@
 package j3lcardmarket.atelier2.cardserver.services;
 
+import j3lcardmarket.atelier2.authserver.models.User;
 import j3lcardmarket.atelier2.cardserver.models.Card;
 import j3lcardmarket.atelier2.cardserver.models.Transaction;
 import j3lcardmarket.atelier2.cardserver.models.UserIdentifier;
@@ -8,6 +9,7 @@ import j3lcardmarket.atelier2.cardserver.repositories.CardRepository;
 import j3lcardmarket.atelier2.cardserver.repositories.TransactionRepository;
 import j3lcardmarket.atelier2.cardserver.repositories.UserCardRepository;
 import j3lcardmarket.atelier2.cardserver.repositories.UserIdentifierRepository;
+import j3lcardmarket.atelier2.commons.utils.ForbiddenException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +46,7 @@ public class TransactionalCardManager {
     }
 
     @Transactional
-    public UserCard create(String cardName, String creatorSurname, String imageUrl) {
+    public Card createCard(String cardName, String creatorSurname, String imageUrl) {
         UserIdentifier creator = new UserIdentifier();
         creator.setSurname(creatorSurname);
 
@@ -52,12 +54,16 @@ public class TransactionalCardManager {
         newCard.setName(cardName);
         newCard.setCreator(creator);
         newCard.setImageUrl(imageUrl);
-        Card createdCard = cardRepo.save(newCard);
+        return cardRepo.save(newCard);
+    }
 
-        UserCard userCard = new UserCard();
-        userCard.setCard(createdCard);
-        userCard.setOwner(creator);
-        return userCardRepo.save(userCard);
+    @Transactional
+    public UserCard createUserCard(int cardId, String creatorSurname) {
+        UserCard card = new UserCard();
+        card.setCard(cardRepo.getReferenceById(cardId));
+        card.setOwner(new UserIdentifier(creatorSurname));
+        card.setPrice(0);
+        return userCardRepo.save(card);
     }
 
     @Transactional
@@ -95,13 +101,15 @@ public class TransactionalCardManager {
     }
 
     @Transactional
-    public UserCard sell(Integer userCardId, Integer price) {
+    public UserCard sell(Integer userCardId, Integer price, String seller) {
         Optional<UserCard> userCardOpt = userCardRepo.findById(userCardId);
         if (userCardOpt.isEmpty()) {
             throw new IllegalArgumentException("User card not found");
         }
 
         UserCard userCard = userCardOpt.get();
+        if(!userCard.getOwner().getSurname().equals(seller))
+            throw new ForbiddenException();
         userCard.setPrice(price);
 
         return userCardRepo.save(userCard);

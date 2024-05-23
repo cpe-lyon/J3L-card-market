@@ -8,7 +8,7 @@ function updateCardDetails(row, cardId) {
 }
 
 function buyCard(cardId) {
-    fetch('http://localhost:8080/api/cards/buy/' + cardId, {
+    fetch(`/api/usercards/${cardId}/buy`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ function buyCard(cardId) {
 }
 
 function getCardFromAPI() {
-        fetch('http://localhost:8080/api/cards/on-sale', {
+        fetch('/api/usercards/on-sale', {
             method: 'GET',
             headers: {
                 ...window.authHeader
