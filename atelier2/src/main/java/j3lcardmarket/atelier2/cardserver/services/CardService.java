@@ -1,21 +1,16 @@
 package j3lcardmarket.atelier2.cardserver.services;
 
 import j3lcardmarket.atelier2.cardserver.models.Card;
-import j3lcardmarket.atelier2.cardserver.models.Transaction;
 import j3lcardmarket.atelier2.cardserver.models.UserIdentifier;
 import j3lcardmarket.atelier2.cardserver.models.UserCard;
 import j3lcardmarket.atelier2.cardserver.repositories.CardRepository;
 import j3lcardmarket.atelier2.cardserver.repositories.UserCardRepository;
-import j3lcardmarket.atelier2.cardserver.repositories.UserIdentifierRepository;
-import j3lcardmarket.atelier2.commons.utils.ForbiddenException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CardService {
@@ -28,10 +23,6 @@ public class CardService {
 
     public List<Card> getAll() {
         return cardRepo.findAll();
-    }
-
-    public UserCard getUserCardById(int id) {
-        return userCardRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("User card not found"));
     }
 
     public List<UserCard> getAllByOwner(String ownerSurname) {
@@ -63,7 +54,8 @@ public class CardService {
         return userCardRepo.save(card);
     }
 
-    public void giveFiveRandomCards(UserIdentifier userId){
+    @Transactional
+    public void giveFiveRandomCards(UserIdentifier userId) {
         List<Integer> ids = cardRepo.allIds();
         Collections.shuffle(ids);
         ids = ids.subList(0, 5);
@@ -74,6 +66,4 @@ public class CardService {
             userCardRepo.save(userCard);
         }
     }
-
-    public
 }
