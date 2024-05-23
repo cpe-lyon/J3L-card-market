@@ -2,7 +2,7 @@
 ## **Bilan de Réalisation de l'Application**
 
 ![Untitled](img/Atelier2-Merge.drawio.png)
-
+![Untitled](img/Atelier2-DB.drawio.png)
 ### **Technologies Utilisées**
 
 - **Spring Boot**: Cadre principal pour le développement de l'application.
