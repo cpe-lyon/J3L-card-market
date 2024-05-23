@@ -1,6 +1,7 @@
 function updateCardDetails(row, cardId) {
     document.querySelectorAll(".card-details").forEach(details => details.style.visibility = "inherit")
     const cells = row.getElementsByTagName('td');
+    document.getElementById('card-image').src = cells[3].querySelector("img").src;
     document.getElementById('card-name').innerText = 'Card Name: ' + cells[1].innerText;
     document.getElementById('card-price').innerText = 'Card Price: ' + cells[2].innerText;
     document.getElementById('buy-button').onclick = function() {
@@ -44,7 +45,14 @@ function getCardFromAPI() {
                 const nameCell = row.insertCell();
                 nameCell.innerText = userCard.card.name;
                 const priceCell = row.insertCell();
-                priceCell.innerText = userCard.price;
+                priceCell.innerText = `${userCard.price}$`;
+                const imageCell = row.insertCell();
+                if (userCard.card.imageUrl !== null) {
+                    const image = document.createElement('img');
+                    image.src = userCard.card.imageUrl;
+                    image.style.width = '120px';
+                    imageCell.appendChild(image);
+                }
             });
         });
 }
