@@ -1,6 +1,5 @@
 package j3lcardmarket.atelier2.cardserver.models;
 
-import j3lcardmarket.atelier2.cardserver.repositories.UserIdentifierRepository;
 import jakarta.persistence.*;
 import lombok.Data;
 
