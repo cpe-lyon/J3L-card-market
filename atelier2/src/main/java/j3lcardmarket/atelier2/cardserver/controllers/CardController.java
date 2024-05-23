@@ -1,14 +1,11 @@
 package j3lcardmarket.atelier2.cardserver.controllers;
 
-import j3lcardmarket.atelier2.cardserver.dto.CardDTO;
+import j3lcardmarket.atelier2.cardserver.dto.CardDto;
 import j3lcardmarket.atelier2.cardserver.dto.CreateCardDto;
-import j3lcardmarket.atelier2.cardserver.models.Card;
-import j3lcardmarket.atelier2.cardserver.models.UserCard;
 import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
 import j3lcardmarket.atelier2.cardserver.utils.annotations.CardAuth;
 import j3lcardmarket.atelier2.commons.models.UserInfo;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +19,13 @@ public class CardController {
     @Autowired
     TransactionalCardManager cardService;
 
-    @GetMapping("")
+    @GetMapping
     @ResponseBody
-    public List<CardDTO> getAll() {
-        return cardService.getAll().stream().map(c -> new CardDTO(c)).collect(Collectors.toList());
+    public List<CardDto> getAll() {
+        return cardService.getAll().stream().map(CardDto::new).collect(Collectors.toList());
     }
 
-    @PostMapping("/")
+    @PostMapping
     @CardAuth
     @ResponseBody
     public Integer create(@Valid @RequestBody CreateCardDto createCardDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {

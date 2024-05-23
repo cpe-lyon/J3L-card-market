@@ -13,10 +13,10 @@ function add(transaction){
 }
 
 
-fetch("/api/usercards/history", {redirect: "manual", headers: window.authHeader})
+fetch("/api/transactions", {redirect: "manual", headers: window.authHeader})
     .then(window.loginRedirectHandler)
     .then(res => {
-        if(res.status == 403){
+        if(res.status === 403){
             alert("You must be administrator.");
             window.location.href = "/";
             throw "Forbidden";
