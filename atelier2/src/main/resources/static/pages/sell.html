@@ -10,6 +10,7 @@
 <body>
 <div class="profile">
     <span>User</span>
+    <strong class="admin">[ADMIN]</strong>
     <img src="/images/default-user.png" alt="Profile Icon" width="30">
 </div>
 
@@ -42,13 +43,13 @@
                 <button id="sell-button">Sell</button>
             </div>
         </div>
-        <form class="create-card admin-options" onsubmit="addCard()">
+        <form class="create-card admin" onsubmit="addCard()">
             <label for="create-card-name">Card Name: </label>
             <input id="create-card-name" type="text" placeholder="Card Name">
             <input id="create-card-image-url" type="text" placeholder="Card Image URL">
             <button type="submit">Create Card Model</button>
         </form>
-        <form class="create-usercard admin-options" onsubmit="buildUserCard()">
+        <form class="create-usercard admin" onsubmit="buildUserCard()">
             <select id="cardsSelect" name="cardId">
             </select>
             <button type="submit">Build Card Unit</button>

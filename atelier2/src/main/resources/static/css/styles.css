@@ -96,3 +96,6 @@ header{
     right:0;
     padding: 1em;
 }
+.admin{
+    visibility: hidden;
+}
