@@ -2,6 +2,7 @@ package j3lcardmarket.atelier2.cardserver.controllers;
 
 import j3lcardmarket.atelier2.cardserver.dto.CardDto;
 import j3lcardmarket.atelier2.cardserver.dto.CreateCardDto;
+import j3lcardmarket.atelier2.cardserver.models.UserCard;
 import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
 import j3lcardmarket.atelier2.cardserver.utils.annotations.CardAuth;
 import j3lcardmarket.atelier2.commons.models.UserInfo;
@@ -32,10 +33,17 @@ public class CardController {
         return cardService.createCard(createCardDto.getName(), cardUserInfo.userName(), createCardDto.getImageUrl()).getId();
     }
 
-    @PostMapping("/{cardId}/usercard")
+    @PostMapping("/{cardId}/user-card")
     @CardAuth
     @ResponseBody
     public Integer buildUserCard(@PathVariable Integer cardId , @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return cardService.createUserCard(cardId, cardUserInfo.userName()).getId();
+    }
+
+    @GetMapping("/owned")
+    @CardAuth
+    @ResponseBody
+    public List<UserCard> getAllOwned(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return cardService.getAllByOwner(cardUserInfo.userName());
     }
 }

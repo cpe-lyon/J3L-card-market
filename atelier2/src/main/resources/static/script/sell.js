@@ -71,7 +71,7 @@ function sellCard(cardId) {
 }
 
 function getCardFromAPI() {
-    fetch(`/api/market/owned`, {
+    fetch(`/api/cards/owned`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ function buildUserCard(){
      * @type {HTMLSelectElement}
      */
     const cardsSelect = document.querySelector("#cardsSelect");
-    fetch(`/api/cards/${cardsSelect.value}/usercard`, {
+    fetch(`/api/cards/${cardsSelect.value}/user-card`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

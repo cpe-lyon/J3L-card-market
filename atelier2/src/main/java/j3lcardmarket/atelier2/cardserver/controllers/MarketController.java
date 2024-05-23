@@ -26,13 +26,6 @@ public class MarketController {
     @Autowired
     TransactionalCardManager cardService;
 
-    @GetMapping("/owned")
-    @CardAuth
-    @ResponseBody
-    public List<UserCard> getAllOwned(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.getAllByOwner(cardUserInfo.userName());
-    }
-
     @GetMapping("/on-sale")
     @CardAuth
     @ResponseBody
