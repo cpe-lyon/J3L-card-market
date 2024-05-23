@@ -1,6 +1,5 @@
 package j3lcardmarket.atelier2.cardserver.models;
 
-import j3lcardmarket.atelier2.cardserver.repositories.UserIdentifierRepository;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,8 +10,14 @@ public class UserIdentifier {
     @Id
     private String surname;
 
-    public UserIdentifier(){this(null);}
+    private Integer balance;
+
+    public UserIdentifier(){
+        this(null);
+    }
+
     public UserIdentifier(String surname){
         this.surname = surname;
+        this.balance = 100;
     }
 }
