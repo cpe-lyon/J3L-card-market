@@ -1,8 +1,8 @@
 function updateCardDetails(row, cardId) {
+    document.querySelectorAll(".card-details").forEach(details => details.style.visibility = "inherit")
     const cells = row.getElementsByTagName('td');
     console.log(document.getElementById('card-image').outerHTML)
-    console.log(cells[2].innerHTML);
-    document.getElementById('card-image').outerHTML = cells[2].innerHTML;
+    document.getElementById('card-image').src = cells[2].querySelector("img").src;
     document.getElementById('card-id').innerText = 'Card ID: ' + cells[0].innerText;
     document.getElementById('card-name').innerText = 'Card Name: ' + cells[1].innerText;
     document.getElementById('sell-button').onclick = function() {

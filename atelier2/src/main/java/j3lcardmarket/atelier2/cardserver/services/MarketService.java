@@ -61,7 +61,6 @@ public class MarketService {
         return transactionRepo.save(transaction);
     }
 
-
     @Transactional
     public UserCard sell(Integer userCardId, Integer price, String seller) {
         Optional<UserCard> userCardOpt = userCardRepo.findById(userCardId);
@@ -76,8 +75,8 @@ public class MarketService {
 
         return userCardRepo.save(userCard);
     }
-    
-    public List<Transaction> getTransactions() {
+
+    public List<Transaction> getTransactions(){
         return transactionRepo.findAll();
     }
 }
