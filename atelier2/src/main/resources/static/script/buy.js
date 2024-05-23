@@ -49,4 +49,17 @@ function getCardFromAPI() {
         });
 }
 
+fetch(`/api/userInfo/balance`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        ...window.authHeader
+    }
+}).then(response => response.json())
+    .then(i => {
+       if (i === -1) i = "ERROR";
+       document.querySelector("#balance").innerHTML = `${i}`;
+    });
+
+
 getCardFromAPI();
