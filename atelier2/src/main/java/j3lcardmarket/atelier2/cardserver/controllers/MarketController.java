@@ -1,10 +1,8 @@
 package j3lcardmarket.atelier2.cardserver.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import j3lcardmarket.atelier2.cardserver.dto.CreateCardDto;
 import j3lcardmarket.atelier2.cardserver.dto.SellCardDto;
-import j3lcardmarket.atelier2.cardserver.dto.TransactionDTO;
-import j3lcardmarket.atelier2.cardserver.models.Card;
+import j3lcardmarket.atelier2.cardserver.dto.TransactionDto;
 import j3lcardmarket.atelier2.cardserver.models.Transaction;
 import j3lcardmarket.atelier2.cardserver.models.UserCard;
 import j3lcardmarket.atelier2.cardserver.services.TransactionalCardManager;
@@ -20,20 +18,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/usercards")
-public class UserCardController {
+@RequestMapping("/api/market")
+public class MarketController {
     @Value("${cardmanager.admin.username}")
     String adminUsername;
 
     @Autowired
     TransactionalCardManager cardService;
-
-    @GetMapping("/owned")
-    @CardAuth
-    @ResponseBody
-    public List<UserCard> getAllOwned(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return cardService.getAllByOwner(cardUserInfo.userName());
-    }
 
     @GetMapping("/on-sale")
     @CardAuth
@@ -42,7 +33,7 @@ public class UserCardController {
         return cardService.getPurchasableByOwner(cardUserInfo.surname());
     }
 
-    @PutMapping("/{userCardId}/buy")
+    @PutMapping("/user-cards/{userCardId}/buy")
     @SecurityRequirement(name = "cardauth")
     @CardAuth
     @ResponseBody
@@ -50,7 +41,7 @@ public class UserCardController {
         return cardService.buy(userCardId, cardUserInfo.userName());
     }
 
-    @PutMapping("/{userCardId}/sell")
+    @PutMapping("/user-cards/{userCardId}/sell")
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
@@ -66,8 +57,8 @@ public class UserCardController {
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
-    public List<TransactionDTO> getAll(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+    public List<TransactionDto> getAll(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         if (!cardUserInfo.userName().equals(adminUsername)) throw new ForbiddenException();
-        return transactionService.getTransactions().stream().map(TransactionDTO::new).collect(Collectors.toList());
+        return transactionService.getTransactions().stream().map(TransactionDto::new).collect(Collectors.toList());
     }
 }

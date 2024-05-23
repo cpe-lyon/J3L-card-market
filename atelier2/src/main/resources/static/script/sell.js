@@ -54,7 +54,7 @@ function sellCard(cardId) {
         document.getElementById('card-price').focus();
         return;
     }
-    fetch(`/api/usercards/${cardId}/sell`, {
+    fetch(`/api/market/user-cards/${cardId}/sell`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ function sellCard(cardId) {
 }
 
 function getCardFromAPI() {
-    fetch(`/api/usercards/owned`, {
+    fetch(`/api/cards/owned`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ function buildUserCard(){
      * @type {HTMLSelectElement}
      */
     const cardsSelect = document.querySelector("#cardsSelect");
-    fetch(`/api/cards/${cardsSelect.value}/usercard`, {
+    fetch(`/api/cards/${cardsSelect.value}/user-card`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
