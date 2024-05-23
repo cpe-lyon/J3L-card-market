@@ -13,7 +13,7 @@ public class Card {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     private UserIdentifier creator;
 
     private String imageUrl;

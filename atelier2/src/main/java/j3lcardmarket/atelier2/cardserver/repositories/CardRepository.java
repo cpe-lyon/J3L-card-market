@@ -2,7 +2,14 @@ package j3lcardmarket.atelier2.cardserver.repositories;
 
 import j3lcardmarket.atelier2.cardserver.models.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface CardRepository extends JpaRepository<Card, Integer> {}
+public interface CardRepository extends JpaRepository<Card, Integer> {
+    @Query("SELECT c.id FROM Card c")
+    public List<Integer> allIds();
+
+}
