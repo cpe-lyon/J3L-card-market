@@ -11,8 +11,14 @@ public class UserIdentifier {
     @Id
     private String surname;
 
-    public UserIdentifier(){this(null);}
+    private Integer balance;
+
+    public UserIdentifier(){
+        this(null);
+    }
+
     public UserIdentifier(String surname){
         this.surname = surname;
+        this.balance = 100;
     }
 }

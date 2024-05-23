@@ -14,7 +14,7 @@ public class UserController {
     @Value("${cardmanager.admin.username}")
     String adminUsername;
 
-    @GetMapping("")
+    @GetMapping
     @CardAuth()
     @SecurityRequirement(name = "cardauth")
     public UserInfoDto getInfo(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {

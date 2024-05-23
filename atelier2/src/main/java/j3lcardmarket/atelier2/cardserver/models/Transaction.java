@@ -24,5 +24,6 @@ public class Transaction {
 
     private Integer price;
 
+    @Column(name = "sold_on")
     private LocalDate soldOn;
 }

@@ -22,7 +22,7 @@ public class TransactionController {
     @Autowired
     TransactionalCardManager transactionService;
 
-    @GetMapping()
+    @GetMapping
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
