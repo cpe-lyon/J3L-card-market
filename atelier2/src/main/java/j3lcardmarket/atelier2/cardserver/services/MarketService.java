@@ -54,6 +54,9 @@ public class MarketService {
         transaction.setSoldOn(LocalDate.now());
         transaction.setBuyer(buyer);
 
+        buyer.setBalance(buyer.getBalance() - userCard.getPrice());
+        userCard.getOwner().setBalance(userCard.getOwner().getBalance() + userCard.getPrice());
+
         userCard.setOwner(buyer);
         userCard.setPrice(null);
 
