@@ -53,7 +53,7 @@ public class MarketController {
     @Autowired
     TransactionalCardManager transactionService;
 
-    @GetMapping("/history")
+    @GetMapping("/transactions")
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
