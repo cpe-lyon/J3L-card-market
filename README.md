@@ -23,3 +23,10 @@
 
 ## Ateliers
 [Atelier 2](./docs/atelier2.md)
+| Action                      | Statut  |
+|-----------------------------|---------|
+| Création d’utilisateur et connexion| <div align="center">✅</div> |
+| Création d'une nouvelle carte| <div align="center">✅</div> |
+| Page d'achat d'une carte| <div align="center">✅</div> |
+| Page de vente d'une carte| <div align="center">✅</div> |
+| Page de visualisation des transactions| <div align="center">✅</div> |
