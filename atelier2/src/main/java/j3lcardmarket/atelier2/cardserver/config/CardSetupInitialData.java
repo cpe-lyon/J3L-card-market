@@ -23,18 +23,21 @@ public class CardSetupInitialData {
 
     @PostConstruct
     public void initialize() {
-        if (urepo.existsById("jorge")) return;
-        logService.saveUser("jorge");
         if (urepo.existsById("xavier")) return;
-        logService.saveUser("xavier");
-        manager.createCard("Blue-Eyes White Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
-        manager.createCard("Black Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
-        manager.createCard("White Mage", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
-        manager.createCard("Super princess", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
-        manager.createCard("Red-Eyes White Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
-        manager.createCard("Yellow Dragon", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
-        manager.createCard("Blue Mage", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
-        manager.createCard("Mega princess", "xavier", "https://m.media-amazon.com/images/I/51zbY7ES7zL._AC_UF1000,1000_QL80_.jpg");
+        logService.newCardUser("xavier", userIdentifier -> {} );
+        manager.createCard("30,000-Year White Turtle", "xavier", "https://images.ygoprodeck.com/images/cards/11714098.jpg");
+        manager.createCard("4-Starred Ladybug of Doom", "xavier", "https://images.ygoprodeck.com/images/cards/83994646.jpg");
+        manager.createCard("7", "xavier", "https://images.ygoprodeck.com/images/cards/67048711.jpg");
+        manager.createCard("7 Colored Fish", "xavier", "https://images.ygoprodeck.com/images/cards/23771716.jpg");
+        manager.createCard("7 Completed", "xavier", "https://images.ygoprodeck.com/images/cards/86198326.jpg");
+        manager.createCard("8-Claws Scorpion", "xavier", "https://images.ygoprodeck.com/images/cards/14261867.jpg");
+        manager.createCard("A Cat of Ill Omen", "xavier", "https://images.ygoprodeck.com/images/cards/24140059.jpg");
+        manager.createCard("A Deal with Dark Ruler", "xavier", "https://images.ygoprodeck.com/images/cards/6850209.jpg");
+        manager.createCard("A Feather of the Phoenix", "xavier", "https://images.ygoprodeck.com/images/cards/49140998.jpg");
+        manager.createCard("A Feint Plan", "xavier", "https://images.ygoprodeck.com/images/cards/68170903.jpg");
+
+        if (urepo.existsById("jorge")) return;
+        logService.newCardUser("jorge", manager::giveFiveRandomCards);
     }
 
 }

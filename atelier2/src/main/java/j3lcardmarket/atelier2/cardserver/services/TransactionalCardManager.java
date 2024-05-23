@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,6 +115,18 @@ public class TransactionalCardManager {
         userCard.setPrice(price);
 
         return userCardRepo.save(userCard);
+    }
+
+    public void giveFiveRandomCards(UserIdentifier userId){
+        List<Integer> ids = cardRepo.allIds();
+        Collections.shuffle(ids);
+        ids = ids.subList(0, 5);
+        for (Integer id : ids) {
+            UserCard userCard = new UserCard();
+            userCard.setCard(cardRepo.getReferenceById(id));
+            userCard.setOwner(userId);
+            userCardRepo.save(userCard);
+        }
     }
 
     public List<Transaction> getTransactions(){
