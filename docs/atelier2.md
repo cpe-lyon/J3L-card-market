@@ -3,7 +3,7 @@
 
 ### Architecture du projet
 
-![Untitled](img/Atelier2-Merge.drawio.png)
+![Untitled](img/Atelier2-Merge.png)
 
 ### Schéma de la base de données
 
