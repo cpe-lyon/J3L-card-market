@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Card</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="profile">
+    <span>User</span>
+    <strong class="admin">[ADMIN]</strong>
+    <img src="/images/default-user.png" alt="Profile Icon" width="30">
+</div>
+    <div id="header"></div>
+    <script>
+        $(function(){
+            $("#header").load("/pages/header.html");
+        });
+    </script>
+    <script src="/script/handletoken.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="profile">
+        <span>User</span>
+    <strong class="admin">[ADMIN]</strong>
+        <img src="/images/default-user.png" alt="Profile Icon" width="30">
+    </div>
+    <div id="header"></div>
+    <script>
+        $(function(){
+            $("#header").load("/pages/header.html");
+        });
+    </script>
+    <div class="container">
+        <h1>BUY</h1>
+        <p>Balance: <span id="balance"></span>$</p>
+        <div class="market">
+            <table id="market-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                </tr>
+                </thead>
+                <tbody id="card-table"></tbody>
+            </table>
+            <div class="card-details">
+                <img id="card-image" src="" alt="Card Image">
+                <p id="card-name">Card Name: </p>
+                <p id="card-price">Card Price: </p>
+                <button id="buy-button">Buy</button>
+            </div>
+        </div>
+    </div>
+    <script src="/script/handletoken.js"></script>
+    <script src="../script/buy.js"></script>
+</body>
+</html>
