@@ -15,6 +15,10 @@ public class Player extends User {
         if (!this.getCards().contains(card)) {
             throw new IllegalArgumentException("Player does not own this card");
         }
+        if (card.getEnergy() <= 0) {
+            throw new IllegalArgumentException("Selected card has no energy");
+        }
+
         this.selectedCard = new InGameCard(card);
     }
 

@@ -52,4 +52,14 @@ class PlayerTest {
         // Then
         assertFalse(jossePlayer.hasNoSelectedCard());
     }
+
+    @Test
+    void testSelectCardWithoutEnergy() {
+        // Given
+        userCardDracofeu.looseEnergy(100);
+
+        // When / Then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> jossePlayer.selectCard(userCardDracofeu));
+        assertEquals("Selected card has no energy", exception.getMessage());
+    }
 }

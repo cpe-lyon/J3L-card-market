@@ -3,7 +3,7 @@ package j3lcardmarket.atelier3.gameserver.domains;
 public enum GameRoomState {
     INITIAL,
     WAITING_FOR_PLAYERS,
-    IN_PROGRESS,
+    READY_TO_START,
     COMPLETED,
     CANCELLED
 }
