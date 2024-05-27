@@ -41,6 +41,3 @@ jobs:
 
     - name: Generate dependency graph
       run: mvn -B com.github.ferstl:depgraph-maven-plugin:4.0.1:graph
-      with:
-        graphFile: 'dependency-graph'
-        verbose: 'true'
