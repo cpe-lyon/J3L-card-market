@@ -1,5 +1,6 @@
 const searchParams = new URLSearchParams(location.search.substr(1));
-const redirectUrl = searchParams.has("redirect")? searchParams.get("redirect") : location.origin;
+
+const redirectUrl = searchParams.has("redirect")? searchParams.get("redirect") : HOME_URL;
 
 /**
  * @type {Element[]}

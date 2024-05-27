@@ -9,12 +9,13 @@ import java.util.Base64;
 @Component
 public class SignatureUtils {
 
-    @Autowired
+    @Autowired(required = false)
     public PublicKey publicKey;
-    @Autowired
+    @Autowired(required = false)
     public PrivateKey privateKey;
 
     public String sign(String src){
+        if(privateKey == null) throw new RuntimeException("No private key configured");
         Signature signer;
         try {
             signer = Signature.getInstance("SHA256withRSA");
@@ -28,6 +29,7 @@ public class SignatureUtils {
     }
 
     public String unsign(String signed) throws SignatureException{
+        if(privateKey == null) throw new SignatureException("No public key configured");
         String[] parts = signed.split("(?<!\\\\);", 2);
         if (parts.length != 2) throw new SignatureException("String not signed");
         String src = parts[0].replace("\\;", ";");
