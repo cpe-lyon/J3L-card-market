@@ -13,6 +13,9 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .components(new Components()
                         .addSecuritySchemes("cardauth",
-                                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer")));
+                                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer"))
+                        .addSecuritySchemes("basicauth",
+                            new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic"))
+                );
     }
 }
