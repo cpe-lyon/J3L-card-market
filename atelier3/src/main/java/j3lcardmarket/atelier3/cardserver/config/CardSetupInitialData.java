@@ -1,7 +1,7 @@
 package j3lcardmarket.atelier3.cardserver.config;
 
-import j3lcardmarket.atelier3.cardserver.repositories.UserIdentifierRepository;
-import j3lcardmarket.atelier3.cardserver.services.UserService;
+import j3lcardmarket.atelier3.userserver.repositories.UserIdentifierRepository;
+import j3lcardmarket.atelier3.userserver.services.UserService;
 import j3lcardmarket.atelier3.cardserver.services.CardService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;

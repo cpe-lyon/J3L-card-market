@@ -1,6 +1,5 @@
 package j3lcardmarket.atelier3.gameserver.domains;
 
-import j3lcardmarket.atelier3.gameserver.models.GameRoomState;
 import lombok.Getter;
 
 @Getter
@@ -19,6 +18,9 @@ public class GameRoom {
         if (this.state != GameRoomState.INITIAL) {
             throw new IllegalStateException("Game room already initialized");
         }
+        if (creator.hasNoSelectedCard()) {
+            throw new IllegalArgumentException("Creator must select a card before creating a game room");
+        }
 
         this.creator = creator;
         this.roomName = roomName;
@@ -31,6 +33,12 @@ public class GameRoom {
         }
         if (this.opponent != null) {
             throw new IllegalStateException("An opponent has already joined this game room");
+        }
+        if (opponent.equals(this.creator)) {
+            throw new IllegalArgumentException("Cannot join a game room as opponent if you are the creator");
+        }
+        if (opponent.hasNoSelectedCard()) {
+            throw new IllegalArgumentException("Opponent must select a card before joining a game room");
         }
 
         this.opponent = opponent;
