@@ -13,11 +13,11 @@ public class Fight {
         Player winner = Math.random() > 0.5 ? player1 : player2;
         Player looser = winner == player1 ? player2 : player1;
 
-        winner.getSelectedCard().looseAllHp();
-        winner.getSelectedCard().looseEnergy(25);
+        looser.getSelectedCard().looseAllHp();
+        looser.getSelectedCard().looseEnergy(25);
 
-        int lostHp = (int) (Math.random() * 10);
-        looser.getSelectedCard().looseHp(lostHp);
-        looser.getSelectedCard().looseEnergy(10);
+        int winnerLostHp = (int) (Math.random() * 10);
+        winner.getSelectedCard().looseHp(winnerLostHp);
+        winner.getSelectedCard().looseEnergy(10);
     }
 }

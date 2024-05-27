@@ -96,8 +96,6 @@ class GameRoomTest {
         // Given
         gameRoom.init(jossePlayer, "Room1");
         gameRoom.joinAsOpponent(leoPlayer);
-        int creatorEnergy = gameRoom.getCreator().getSelectedCard().getEnergy();
-        int opponentEnergy = gameRoom.getOpponent().getSelectedCard().getEnergy();
 
         // When
         gameRoom.executeGame();
@@ -111,8 +109,8 @@ class GameRoomTest {
         assertNotEquals(winner.getSelectedCard().getHp(), 0);
         assertEquals(looser.getSelectedCard().getHp(), 0);
 
-        assertEquals(winner.getSelectedCard().getEnergy(), creatorEnergy - 10);
-        assertEquals(looser.getSelectedCard().getEnergy(), opponentEnergy - 25);
+        assertEquals(winner.getSelectedCard().getEnergy(), 90);
+        assertEquals(looser.getSelectedCard().getEnergy(), 75);
 
         assertEquals(GameRoomState.COMPLETED, gameRoom.getState());
     }
