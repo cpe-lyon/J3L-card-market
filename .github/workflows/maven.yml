@@ -27,8 +27,13 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+    - name: Start MySQL with Docker Compose
+      run: docker-compose -f atelier3/src/main/resources/database/docker-compose.yml up -d
+        
     - name: Build with Maven
       run: mvn -B package --file atelier3/pom.xml
+      
     - name: Test with Maven
       run: mvn test --file atelier3/pom.xml
 
