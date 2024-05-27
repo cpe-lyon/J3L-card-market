@@ -1,6 +1,6 @@
 package j3lcardmarket.atelier3.cardserver.services;
 
-import j3lcardmarket.atelier3.cardserver.models.Card;
+import j3lcardmarket.atelier3.commons.models.Card;
 import j3lcardmarket.atelier3.cardserver.repositories.CardRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class CardService {
     }
 
     public Card getById(int id) {
-        return cardRepo.findById(id);
+        return cardRepo.findById(id).get();
     }
 
     @Transactional

@@ -1,5 +1,6 @@
 package j3lcardmarket.atelier3.cardserver.config;
 
+import j3lcardmarket.atelier3.commons.utils.UserUtils;
 import j3lcardmarket.atelier3.userserver.services.UserService;
 import j3lcardmarket.atelier3.cardserver.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CardHandlerManager implements WebMvcConfigurer {
     @Autowired
-    UserService service;
+    UserUtils service;
 
     @Autowired
     CardService manager;
