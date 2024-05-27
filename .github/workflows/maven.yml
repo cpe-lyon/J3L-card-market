@@ -30,14 +30,14 @@ jobs:
 
     - name: Start MySQL with Docker Compose
       run: |
-        docker-compose -f atelier3/src/main/resources/database/docker-compose.yml up -d
+        docker-compose -f atelier3/commons/src/main/resources/database/docker-compose.yml up -d
         export DB_PASSWORD=$DB_PASSWORD
         
     - name: Build with Maven
-      run: mvn -B package --file atelier3/pom.xml
+      run: mvn -B package --file atelier3/auth-server/pom.xml
       
     - name: Test with Maven
-      run: mvn test --file atelier3/pom.xml
+      run: mvn -B test --file atelier3/auth-server/pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
