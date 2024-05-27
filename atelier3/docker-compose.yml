@@ -1,7 +1,11 @@
 version: '3.1'
 services:
   postgres:
-    build: ./src/main/resources/database
+    image: postgres:latest
+    environment:
+        POSTGRES_DB: atelier3
+        POSTGRES_USER: atelier3
+        POSTGRES_PASSWORD: atelier3
     restart: always
     ports:
       - 5432:5432
