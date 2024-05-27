@@ -1,4 +1,4 @@
-const loginUrl = "/login.html"
+const loginUrl = `${AUTH_SERVER_URL}/login.html`
 
 const currentUrl = new URL(location.href);
 if (currentUrl.searchParams.has("token")){

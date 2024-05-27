@@ -14,15 +14,18 @@ import java.util.Base64;
 
 @Configuration
 public class SignatureKeyConfig {
-    @Value("${private.key}")
+    @Value("${private.key:none}")
     private String privateKeyBase64;
 
-    @Value("${public.key}")
+    @Value("${public.key:none}")
     private String publicKeyBase64;
 
     @Bean
     @Scope("singleton")
     public PrivateKey privateKey() throws Exception {
+        if(privateKeyBase64.equals("none")){
+            return null;
+        }
         byte[] privateKeyBytes = Base64.getDecoder().decode(privateKeyBase64);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
@@ -32,6 +35,9 @@ public class SignatureKeyConfig {
     @Bean
     @Scope("singleton")
     public PublicKey publicKey() throws Exception {
+        if(publicKeyBase64.equals("none")){
+            return null;
+        }
         byte[] publicKeyBytes = Base64.getDecoder().decode(publicKeyBase64);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKeyBytes);
