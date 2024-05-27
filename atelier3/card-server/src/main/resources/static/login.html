@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #000;
+            text-align: center;
+            cursor: pointer;
+            width: 200px;
+        }
+        .profile {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+    <title>Login to Card App</title>
+</head>
+<body>
+    <div id="header"></div>
+    <script>
+        $(function(){
+            $("#header").load("/pages/header.html");
+        });
+    </script>
+
+    <input type="radio" name="register" value="true" id="register-box" style="display: none;">
+    <input type="radio" name="register" value="false" id="login-box" style="display: none;">
+
+    <form id="loginForm" action="/login" method="post">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input class="register-only" type="text" name="surname" placeholder="Surname">
+        <input class="register-only" type="text" name="avatarUrl" placeholder="Avatar URL">
+        <button class="login-only" type="submit">Login</button>
+        <button class="register-only" type="submit">Register</button>
+    </form>
+    <p class="login-only" style="display: flex;justify-content: center;">
+        No Account ? <label for="register-box">Register</label>
+    </p>
+    <p class="register-only" style="display: flex;justify-content: center;">
+        Already Account ? <label for="login-box">Login</label>
+    </p>
+    <script src="./script/login.js"></script>
+</body>
+</html>
