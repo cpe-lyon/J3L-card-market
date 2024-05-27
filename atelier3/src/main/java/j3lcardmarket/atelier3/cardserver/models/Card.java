@@ -10,11 +10,10 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
-
-    @ManyToOne(optional = true)
-    private UserIdentifier creator;
-
     private String imageUrl;
+    private int level;
+    private int defense;
+    private int attack;
+    private String attribute;
 }

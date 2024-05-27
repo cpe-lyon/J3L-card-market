@@ -8,8 +8,11 @@ import lombok.Data;
 public class CreateCardDto {
 
     @NotEmpty(message = "Name is required")
-    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
+    @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters")
     private String name;
-
     private String imageUrl;
+    private int level;
+    private int defense;
+    private int attack;
+    private String element;
 }
