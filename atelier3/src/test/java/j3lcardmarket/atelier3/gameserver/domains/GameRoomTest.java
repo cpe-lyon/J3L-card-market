@@ -50,12 +50,6 @@ class GameRoomTest {
     }
 
     @Test
-    void testInitWhenCreatorHasNoSelectedCard() {
-        // When / Then
-        assertThrows(IllegalArgumentException.class, () -> gameRoom.init(notInitializedPlayer, "Room1"));
-    }
-
-    @Test
     void testInitAlreadyInitialized() {
         // Given
         gameRoom.init(jossePlayer, "Room1");
@@ -74,13 +68,7 @@ class GameRoomTest {
 
         // Then
         assertEquals(leoPlayer, gameRoom.getOpponent());
-        assertEquals(GameRoomState.IN_PROGRESS, gameRoom.getState());
-    }
-
-    @Test
-    void testJoinAsOpponentInvalidState() {
-        // When / Then
-        assertThrows(IllegalStateException.class, () -> gameRoom.joinAsOpponent(notInitializedPlayer));
+        assertEquals(GameRoomState.READY_TO_START, gameRoom.getState());
     }
 
     @Test
@@ -105,22 +93,41 @@ class GameRoomTest {
     }
 
     @Test
-    void testCancelGame() {
-        // Given
-        gameRoom.init(jossePlayer, "Room1");
-
-        // When
-        gameRoom.cancelGame();
-
-        // Then
-        assertEquals(GameRoomState.CANCELLED, gameRoom.getState());
-    }
-
-    @Test
-    void testCancelGameFromInProgress() {
+    void testStartGame() {
         // Given
         gameRoom.init(jossePlayer, "Room1");
         gameRoom.joinAsOpponent(leoPlayer);
+
+        // When
+        gameRoom.startGame();
+
+        // Then
+        assertEquals(GameRoomState.IN_PROGRESS, gameRoom.getState());
+    }
+
+    @Test
+    void testStartGameNotReady() {
+        // Given
+        gameRoom.init(jossePlayer, "Room1");
+
+        // When / Then
+        assertThrows(IllegalStateException.class, () -> gameRoom.startGame());
+    }
+
+    @Test
+    void testStartGameNoSelectedCard() {
+        // Given
+        gameRoom.init(jossePlayer, "Room1");
+        gameRoom.joinAsOpponent(notInitializedPlayer);
+
+        // When / Then
+        assertThrows(IllegalArgumentException.class, () -> gameRoom.startGame());
+    }
+
+    @Test
+    void testCancelGame() {
+        // Given
+        gameRoom.init(jossePlayer, "Room1");
 
         // When
         gameRoom.cancelGame();

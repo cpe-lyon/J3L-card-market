@@ -18,9 +18,6 @@ public class GameRoom {
         if (this.state != GameRoomState.INITIAL) {
             throw new IllegalStateException("Game room already initialized");
         }
-        if (creator.hasNoSelectedCard()) {
-            throw new IllegalArgumentException("Creator must select a card before creating a game room");
-        }
 
         this.creator = creator;
         this.roomName = roomName;
@@ -37,21 +34,20 @@ public class GameRoom {
         if (opponent.equals(this.creator)) {
             throw new IllegalArgumentException("Cannot join a game room as opponent if you are the creator");
         }
-        if (opponent.hasNoSelectedCard()) {
-            throw new IllegalArgumentException("Opponent must select a card before joining a game room");
-        }
 
         this.opponent = opponent;
-        this.state = GameRoomState.IN_PROGRESS;
+        this.state = GameRoomState.READY_TO_START;
     }
 
-    public void completeGame() {
-        if (this.state != GameRoomState.IN_PROGRESS) {
-            throw new IllegalStateException("Game can only be completed if it is in progress");
+    public void startGame() {
+        if (this.state != GameRoomState.READY_TO_START) {
+            throw new IllegalStateException("Game can only be started if it is ready to start");
+        }
+        if (creator.hasNoSelectedCard() || opponent.hasNoSelectedCard()) {
+            throw new IllegalArgumentException("Player must select a card before starting the game");
         }
 
-        // TODO: Implement game completion logic
-        this.state = GameRoomState.COMPLETED;
+        this.state = GameRoomState.IN_PROGRESS;
     }
 
     public void cancelGame() {
