@@ -42,7 +42,7 @@ jobs:
     - name: Test with Maven
       run: mvn -B test --file atelier3/auth-server/pom.xml
 
-    - name: Build with Maven
+    - name: Test with Maven
       run: mvn -B test --file atelier3/commons/pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
