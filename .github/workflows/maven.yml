@@ -38,6 +38,3 @@ jobs:
 
     - name: Test with Maven
       run: mvn -B test --file atelier3/commons/pom.xml
-
-    - name: Generate dependency graph
-      run: mvn -B com.github.ferstl:depgraph-maven-plugin:4.0.1:graph
