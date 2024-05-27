@@ -1,5 +1,6 @@
 package j3lcardmarket.atelier3.authserver.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.authserver.models.BasicAuthInfoImpl;
 import j3lcardmarket.atelier3.authserver.models.RegisterAuthDTO;
 import j3lcardmarket.atelier3.authserver.models.TokenAuthInfo;
@@ -38,10 +39,11 @@ public class LoginAPI {
     }
 
     // HTTP Endpoint
+    @SecurityRequirement(name="basicauth")
     @RequestMapping(value = "/login",  method = RequestMethod.POST)
     @ResponseBody
     public void login(
-            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
             HttpServletResponse response) throws IOException {
         responseFromSupplier(
                 authorizationHeader,
@@ -52,10 +54,11 @@ public class LoginAPI {
         );
     }
 
+    @SecurityRequirement(name="basicauth")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public void register(
-            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
             @RequestBody RegisterAuthDTO authDto,
             HttpServletResponse response) throws IOException {
         responseFromSupplier(
