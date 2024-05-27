@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  postgres:
+    build: ./src/main/resources/database
+    restart: always
+    ports:
+      - 5432:5432
+
+  nginx:
+    build: ./src/main/resources/nginx
+    restart: always
+    ports:
+      - 8080:80
