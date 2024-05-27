@@ -1,4 +1,4 @@
-package j3lcardmarket.atelier3.cardserver.utils.annotations;
+package j3lcardmarket.atelier3.commons.utils;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

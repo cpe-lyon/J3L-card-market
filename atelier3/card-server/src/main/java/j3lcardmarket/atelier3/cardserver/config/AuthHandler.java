@@ -3,7 +3,7 @@ package j3lcardmarket.atelier3.cardserver.config;
 import j3lcardmarket.atelier3.commons.models.UserIdentifier;
 import j3lcardmarket.atelier3.commons.utils.UserUtils;
 import j3lcardmarket.atelier3.cardserver.services.CardService;
-import j3lcardmarket.atelier3.cardserver.utils.annotations.CardAuth;
+import j3lcardmarket.atelier3.commons.utils.CardAuth;
 import j3lcardmarket.atelier3.commons.models.TimedUserInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

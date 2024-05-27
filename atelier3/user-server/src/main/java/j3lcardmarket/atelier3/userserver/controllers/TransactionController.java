@@ -1,11 +1,11 @@
 package j3lcardmarket.atelier3.userserver.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import j3lcardmarket.atelier3.commons.utils.CardAuth;
 import j3lcardmarket.atelier3.userserver.dto.CreateTransactionDTO;
 import j3lcardmarket.atelier3.userserver.dto.TransactionDto;
 import j3lcardmarket.atelier3.commons.models.Transaction;
 import j3lcardmarket.atelier3.userserver.services.MarketService;
-import j3lcardmarket.atelier3.cardserver.utils.annotations.CardAuth;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
 import j3lcardmarket.atelier3.commons.utils.ForbiddenException;
 import jakarta.validation.Valid;
