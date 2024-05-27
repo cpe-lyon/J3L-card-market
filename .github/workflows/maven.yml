@@ -34,7 +34,4 @@ jobs:
         export DB_PASSWORD=$DB_PASSWORD
 
     - name: Build with Maven
-      run: mvn -B package --file atelier3/commons/pom.xml
-
-    - name: Test with Maven
-      run: mvn -B test --file atelier3/commons/pom.xml
+      run: mvn -B verify --file atelier3/commons/pom.xml
