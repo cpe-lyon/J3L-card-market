@@ -27,7 +27,7 @@ public class CardController {
 
     @GetMapping
     @ResponseBody
-    public CardDto getById(@RequestParam int id) {
-        return cardService.getById(id).map(CardDto::new).collect;
+    public CardDto getByid(@RequestParam int id) {
+        return new CardDto(cardService.getById(id));
     }
 }
