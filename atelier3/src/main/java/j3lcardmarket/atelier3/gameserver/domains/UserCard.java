@@ -19,6 +19,10 @@ public class UserCard extends Card {
 
         public void looseEnergy(Integer energy) {
             this.energy -= energy;
+
+            if (this.energy < 0) {
+                this.energy = 0;
+            }
         }
 
         public void resetEnergy() {
