@@ -1,4 +1,4 @@
-package j3lcardmarket.atelier3.cardserver.dto;
+package j3lcardmarket.atelier3.userserver.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
-package j3lcardmarket.atelier3.cardserver.repositories;
+package j3lcardmarket.atelier3.userserver.repositories;
 
-import j3lcardmarket.atelier3.cardserver.models.UserIdentifier;
+import j3lcardmarket.atelier3.commons.models.UserIdentifier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

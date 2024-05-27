@@ -1,8 +1,8 @@
-package j3lcardmarket.atelier3.cardserver.services;
+package j3lcardmarket.atelier3.userserver.services;
 
 import j3lcardmarket.atelier3.authserver.models.TokenAuthInfo;
-import j3lcardmarket.atelier3.cardserver.models.UserIdentifier;
-import j3lcardmarket.atelier3.cardserver.repositories.UserIdentifierRepository;
+import j3lcardmarket.atelier3.commons.models.UserIdentifier;
+import j3lcardmarket.atelier3.userserver.repositories.UserIdentifierRepository;
 import j3lcardmarket.atelier3.commons.models.TimedUserInfo;
 import j3lcardmarket.atelier3.commons.utils.InvalidTokenException;
 import j3lcardmarket.atelier3.commons.utils.LoginChecker;

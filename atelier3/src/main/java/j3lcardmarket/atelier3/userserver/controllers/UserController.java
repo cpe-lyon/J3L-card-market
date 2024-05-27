@@ -1,8 +1,8 @@
-package j3lcardmarket.atelier3.cardserver.controllers;
+package j3lcardmarket.atelier3.userserver.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import j3lcardmarket.atelier3.cardserver.dto.UserInfoDto;
-import j3lcardmarket.atelier3.cardserver.services.UserService;
+import j3lcardmarket.atelier3.userserver.dto.UserInfoDto;
+import j3lcardmarket.atelier3.userserver.services.UserService;
 import j3lcardmarket.atelier3.cardserver.utils.annotations.CardAuth;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
