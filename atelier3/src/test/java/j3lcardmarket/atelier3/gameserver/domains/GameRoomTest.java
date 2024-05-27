@@ -1,7 +1,6 @@
 package j3lcardmarket.atelier3.gameserver.domains;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -93,35 +92,48 @@ class GameRoomTest {
     }
 
     @Test
-    void testStartGame() {
+    void testExecuteGame() {
         // Given
         gameRoom.init(jossePlayer, "Room1");
         gameRoom.joinAsOpponent(leoPlayer);
+        int creatorEnergy = gameRoom.getCreator().getSelectedCard().getEnergy();
+        int opponentEnergy = gameRoom.getOpponent().getSelectedCard().getEnergy();
 
         // When
-        gameRoom.startGame();
+        gameRoom.executeGame();
 
         // Then
-        assertEquals(GameRoomState.IN_PROGRESS, gameRoom.getState());
+        assertTrue(gameRoom.getCreator().getSelectedCard().getHp() == 0 || gameRoom.getOpponent().getSelectedCard().getHp() == 0);
+
+        Player winner = gameRoom.getCreator().getSelectedCard().getHp() == 0 ? gameRoom.getOpponent() : gameRoom.getCreator();
+        Player looser = gameRoom.getCreator().getSelectedCard().getHp() == 0 ? gameRoom.getCreator() : gameRoom.getOpponent();
+
+        assertNotEquals(winner.getSelectedCard().getHp(), 0);
+        assertEquals(looser.getSelectedCard().getHp(), 0);
+
+        assertEquals(winner.getSelectedCard().getEnergy(), creatorEnergy - 10);
+        assertEquals(looser.getSelectedCard().getEnergy(), opponentEnergy - 25);
+
+        assertEquals(GameRoomState.COMPLETED, gameRoom.getState());
     }
 
     @Test
-    void testStartGameNotReady() {
+    void testExecuteGameNotReady() {
         // Given
         gameRoom.init(jossePlayer, "Room1");
 
         // When / Then
-        assertThrows(IllegalStateException.class, () -> gameRoom.startGame());
+        assertThrows(IllegalStateException.class, () -> gameRoom.executeGame());
     }
 
     @Test
-    void testStartGameNoSelectedCard() {
+    void testExecuteGameNoSelectedCard() {
         // Given
         gameRoom.init(jossePlayer, "Room1");
         gameRoom.joinAsOpponent(notInitializedPlayer);
 
         // When / Then
-        assertThrows(IllegalArgumentException.class, () -> gameRoom.startGame());
+        assertThrows(IllegalArgumentException.class, () -> gameRoom.executeGame());
     }
 
     @Test

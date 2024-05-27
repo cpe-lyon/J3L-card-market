@@ -39,7 +39,7 @@ public class GameRoom {
         this.state = GameRoomState.READY_TO_START;
     }
 
-    public void startGame() {
+    public void executeGame() {
         if (this.state != GameRoomState.READY_TO_START) {
             throw new IllegalStateException("Game can only be started if it is ready to start");
         }
@@ -47,7 +47,10 @@ public class GameRoom {
             throw new IllegalArgumentException("Player must select a card before starting the game");
         }
 
-        this.state = GameRoomState.IN_PROGRESS;
+        Fight fight = new Fight(creator, opponent);
+        fight.execute();
+
+        this.state = GameRoomState.COMPLETED;
     }
 
     public void cancelGame() {
