@@ -1,4 +1,4 @@
-package j3lcardmarket.atelier3.cardserver.dto;
+package j3lcardmarket.atelier3.userserver.dto;
 
 import j3lcardmarket.atelier3.commons.models.UserInfo;
 import lombok.Getter;

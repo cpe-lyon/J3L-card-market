@@ -1,4 +1,4 @@
-package j3lcardmarket.atelier3.cardserver.models;
+package j3lcardmarket.atelier3.commons.models;
 
 import jakarta.persistence.*;
 import lombok.Data;

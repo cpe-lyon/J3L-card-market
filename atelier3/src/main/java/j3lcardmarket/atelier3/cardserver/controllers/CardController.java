@@ -3,7 +3,7 @@ package j3lcardmarket.atelier3.cardserver.controllers;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.cardserver.dto.CardDto;
 import j3lcardmarket.atelier3.cardserver.dto.CreateCardDto;
-import j3lcardmarket.atelier3.cardserver.models.UserCard;
+import j3lcardmarket.atelier3.commons.models.UserCard;
 import j3lcardmarket.atelier3.cardserver.services.CardService;
 import j3lcardmarket.atelier3.cardserver.utils.annotations.CardAuth;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
