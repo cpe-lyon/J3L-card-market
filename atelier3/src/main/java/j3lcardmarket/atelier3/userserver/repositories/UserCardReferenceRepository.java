@@ -1,7 +1,6 @@
 package j3lcardmarket.atelier3.userserver.repositories;
 
-import j3lcardmarket.atelier3.cardserver.models.Card;
-import j3lcardmarket.atelier3.cardserver.models.UserCard;
+import j3lcardmarket.atelier3.commons.models.UserCard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;

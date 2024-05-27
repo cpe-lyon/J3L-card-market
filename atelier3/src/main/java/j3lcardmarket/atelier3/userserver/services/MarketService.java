@@ -1,13 +1,11 @@
 package j3lcardmarket.atelier3.userserver.services;
 
-import j3lcardmarket.atelier3.userserver.models.Transaction;
-import j3lcardmarket.atelier3.cardserver.models.UserCard;
+import j3lcardmarket.atelier3.commons.models.Transaction;
+import j3lcardmarket.atelier3.commons.models.UserCard;
 import j3lcardmarket.atelier3.commons.models.UserIdentifier;
 import j3lcardmarket.atelier3.userserver.repositories.TransactionRepository;
-import j3lcardmarket.atelier3.cardserver.repositories.UserCardRepository;
 import j3lcardmarket.atelier3.userserver.repositories.UserCardReferenceRepository;
 import j3lcardmarket.atelier3.userserver.repositories.UserIdentifierRepository;
-import j3lcardmarket.atelier3.commons.utils.ForbiddenException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +27,7 @@ public class MarketService {
     private UserIdentifierRepository userRepo;
 
     @Transactional
-    public Transaction buy(Integer userCardId, String buyerSurname, String ownerSurname, Integer price) {
+    public Transaction saveTransaction(Integer userCardId, String buyerSurname, String ownerSurname, Integer price) {
         UserCard userCard = userCardRepo.getReference(userCardId);
 
         if (price == null) {

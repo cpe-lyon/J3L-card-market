@@ -1,6 +1,6 @@
 package j3lcardmarket.atelier3.userserver.dto;
 
-import j3lcardmarket.atelier3.userserver.models.Transaction;
+import j3lcardmarket.atelier3.commons.models.Transaction;
 import lombok.Getter;
 
 @Getter

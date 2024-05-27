@@ -1,8 +1,8 @@
 package j3lcardmarket.atelier3.cardserver.services;
 
-import j3lcardmarket.atelier3.cardserver.models.Card;
+import j3lcardmarket.atelier3.commons.models.Card;
 import j3lcardmarket.atelier3.commons.models.UserIdentifier;
-import j3lcardmarket.atelier3.cardserver.models.UserCard;
+import j3lcardmarket.atelier3.commons.models.UserCard;
 import j3lcardmarket.atelier3.cardserver.repositories.CardRepository;
 import j3lcardmarket.atelier3.cardserver.repositories.UserCardRepository;
 import jakarta.transaction.Transactional;
