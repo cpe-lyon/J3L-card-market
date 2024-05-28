@@ -39,6 +39,9 @@ jobs:
     - name: Maven Install Commons
       run : mvn -B install --file atelier3/commons/pom.xml
 
+    - name: Import dependency
+      run: mvn dependency:get -Dartifact=j3lcardmarket.atelier3:commons:0.0.1-SNAPSHOT -B
+
     - name: Verify Game with Maven
       run: mvn -B verify --file atelier3/game-server/pom.xml
 
