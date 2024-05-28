@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>j3lcardmarket.atelier3</groupId>
-	<artifactId>user-server</artifactId>
+	<artifactId>userserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-server</name>
 	<description>Atelier 3 User Server</description>
