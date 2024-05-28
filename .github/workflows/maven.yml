@@ -28,8 +28,5 @@ jobs:
       - name: Install Commons with Maven
         run: mvn -B install --file atelier3/commons/pom.xml
 
-      - name: debug
-        run: ls | pwd
-
       - name: Verify and Install Card with Maven
         run: mvn -B verify install --file atelier3/card-server/pom.xml
