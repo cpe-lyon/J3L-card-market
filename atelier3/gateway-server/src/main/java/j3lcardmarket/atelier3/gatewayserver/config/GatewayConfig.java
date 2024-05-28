@@ -10,8 +10,15 @@ public class GatewayConfig {
     @Bean
     RouteLocator gateway(RouteLocatorBuilder routeLocatorBuilder) {
         return routeLocatorBuilder.routes()
-            .route("card-server", routeSpec -> routeSpec.path("/cards/").uri("lb://card-service"))
-            .route("user-server", routeSpec -> routeSpec.path("/users/").uri("lb://user-service"))
+                .route("buy-page", routeSpec -> routeSpec
+                        .path("/buy")
+                        .uri("forward:/pages/buy.html"))
+                .route("sell-page", routeSpec -> routeSpec
+                        .path("/sell")
+                        .uri("forward:/pages/sell.html"))
+                .route("transactions-page", routeSpec -> routeSpec
+                        .path("/transactions")
+                        .uri("forward:/pages/transactions.html"))
             .build();
     }
 }
