@@ -6,11 +6,11 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan({"j3lcardmarket.atelier3.commons", "j3lcardmarket.atelier3.cardserver"})
-public class CardsServerApplication {
+public class CardServerApplication {
 
 	public static void main(String[] args) {
 		System.setProperty("spring.profiles.default", "cardserver");
-		SpringApplication.run(CardsServerApplication.class, args);
+		SpringApplication.run(CardServerApplication.class, args);
 	}
 
 }

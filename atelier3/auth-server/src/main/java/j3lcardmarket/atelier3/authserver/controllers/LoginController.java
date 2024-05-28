@@ -2,7 +2,7 @@ package j3lcardmarket.atelier3.authserver.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.authserver.models.BasicAuthInfoImpl;
-import j3lcardmarket.atelier3.authserver.models.RegisterAuthDTO;
+import j3lcardmarket.atelier3.authserver.models.RegisterAuthDto;
 import j3lcardmarket.atelier3.commons.models.TokenAuthInfo;
 import j3lcardmarket.atelier3.authserver.models.User;
 import j3lcardmarket.atelier3.authserver.services.TokenLoginChecker;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.function.Supplier;
 
 @Controller
-public class LoginAPI {
+public class LoginController {
 
     @Autowired
     TokenLoginChecker loginService;
@@ -59,7 +59,7 @@ public class LoginAPI {
     @ResponseBody
     public void register(
             @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
-            @RequestBody RegisterAuthDTO authDto,
+            @RequestBody RegisterAuthDto authDto,
             HttpServletResponse response) throws IOException {
         responseFromSupplier(
                 authorizationHeader,
