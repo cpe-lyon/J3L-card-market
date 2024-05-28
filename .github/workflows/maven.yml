@@ -56,6 +56,4 @@ jobs:
       - name: Attest
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: 'Atelier3'
-          subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
+          subject-path: '${{ github.workspace }}'
