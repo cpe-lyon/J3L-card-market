@@ -14,28 +14,28 @@ public class GameRoom {
         this.state = GameRoomState.INITIAL;
     }
 
-    public void init(Player creator, String roomName) {
+    public void init(User creator, String roomName) {
         if (this.state != GameRoomState.INITIAL) {
             throw new IllegalStateException("Game room already initialized");
         }
 
-        this.creator = creator;
+        this.creator = new Player(creator);
         this.roomName = roomName;
         this.state = GameRoomState.WAITING_FOR_PLAYERS;
     }
 
-    public void joinAsOpponent(Player opponent) {
+    public void joinAsOpponent(User opponent) {
         if (this.state != GameRoomState.WAITING_FOR_PLAYERS) {
             throw new IllegalStateException("Cannot join as opponent in current state: " + this.state);
         }
         if (this.opponent != null) {
             throw new IllegalStateException("An opponent has already joined this game room");
         }
-        if (opponent.equals(this.creator)) {
+        if (opponent.getSurname().equals(this.creator.getSurname())) {
             throw new IllegalArgumentException("Cannot join a game room as opponent if you are the creator");
         }
 
-        this.opponent = opponent;
+        this.opponent = new Player(opponent);
         this.state = GameRoomState.READY_TO_START;
     }
 
