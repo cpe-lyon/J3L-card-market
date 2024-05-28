@@ -8,7 +8,7 @@
 		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>j3lcardmarket.user-server</groupId>
+	<groupId>j3lcardmarket.atelier3</groupId>
 	<artifactId>user-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-server</name>
