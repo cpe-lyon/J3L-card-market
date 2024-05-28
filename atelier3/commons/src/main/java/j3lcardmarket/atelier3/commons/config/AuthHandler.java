@@ -1,8 +1,6 @@
-package j3lcardmarket.atelier3.cardserver.config;
+package j3lcardmarket.atelier3.commons.config;
 
-import j3lcardmarket.atelier3.commons.models.UserIdentifier;
 import j3lcardmarket.atelier3.commons.utils.UserUtils;
-import j3lcardmarket.atelier3.cardserver.services.CardService;
 import j3lcardmarket.atelier3.commons.utils.CardAuth;
 import j3lcardmarket.atelier3.commons.models.TimedUserInfo;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,19 +10,16 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.function.Consumer;
 
-class AuthHandler implements HandlerInterceptor {
-    private final UserUtils service;
-    private final Consumer<UserIdentifier> cardInitializer;
+abstract public class AuthHandler implements HandlerInterceptor {
+    protected final UserUtils service;
 
-    public AuthHandler(UserUtils service, CardService manager) {
+    public AuthHandler(UserUtils service) {
         this.service = service;
-        this.cardInitializer = (ignored) -> {};
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) return true;
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
@@ -36,6 +31,7 @@ class AuthHandler implements HandlerInterceptor {
             String token = authHeader.substring("Bearer".length()).trim();
             TimedUserInfo userInfo = service.checkLogin(token);
             if (userInfo != null && userInfo.getExpireDate().after(new Date())) {
+                onLog(userInfo);
                 request.setAttribute("cardUserInfo", userInfo);
                 return true;
             }
@@ -44,4 +40,6 @@ class AuthHandler implements HandlerInterceptor {
         response.getWriter().print("NOT LOGGED IN");
         return false;
     }
+
+    protected abstract void onLog(TimedUserInfo userInfo);
 }

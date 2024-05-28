@@ -1,7 +1,5 @@
-package j3lcardmarket.atelier3.cardserver.config;
+package j3lcardmarket.atelier3.commons.config;
 
-import j3lcardmarket.atelier3.commons.utils.UserUtils;
-import j3lcardmarket.atelier3.cardserver.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,14 +8,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CardHandlerManager implements WebMvcConfigurer {
-    @Autowired
-    UserUtils service;
 
-    @Autowired
-    CardService manager;
+    @Autowired(required = false)
+    AuthHandler authHandler;
 
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthHandler(service, manager)).addPathPatterns("/api/**");
+        if(authHandler == null) return;
+        registry.addInterceptor(authHandler).addPathPatterns("/api/**");
     }
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
