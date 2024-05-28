@@ -1,17 +1,20 @@
-version: '3.1'
+version: '3.7'
 services:
   postgres:
     image: postgres:latest
     environment:
-        POSTGRES_DB: atelier3
-        POSTGRES_USER: atelier3
-        POSTGRES_PASSWORD: atelier3
+        POSTGRES_DB: cards
+        POSTGRES_USER: ouaf
+        POSTGRES_PASSWORD: ouaf
     restart: always
     ports:
       - 5432:5432
 
   nginx:
-    build: ./src/main/resources/nginx
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/resources:/usr/share/nginx/html
     restart: always
     ports:
       - 80:80
