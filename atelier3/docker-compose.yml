@@ -9,12 +9,3 @@ services:
     restart: always
     ports:
       - 5432:5432
-
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/resources:/usr/share/nginx/html
-    restart: always
-    ports:
-      - 80:80
