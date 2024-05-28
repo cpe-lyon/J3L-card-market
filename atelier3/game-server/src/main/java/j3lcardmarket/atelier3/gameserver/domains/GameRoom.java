@@ -8,7 +8,7 @@ public class GameRoom {
     private GameRoomState state;
     private Player creator;
     private Player opponent;
-    private String roomName;
+    private String name;
 
     public GameRoom() {
         this.state = GameRoomState.INITIAL;
@@ -20,7 +20,7 @@ public class GameRoom {
         }
 
         this.creator = new Player(creator);
-        this.roomName = roomName;
+        this.name = roomName;
         this.state = GameRoomState.WAITING_FOR_PLAYERS;
     }
 
