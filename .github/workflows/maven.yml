@@ -38,7 +38,7 @@ jobs:
 
     - name: Maven Install Commons
       run: |
-        cd /atelier3/commons
+        cd atelier3/commons
         mvn -f pom.xml clean install
 
     - name: Verify Card with Maven
