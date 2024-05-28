@@ -33,13 +33,6 @@ jobs:
         docker-compose -f atelier3/commons/src/main/resources/database/docker-compose.yml up -d
         export DB_PASSWORD=$DB_PASSWORD
 
-    - name: Cache Maven packages
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}}
-        restore-keys: ${{ runner.os }}-m2-
-
     - name: Verify Commons with Maven
       run: mvn -B verify --file atelier3/commons/pom.xml
 
@@ -47,7 +40,7 @@ jobs:
       run : mvn -B install --file atelier3/commons/pom.xml
 
     - name: Verify Game with Maven
-      run: mvn -B install --file atelier3/game-server/pom.xml
+      run: mvn -B verify --file atelier3/game-server/pom.xml
 
     - name: Verify Card with Maven
       run: mvn -e -B verify --file atelier3/card-server/pom.xml
