@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DiscoveryServiceApplication {
 
 	public static void main(String[] args) {
-		System.setProperty("spring.profiles.default", "cardserver");
 		SpringApplication.run(DiscoveryServiceApplication.class, args);
 	}
 
