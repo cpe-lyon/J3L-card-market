@@ -9,9 +9,9 @@ import java.util.List;
 
 class GameRoomTest {
     private GameRoom gameRoom;
-    private Player jossePlayer;
-    private Player leoPlayer;
-    private Player notInitializedPlayer;
+    private User josse;
+    private User leo;
+    private User louis;
 
     @BeforeEach
     void setUp() {
@@ -23,15 +23,9 @@ class GameRoomTest {
         UserCard userCardDracofeu = new UserCard(dracofeu);
         UserCard userCardPikachu = new UserCard(pikachu);
 
-        User josse = new User("Josse", List.of(userCardDracofeu, userCardPikachu));
-        User louis = new User("Louis", List.of(userCardPikachu));
-        User leo = new User("Leo", List.of(userCardDracofeu));
-
-        jossePlayer = new Player(josse);
-        jossePlayer.selectCard(jossePlayer.getCards().get(0));
-        leoPlayer = new Player(leo);
-        leoPlayer.selectCard(leoPlayer.getCards().get(0));
-        notInitializedPlayer = new Player(louis);
+        josse = new User("Josse", List.of(userCardDracofeu, userCardPikachu));
+        louis = new User("Louis", List.of(userCardPikachu));
+        leo = new User("Leo", List.of(userCardDracofeu));
     }
 
     @Test
@@ -40,10 +34,10 @@ class GameRoomTest {
         String expectedRoomName = "Room1";
 
         // When
-        gameRoom.init(jossePlayer, expectedRoomName);
+        gameRoom.init(josse, expectedRoomName);
 
         // Then
-        assertEquals(jossePlayer, gameRoom.getCreator());
+        assertEquals(josse.getSurname(), gameRoom.getCreator().getSurname());
         assertEquals(expectedRoomName, gameRoom.getRoomName());
         assertEquals(GameRoomState.WAITING_FOR_PLAYERS, gameRoom.getState());
     }
@@ -51,51 +45,53 @@ class GameRoomTest {
     @Test
     void testInitAlreadyInitialized() {
         // Given
-        gameRoom.init(jossePlayer, "Room1");
+        gameRoom.init(josse, "Room1");
 
         // When / Then
-        assertThrows(IllegalStateException.class, () -> gameRoom.init(jossePlayer, "Room2"));
+        assertThrows(IllegalStateException.class, () -> gameRoom.init(josse, "Room2"));
     }
 
     @Test
     void testJoinAsOpponent() {
         // Given
-        gameRoom.init(jossePlayer, "Room1");
+        gameRoom.init(josse, "Room1");
 
         // When
-        gameRoom.joinAsOpponent(leoPlayer);
+        gameRoom.joinAsOpponent(leo);
 
         // Then
-        assertEquals(leoPlayer, gameRoom.getOpponent());
+        assertEquals(leo.getSurname(), gameRoom.getOpponent().getSurname());
         assertEquals(GameRoomState.READY_TO_START, gameRoom.getState());
     }
 
     @Test
     void testJoinAsOpponentWhenCreator() {
         // Given
-        gameRoom.init(jossePlayer, "Room1");
+        gameRoom.init(josse, "Room1");
 
         // When / Then
-        assertThrows(IllegalArgumentException.class, () -> gameRoom.joinAsOpponent(jossePlayer));
+        assertThrows(IllegalArgumentException.class, () -> gameRoom.joinAsOpponent(josse));
     }
 
     @Test
     void testJoinAsOpponentWhenAnOpponentAlreadyJoined() {
         // Given
-        gameRoom.init(jossePlayer, "Room1");
+        gameRoom.init(josse, "Room1");
 
         // When
-        gameRoom.joinAsOpponent(leoPlayer);
+        gameRoom.joinAsOpponent(leo);
 
         // Then
-        assertThrows(IllegalStateException.class, () -> gameRoom.joinAsOpponent(leoPlayer));
+        assertThrows(IllegalStateException.class, () -> gameRoom.joinAsOpponent(leo));
     }
 
     @Test
     void testExecuteGame() {
         // Given
-        gameRoom.init(jossePlayer, "Room1");
-        gameRoom.joinAsOpponent(leoPlayer);
+        gameRoom.init(josse, "Room1");
+        gameRoom.joinAsOpponent(leo);
+        gameRoom.getCreator().selectCard(josse.getCards().get(0));
+        gameRoom.getOpponent().selectCard(leo.getCards().get(0));
 
         // When
         gameRoom.executeGame();
@@ -118,7 +114,7 @@ class GameRoomTest {
     @Test
     void testExecuteGameNotReady() {
         // Given
-        gameRoom.init(jossePlayer, "Room1");
+        gameRoom.init(josse, "Room1");
 
         // When / Then
         assertThrows(IllegalStateException.class, () -> gameRoom.executeGame());
@@ -127,8 +123,8 @@ class GameRoomTest {
     @Test
     void testExecuteGameNoSelectedCard() {
         // Given
-        gameRoom.init(jossePlayer, "Room1");
-        gameRoom.joinAsOpponent(notInitializedPlayer);
+        gameRoom.init(josse, "Room1");
+        gameRoom.joinAsOpponent(louis);
 
         // When / Then
         assertThrows(IllegalArgumentException.class, () -> gameRoom.executeGame());
@@ -137,7 +133,7 @@ class GameRoomTest {
     @Test
     void testCancelGame() {
         // Given
-        gameRoom.init(jossePlayer, "Room1");
+        gameRoom.init(josse, "Room1");
 
         // When
         gameRoom.cancelGame();
