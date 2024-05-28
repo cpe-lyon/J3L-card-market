@@ -2,11 +2,13 @@ package j3lcardmarket.atelier3.userserver.services;
 
 import j3lcardmarket.atelier3.commons.models.TimedUserInfo;
 import j3lcardmarket.atelier3.commons.models.UserIdentifier;
+import j3lcardmarket.atelier3.commons.utils.HttpUtils;
 import j3lcardmarket.atelier3.commons.utils.SignatureUtils;
 import j3lcardmarket.atelier3.commons.utils.UserInfoSerializer;
 import j3lcardmarket.atelier3.commons.utils.UserUtils;
 import j3lcardmarket.atelier3.userserver.repositories.UserIdentifierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +36,22 @@ public class UserService extends UserUtils {
         return user.get().getBalance();
     }
 
+    @Value("${userservice.usercardserviceurl}")
+    String usercardServiceUrl;
+
     @Cacheable(value="savedname", key="#username")
     public String newCardUser(String username, Consumer<UserIdentifier> onUserCreation){
         //If not new, do nothing
         if(repo.existsBySurname(username)) return username;
-        UserIdentifier savedUser = repo.save(new UserIdentifier(username));
+        UserIdentifier user = new UserIdentifier(username);
+        UserIdentifier savedUser = repo.save(user);
         onUserCreation.accept(savedUser);
+
+
+        String url = usercardServiceUrl.endsWith("/") ? usercardServiceUrl : usercardServiceUrl +"/";
+        url += String.format("api/usercards/init/%s",username);
+        String res = HttpUtils.httpRequest(url, "POST");
+        if(res == null) throw new RuntimeException();
         return savedUser.getSurname();
     }
 
