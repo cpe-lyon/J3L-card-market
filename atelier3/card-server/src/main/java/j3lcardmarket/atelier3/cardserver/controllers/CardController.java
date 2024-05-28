@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,14 @@ public class CardController {
     @ResponseBody
     public List<CardDto> getAll() {
         return cardService.getAll().stream().map(CardDto::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/pickStarterCards")
+    @ResponseBody
+    public String getFiveRandomCards() {
+        List<CardDto> all = getAll();
+        Collections.shuffle(all);
+        return all.subList(0,5).stream().map(CardDto::getId).map(i -> Integer.toString(i)).collect(Collectors.joining(";"));
     }
 
     @GetMapping("/{id}")

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
 import j3lcardmarket.atelier3.commons.utils.CardAuth;
 import j3lcardmarket.atelier3.gameserver.dto.CreateGameRoomDto;
+import j3lcardmarket.atelier3.gameserver.dto.RoomDto;
 import j3lcardmarket.atelier3.gameserver.dto.RoomSummaryDto;
 import j3lcardmarket.atelier3.gameserver.services.GameRoomService;
 import jakarta.validation.Valid;
@@ -39,5 +40,18 @@ public class GameRoomController {
     @CardAuth
     public RoomSummaryDto joinRoomAsOpponent(@PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return gameRoomService.joinAsOpponent(cardUserInfo.surname(), cardId);
+    }
+
+    @PutMapping("/{cardId}/play")
+    @ResponseBody
+    public RoomDto playGame(@PathVariable int cardId) {
+        return gameRoomService.play(cardId);
+    }
+
+    @DeleteMapping("/{cardId}")
+    @SecurityRequirement(name = "cardauth")
+    @CardAuth
+    public void cancelRoom(@PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        gameRoomService.cancelRoom(cardUserInfo.surname(), cardId);
     }
 }
