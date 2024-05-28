@@ -38,7 +38,7 @@ class GameRoomTest {
 
         // Then
         assertEquals(josse.getSurname(), gameRoom.getCreator().getSurname());
-        assertEquals(expectedRoomName, gameRoom.getRoomName());
+        assertEquals(expectedRoomName, gameRoom.getName());
         assertEquals(GameRoomState.WAITING_FOR_PLAYERS, gameRoom.getState());
     }
 
