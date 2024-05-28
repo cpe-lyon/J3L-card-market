@@ -56,4 +56,4 @@ jobs:
       - name: Attest
         uses: actions/attest-build-provenance@v1
         with:
-          subject-path: '${{ github.workspace }}'
+          subject-path: '${{ github.workspace }}/atelier3/commons/src/main/java/j3lcardmarket/atelier3/commons/models'
