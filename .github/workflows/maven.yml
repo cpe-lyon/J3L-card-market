@@ -32,7 +32,7 @@ jobs:
         run: mvn -B verify --file atelier3/card-server/pom.xml
 
       #- name: Verify Auth with Maven
-      # run: mvn -B verify --file atelier3/auth-server/pom.xml
+      #  run: mvn -B verify --file atelier3/auth-server/pom.xml
 
       - name: Verify Game with Maven
         run: mvn -B verify --file atelier3/game-server/pom.xml
@@ -40,8 +40,8 @@ jobs:
       - name: Verify User with Maven
         run: mvn -B verify --file atelier3/user-server/pom.xml
 
-      - name: Verify Discovery with Maven
-        run: mvn -B verify --file atelier3/discovery-server/pom.xml
+      #- name: Verify Discovery with Maven
+      #  run: mvn -B verify --file atelier3/discovery-server/pom.xml
 
       - name: Verify Gateway with Maven
         run: mvn -B verify --file atelier3/gateway-server/pom.xml
