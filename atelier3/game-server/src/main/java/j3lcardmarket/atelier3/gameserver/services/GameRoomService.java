@@ -2,6 +2,7 @@ package j3lcardmarket.atelier3.gameserver.services;
 
 import j3lcardmarket.atelier3.gameserver.domains.GameRoom;
 import j3lcardmarket.atelier3.gameserver.domains.User;
+import j3lcardmarket.atelier3.gameserver.dto.RoomDto;
 import j3lcardmarket.atelier3.gameserver.dto.RoomSummaryDto;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,15 @@ public class GameRoomService {
     public RoomSummaryDto joinAsOpponent(String opponentSurname, int roomId) {
         // TODO
         return null;
+    }
+
+    public RoomDto play(int roomId) {
+        // TODO
+        return null;
+    }
+
+    public void cancelRoom(String creatorSurname, int roomId) {
+        // TODO
     }
 
 }
