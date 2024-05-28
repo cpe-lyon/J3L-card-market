@@ -1,4 +1,4 @@
-package j3lcardmarket.atelier3.cardserver.config;
+package j3lcardmarket.atelier3.usercardserver.config;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
