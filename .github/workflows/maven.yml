@@ -37,7 +37,9 @@ jobs:
       run: mvn -B verify --file atelier3/commons/pom.xml
 
     - name: Maven Install Commons
-      run : mvn -B install --file atelier3/commons/pom.xml | mvn -e -B install --file atelier3/card-server/pom.xml
+      run :
+        mvn -B install --file atelier3/commons/pom.xml 
+        mvn -e -x -B install --file atelier3/card-server/pom.xml
 
     - name: Verify Game with Maven
       run: mvn -B install --file atelier3/game-server/pom.xml
