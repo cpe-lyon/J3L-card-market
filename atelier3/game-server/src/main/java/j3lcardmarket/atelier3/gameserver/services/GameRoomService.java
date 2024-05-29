@@ -26,6 +26,11 @@ public class GameRoomService {
         return rooms.stream().map(room -> new RoomSummaryDto().fromGameRoomEntity(room)).toList();
     }
 
+    public GameRoomDto getRoom(int roomId) {
+        GameRoomEntity roomEntity = gameRoomRepo.findById(roomId).orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        return gameRoomMapper.fromEntity(roomEntity);
+    }
+
     public GameRoomDto createRoom(String creatorSurname, String name) {
         GameRoom room = new GameRoom();
         GameRoom newRoom = room.init(creatorSurname, name);

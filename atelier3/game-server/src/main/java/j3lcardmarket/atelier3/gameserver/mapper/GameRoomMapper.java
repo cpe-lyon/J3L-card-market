@@ -22,30 +22,38 @@ public class GameRoomMapper {
         gameRoomEntity.setName(gameRoom.getName());
         gameRoomEntity.setState(gameRoom.getState());
         gameRoomEntity.setCreator(gameRoom.getCreator().getSurname());
-        gameRoomEntity.setOpponent(gameRoom.getOpponent().getSurname());
+        if (gameRoom.getOpponent() != null) {
+            gameRoomEntity.setOpponent(gameRoom.getOpponent().getSurname());
+        }
 
-        PlayerCardEntity creatorCardEntity = new PlayerCardEntity();
 
-        PlayerCardId creatorCardId = new PlayerCardId();
-        creatorCardId.setUserSurname(gameRoom.getCreator().getSurname());
-        creatorCardId.setUserCardId(gameRoom.getCreator().getSelectedCard().getId());
+        if (gameRoom.getCreator().getSelectedCard() != null) {
+            PlayerCardEntity creatorCardEntity = new PlayerCardEntity();
+            PlayerCardId creatorCardId = new PlayerCardId();
+            creatorCardId.setUserSurname(gameRoom.getCreator().getSurname());
+                creatorCardId.setUserCardId(gameRoom.getCreator().getSelectedCard().getId());
 
-        creatorCardEntity.setId(creatorCardId);
-        creatorCardEntity.setEnergy(gameRoom.getCreator().getSelectedCard().getEnergy());
-        creatorCardEntity.setCardName(gameRoom.getCreator().getSelectedCard().getName());
+            creatorCardEntity.setId(creatorCardId);
+            creatorCardEntity.setEnergy(gameRoom.getCreator().getSelectedCard().getEnergy());
+            creatorCardEntity.setCardName(gameRoom.getCreator().getSelectedCard().getName());
 
-        PlayerCardEntity opponentCardEntity = new PlayerCardEntity();
+            gameRoomEntity.setCreatorCard(creatorCardEntity);
+        }
 
-        PlayerCardId opponentCardId = new PlayerCardId();
-        opponentCardId.setUserSurname(gameRoom.getOpponent().getSurname());
-        opponentCardId.setUserCardId(gameRoom.getOpponent().getSelectedCard().getId());
 
-        opponentCardEntity.setId(opponentCardId);
-        opponentCardEntity.setEnergy(gameRoom.getOpponent().getSelectedCard().getEnergy());
-        opponentCardEntity.setCardName(gameRoom.getOpponent().getSelectedCard().getName());
+        if (gameRoom.getOpponent() != null && gameRoom.getOpponent().getSelectedCard() != null) {
+            PlayerCardEntity opponentCardEntity = new PlayerCardEntity();
 
-        gameRoomEntity.setCreatorCard(creatorCardEntity);
-        gameRoomEntity.setOpponentCard(opponentCardEntity);
+            PlayerCardId opponentCardId = new PlayerCardId();
+            opponentCardId.setUserSurname(gameRoom.getOpponent().getSurname());
+            opponentCardId.setUserCardId(gameRoom.getOpponent().getSelectedCard().getId());
+
+            opponentCardEntity.setId(opponentCardId);
+            opponentCardEntity.setEnergy(gameRoom.getOpponent().getSelectedCard().getEnergy());
+            opponentCardEntity.setCardName(gameRoom.getOpponent().getSelectedCard().getName());
+
+            gameRoomEntity.setOpponentCard(opponentCardEntity);
+        }
 
         return gameRoomEntity;
     }

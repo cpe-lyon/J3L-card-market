@@ -26,6 +26,12 @@ public class GameRoomController {
         return gameRoomService.getRooms();
     }
 
+    @GetMapping("/{roomId}")
+    @ResponseBody
+    public GameRoomDto getRoom(@PathVariable int roomId) {
+        return gameRoomService.getRoom(roomId);
+    }
+
     @PostMapping
     @ResponseBody
     @SecurityRequirement(name = "cardauth")

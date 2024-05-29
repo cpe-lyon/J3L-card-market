@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-table {
+.market-table, .my-cards-table {
     width: 75%;
     border-collapse: collapse;
     margin-bottom: 20px;
@@ -98,4 +98,15 @@ header{
 }
 .admin, .card-details{
     visibility: hidden;
+}
+.room-table__body {
+    cursor: pointer;
+}
+.room-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    cursor: pointer;
+    vertical-align: top;
+    table-layout: fixed;
 }
