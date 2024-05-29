@@ -1,25 +1,28 @@
 package j3lcardmarket.atelier3.gameserver.domains;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
-public class Player extends User {
+import java.util.List;
 
+@Data
+public class Player {
+
+    private final String surname;
     private InGameCard selectedCard;
 
-    public Player(User user) {
-        super(user.getSurname(), user.getCards());
+    public Player(String surname) {
+        this.surname = surname;
     }
 
-    public void selectCard(UserCard card) {
-        if (!this.getCards().contains(card)) {
+    public void selectCard(UserCard cardToSelect, List<UserCard> cardsOwned) {
+        if (!cardsOwned.contains(cardToSelect)) {
             throw new IllegalArgumentException("Player does not own this card");
         }
-        if (card.getEnergy() <= 0) {
+        if (cardToSelect.getEnergy() <= 0) {
             throw new IllegalArgumentException("Selected card has no energy");
         }
 
-        this.selectedCard = new InGameCard(card);
+        this.selectedCard = new InGameCard(cardToSelect.getId(), cardToSelect.getName());
     }
 
     public boolean hasNoSelectedCard() {
