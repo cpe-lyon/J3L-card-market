@@ -25,6 +25,9 @@ public class GatewayConfig {
                 .route("game-page", routeSpec -> routeSpec
                         .path("/game")
                         .uri("forward:/pages/game.html"))
+                .route("game-room-page", routeSpec -> routeSpec
+                        .path("/game-room/{id}")
+                        .uri("forward:/pages/game-room.html"))
                 .route("api-auth", routeSpec -> routeSpec
                         .path("/api/auth/**")
                         .uri("lb://auth-server"))
