@@ -19,6 +19,9 @@ public class GatewayConfig {
                 .route("transactions-page", routeSpec -> routeSpec
                         .path("/transactions")
                         .uri("forward:/pages/transactions.html"))
+                .route("game-page", routeSpec -> routeSpec
+                        .path("/game")
+                        .uri("forward:/pages/game.html"))
                 .route("api-auth", routeSpec -> routeSpec
                         .path("/api/auth/**")
                         .uri("lb://auth-server"))
@@ -34,6 +37,9 @@ public class GatewayConfig {
                 .route("api-transactions", routeSpec -> routeSpec
                         .path("/api/transactions/**")
                         .uri("lb://user-server"))
+                .route("api-game", routeSpec -> routeSpec
+                        .path("/api/game-rooms/**")
+                        .uri("lb://game-server"))
             .build();
     }
 }
