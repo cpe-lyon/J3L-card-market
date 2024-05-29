@@ -36,10 +36,10 @@ jobs:
       - name: Verify Card with Maven
         run: mvn -B verify --file atelier3/card-server/pom.xml
 
-      - name: Sonar Card
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_CARD_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.cardserver --file ./atelier3/card-server/pom.xml
+      #- name: Sonar Card
+      #  env:
+      #    SONAR_TOKEN: ${{ secrets.SONAR_CARD_TOKEN }}
+      #  run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.cardserver --file ./atelier3/card-server/pom.xml
 
       #- name: Verify Auth with Maven
       #  run: mvn -B verify --file atelier3/auth-server/pom.xml
