@@ -13,7 +13,7 @@ function add(transaction){
 }
 
 
-fetch("/api/market/transactions", {redirect: "manual", headers: window.authHeader})
+fetch("/api/transactions", {redirect: "manual", headers: window.authHeader})
     .then(window.loginRedirectHandler)
     .then(res => {
         if(res.status === 403){

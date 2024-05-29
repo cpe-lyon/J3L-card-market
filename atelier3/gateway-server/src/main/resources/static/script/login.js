@@ -52,7 +52,7 @@ form.addEventListener("submit", event => {
     } : {};
     const urlParams = new URLSearchParams();
     urlParams.set("redirect", redirectUrl)
-    fetch(isRegister ? `/register?${urlParams}`: `/login?${urlParams}`, {
+    fetch(isRegister ? `/api/auth/register?${urlParams}`: `/api/auth/login?${urlParams}`, {
         redirect: "manual",
         method: form.method,
         body: JSON.stringify(params),

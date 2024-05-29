@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.function.Supplier;
 
 @Controller
+@RequestMapping("/api/auth")
 public class LoginController {
 
     @Autowired

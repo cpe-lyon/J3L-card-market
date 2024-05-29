@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/userInfo")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Value("${cardmanager.admin.username}")
