@@ -19,6 +19,9 @@ public class GatewayConfig {
                 .route("transactions-page", routeSpec -> routeSpec
                         .path("/transactions")
                         .uri("forward:/pages/transactions.html"))
+                .route("api-usercards", routeSpec -> routeSpec
+                        .path("/api/usercards/**")
+                        .uri("lb://usercard-server"))
             .build();
     }
 }
