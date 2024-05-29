@@ -64,7 +64,7 @@ class UserControllerIntegrationTest {
         when(httpUtils.httpRequest(anyString(), eq("POST"))).thenReturn("ok");
 
         mockMvc.perform(
-                    MockMvcRequestBuilders.get("/api/userInfo")
+                    MockMvcRequestBuilders.get("/api/user")
                             .header("Authorization", "Bearer "+token)
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
