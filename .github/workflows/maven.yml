@@ -52,3 +52,8 @@ jobs:
 
       - name: Verify Usercard with Maven
         run: mvn -B verify --file atelier3/usercard-server/pom.xml
+
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.commons
