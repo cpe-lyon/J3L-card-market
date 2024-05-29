@@ -2,6 +2,7 @@ package j3lcardmarket.atelier3.gameserver.domains;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import j3lcardmarket.atelier3.commons.models.GameRoomState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
