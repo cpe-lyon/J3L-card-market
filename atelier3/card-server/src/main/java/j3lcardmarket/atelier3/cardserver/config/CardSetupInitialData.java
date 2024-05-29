@@ -2,6 +2,7 @@ package j3lcardmarket.atelier3.cardserver.config;
 import j3lcardmarket.atelier3.cardserver.services.CardService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
