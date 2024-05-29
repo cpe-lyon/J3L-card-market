@@ -1,6 +1,9 @@
 package j3lcardmarket.atelier3.gameserver.services;
 
+import com.google.gson.Gson;
+import io.swagger.v3.core.util.Json;
 import j3lcardmarket.atelier3.commons.models.GameRoomEntity;
+import j3lcardmarket.atelier3.commons.utils.HttpUtils;
 import j3lcardmarket.atelier3.gameserver.domains.GameRoom;
 import j3lcardmarket.atelier3.gameserver.domains.UserCard;
 import j3lcardmarket.atelier3.gameserver.dto.GameRoomDto;
@@ -20,6 +23,9 @@ public class GameRoomService {
 
     @Autowired
     private GameRoomMapper gameRoomMapper;
+
+    @Autowired
+    HttpUtils httpUtils;
 
     public List<RoomSummaryDto> getRooms() {
         List<GameRoomEntity> rooms = gameRoomRepo.findAll();
@@ -46,15 +52,17 @@ public class GameRoomService {
         GameRoom room = gameRoomMapper.fromEntity(roomEntity);
 
         UserCard cardToSelect = new UserCard();
-        // TODO: get card by id
-
+        String CardInfo = httpUtils.httpRequest("/api/cards/"+cardId,"GET");
+        new Gson().fromJson(CardInfo, UserCard.class);
         if (room.getCreator().getSurname().equals(playerSurname)) {
-            List<UserCard> cardsOwned = List.of();
-            // TODO: get user cards
+            List<UserCard> cardsOwned;
+            String UserCards = httpUtils.httpRequest("/api/usercards/"+room.getCreator().getSurname(),"GET");
+            cardsOwned = List.of(new Gson().fromJson(UserCards, UserCard.class));
             room.getCreator().selectCard(cardToSelect, cardsOwned);
         } else if (room.getOpponent().getSurname().equals(playerSurname)) {
-            List<UserCard> cardsOwned = List.of();
-            // TODO: get user cards
+            List<UserCard> cardsOwned;
+            String UserCards = httpUtils.httpRequest("/api/usercards/"+room.getOpponent().getSurname(),"GET");
+            cardsOwned = List.of(new Gson().fromJson(UserCards, UserCard.class));
             room.getOpponent().selectCard(cardToSelect, cardsOwned);
         }
 
