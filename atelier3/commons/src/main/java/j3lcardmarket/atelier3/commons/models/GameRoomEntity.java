@@ -1,6 +1,5 @@
-package j3lcardmarket.atelier3.gameserver.entities;
+package j3lcardmarket.atelier3.commons.models;
 
-import j3lcardmarket.atelier3.gameserver.domains.GameRoomState;
 import jakarta.persistence.*;
 import lombok.Data;
 

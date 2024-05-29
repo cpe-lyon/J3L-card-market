@@ -34,32 +34,32 @@ public class GameRoomController {
         return gameRoomService.createRoom(cardUserInfo.surname(), gameRoomDto.getName());
     }
 
-    @PutMapping("/{cardId}/join")
+    @PutMapping("/{roomId}/join")
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
-    public GameRoomDto joinRoomAsOpponent(@PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return gameRoomService.joinAsOpponent(cardUserInfo.surname(), cardId);
+    public GameRoomDto joinRoomAsOpponent(@PathVariable int roomId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return gameRoomService.joinAsOpponent(cardUserInfo.surname(), roomId);
     }
 
-    @PutMapping("/{cardId}/select-card")
+    @PutMapping("/{roomId}/select-card/{cardId}")
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
-    public GameRoomDto selectCard(@PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return gameRoomService.selectCard(cardUserInfo.surname(), cardId);
+    public GameRoomDto selectCard(@PathVariable int roomId, @PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return gameRoomService.selectCard(cardUserInfo.surname(), roomId, cardId);
     }
 
-    @PutMapping("/{cardId}/play")
+    @PutMapping("/{roomId}/play")
     @ResponseBody
-    public GameRoomDto playGame(@PathVariable int cardId) {
-        return gameRoomService.play(cardId);
+    public GameRoomDto playGame(@PathVariable int roomId) {
+        return gameRoomService.play(roomId);
     }
 
-    @DeleteMapping("/{cardId}")
+    @DeleteMapping("/{roomId}")
     @SecurityRequirement(name = "cardauth")
     @CardAuth
-    public GameRoomDto cancelRoom(@PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return gameRoomService.cancelRoom(cardUserInfo.surname(), cardId);
+    public GameRoomDto cancelRoom(@PathVariable int roomId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return gameRoomService.cancelRoom(cardUserInfo.surname(), roomId);
     }
 }

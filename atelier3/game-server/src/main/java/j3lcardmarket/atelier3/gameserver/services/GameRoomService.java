@@ -1,10 +1,10 @@
 package j3lcardmarket.atelier3.gameserver.services;
 
+import j3lcardmarket.atelier3.commons.models.GameRoomEntity;
 import j3lcardmarket.atelier3.gameserver.domains.GameRoom;
 import j3lcardmarket.atelier3.gameserver.domains.UserCard;
 import j3lcardmarket.atelier3.gameserver.dto.GameRoomDto;
 import j3lcardmarket.atelier3.gameserver.dto.RoomSummaryDto;
-import j3lcardmarket.atelier3.gameserver.entities.GameRoomEntity;
 import j3lcardmarket.atelier3.gameserver.mapper.GameRoomMapper;
 import j3lcardmarket.atelier3.gameserver.repositories.GameRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +41,8 @@ public class GameRoomService {
         return gameRoomMapper.fromEntity(savedRoom);
     }
 
-    public GameRoomDto selectCard(String playerSurname, int cardId) {
-        GameRoomEntity roomEntity = gameRoomRepo.findById(cardId).orElseThrow(() -> new IllegalArgumentException("Room not found"));
+    public GameRoomDto selectCard(String playerSurname, int roomId, int cardId) {
+        GameRoomEntity roomEntity = gameRoomRepo.findById(roomId).orElseThrow(() -> new IllegalArgumentException("Room not found"));
         GameRoom room = gameRoomMapper.fromEntity(roomEntity);
 
         UserCard cardToSelect = new UserCard();
