@@ -1,4 +1,4 @@
-package j3lcardmarket.atelier3.gameserver.domains;
+package j3lcardmarket.atelier3.commons.models;
 
 public enum GameRoomState {
     INITIAL,

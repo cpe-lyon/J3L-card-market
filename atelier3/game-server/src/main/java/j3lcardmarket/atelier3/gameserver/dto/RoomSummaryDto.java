@@ -1,6 +1,6 @@
 package j3lcardmarket.atelier3.gameserver.dto;
 
-import j3lcardmarket.atelier3.gameserver.entities.GameRoomEntity;
+import j3lcardmarket.atelier3.commons.models.GameRoomEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

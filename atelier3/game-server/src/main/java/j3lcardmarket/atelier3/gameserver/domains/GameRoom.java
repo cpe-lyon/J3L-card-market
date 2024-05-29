@@ -1,7 +1,7 @@
 package j3lcardmarket.atelier3.gameserver.domains;
 
+import j3lcardmarket.atelier3.commons.models.GameRoomState;
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class GameRoom {

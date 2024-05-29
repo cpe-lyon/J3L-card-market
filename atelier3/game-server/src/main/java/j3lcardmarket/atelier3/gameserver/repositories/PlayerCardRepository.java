@@ -1,6 +1,6 @@
 package j3lcardmarket.atelier3.gameserver.repositories;
 
-import j3lcardmarket.atelier3.gameserver.entities.PlayerCardEntity;
+import j3lcardmarket.atelier3.commons.models.PlayerCardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
