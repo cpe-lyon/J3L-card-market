@@ -80,6 +80,14 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 			<version>4.1.1</version>
 		</dependency>
+
+
+		<!-- TESTS -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
