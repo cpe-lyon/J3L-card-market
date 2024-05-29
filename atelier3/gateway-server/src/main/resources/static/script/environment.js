@@ -1,2 +1,2 @@
-const AUTH_SERVER_URL = "http://localhost:6969";
-const HOME_URL = "http://localhost:8080/";
+const AUTH_SERVER_URL = "http://localhost/api/auth";
+const HOME_URL = "http://localhost";

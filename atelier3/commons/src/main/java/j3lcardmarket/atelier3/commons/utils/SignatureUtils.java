@@ -29,7 +29,7 @@ public class SignatureUtils {
     }
 
     public String unsign(String signed) throws SignatureException{
-        if(privateKey == null) throw new SignatureException("No public key configured");
+        if(publicKey == null) throw new SignatureException("No public key configured");
         String[] parts = signed.split("(?<!\\\\);", 2);
         if (parts.length != 2) throw new SignatureException("String not signed");
         String src = parts[0].replace("\\;", ";");

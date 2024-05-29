@@ -1,4 +1,4 @@
-const loginUrl = `${AUTH_SERVER_URL}/login.html`
+const loginUrl = `${HOME_URL}/login`
 
 const currentUrl = new URL(location.href);
 if (currentUrl.searchParams.has("token")){
@@ -35,7 +35,7 @@ window.loginRedirectHandler = async (res) => {
     return res;
 };
 
-fetch("/api/userInfo", {redirect: "manual", headers: authHeader})
+fetch("/api/users", {redirect: "manual", headers: authHeader})
     .then(loginRedirectHandler)
     .then(res => res.json())
     .then(userInfoDto => {

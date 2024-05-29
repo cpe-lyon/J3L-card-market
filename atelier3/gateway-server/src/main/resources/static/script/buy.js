@@ -10,7 +10,7 @@ function updateCardDetails(row, cardId) {
 }
 
 function buyCard(cardId) {
-    fetch(`/api/market/user-cards/${cardId}/buy`, {
+    fetch(`/api/usercards/${cardId}/buy`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ function buyCard(cardId) {
 }
 
 function getCardFromAPI() {
-        fetch('/api/cards/on-sale', {
+        fetch('/api/usercards/on-sale', {
             method: 'GET',
             headers: {
                 ...window.authHeader
@@ -57,7 +57,7 @@ function getCardFromAPI() {
         });
 }
 
-fetch(`/api/userInfo/balance`, {
+fetch(`/api/users/balance`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',

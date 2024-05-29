@@ -54,7 +54,7 @@ function sellCard(cardId) {
         document.getElementById('card-price').focus();
         return;
     }
-    fetch(`/api/market/user-cards/${cardId}/sell`, {
+    fetch(`/api/usercards/${cardId}/sell`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ function sellCard(cardId) {
 }
 
 function getCardFromAPI() {
-    fetch(`/api/cards/owned`, {
+    fetch(`/api/usercards/owned`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

@@ -10,6 +10,9 @@ public class GatewayConfig {
     @Bean
     RouteLocator gateway(RouteLocatorBuilder routeLocatorBuilder) {
         return routeLocatorBuilder.routes()
+                .route("login-page", routeSpec -> routeSpec
+                        .path("/login")
+                        .uri("forward:/login.html"))
                 .route("buy-page", routeSpec -> routeSpec
                         .path("/buy")
                         .uri("forward:/pages/buy.html"))
