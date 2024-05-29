@@ -61,10 +61,10 @@ class UserControllerIntegrationTest {
 
     @Test
     void testUserInfos() throws Exception {
-        when(httpUtils.httpRequest(anyString(), eq("POST"))).thenReturn("ok");
+        when(httpUtils.httpRequest(anyString(), anyString())).thenReturn("ok");
 
         mockMvc.perform(
-                    MockMvcRequestBuilders.get("/api/user")
+                    MockMvcRequestBuilders.get("/api/users")
                             .header("Authorization", "Bearer "+token)
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
