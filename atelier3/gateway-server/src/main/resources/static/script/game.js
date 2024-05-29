@@ -6,7 +6,10 @@ function createRoom() {
     }
     fetch('/api/game-rooms', {
         method: 'POST',
-        headers: window.authHeader,
+        headers: {
+            'Content-Type': 'application/json',
+            ...window.authHeader
+        },
         body: JSON.stringify({ name })
     })
         .then(response => response.json())
@@ -23,7 +26,10 @@ function getRoomsFromAPI() {
 
     fetch('/api/game-rooms', {
         method: 'GET',
-        headers: window.authHeader
+        headers: {
+            'Content-Type': 'application/json',
+            ...window.authHeader
+        }
     })
         .then(response => response.json())
         .then(data => {
@@ -43,7 +49,10 @@ function getRoomsFromAPI() {
 function joinRoom(roomId) {
     fetch(`/api/game-rooms/${roomId}/join`, {
         method: 'POST',
-        headers: window.authHeader
+        headers: {
+            'Content-Type': 'application/json',
+            ...window.authHeader
+        }
     })
         .then(response => response.json())
         .then(data => {
