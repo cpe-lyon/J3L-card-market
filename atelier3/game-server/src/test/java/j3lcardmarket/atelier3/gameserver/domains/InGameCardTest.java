@@ -9,12 +9,11 @@ class InGameCardTest {
     @Test
     public void testInGameCardCreation() {
         // Given
-        Card card = new Card(1, "Dracofeu");
-        UserCard userCard = new UserCard(card);
-        InGameCard inGameCard = new InGameCard(userCard);
+        InGameCard inGameCard = new InGameCard(1, "Dracofeu");
 
         // Then
-        assertEquals(userCard.getId(), inGameCard.getId());
+        assertEquals(inGameCard.getId(), 1);
+        assertEquals(inGameCard.getName(), "Dracofeu");
         assertEquals(inGameCard.getHp(), 100);
     }
 
