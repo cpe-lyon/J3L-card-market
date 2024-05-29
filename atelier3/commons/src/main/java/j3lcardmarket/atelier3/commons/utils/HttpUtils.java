@@ -1,17 +1,19 @@
 package j3lcardmarket.atelier3.commons.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@Component
 public class HttpUtils {
-
-    public static String httpRequest(String urlString) {
+    public String httpRequest(String urlString) {
         return httpRequest(urlString, "GET");
     }
-    public static String httpRequest(String urlString, String method) {
+    public String httpRequest(String urlString, String method) {
         HttpURLConnection urlConnection = null;
         try {
             URL url = new URL(urlString);
