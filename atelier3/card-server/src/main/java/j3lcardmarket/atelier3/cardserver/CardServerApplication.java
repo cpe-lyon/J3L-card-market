@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class CardServerApplication {
 
 	public static void main(String[] args) {
-		System.setProperty("spring.profiles.default", "cardserver");
 		SpringApplication.run(CardServerApplication.class, args);
 	}
 
