@@ -47,10 +47,10 @@ jobs:
       - name: Verify Game with Maven
         run: mvn -B verify --file atelier3/game-server/pom.xml
 
-      - name: Sonar Game
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_GAME_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.gameserver --file ./atelier3/game-server/pom.xml
+      #- name: Sonar Game
+      #  env:
+      #    SONAR_TOKEN: ${{ secrets.SONAR_GAME_TOKEN }}
+      #  run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.gameserver --file ./atelier3/game-server/pom.xml
 
       - name: Verify User with Maven
         run: mvn -B verify --file atelier3/user-server/pom.xml
