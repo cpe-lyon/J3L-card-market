@@ -4,9 +4,5 @@ import lombok.Data;
 
 @Data
 public class SellCardDto {
-    private Integer price;
-
-    public SellCardDto(int price) {
-        this.price = price;
-    }
+    private Integer price = 0;
 }

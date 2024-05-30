@@ -90,7 +90,7 @@ public class UserCardService {
 
     @Transactional
     public void sellCard(int cardId, int price, String sellerSurname) {
-        UserCard card = userCardRepo.findByCardIdAndOwnerSurname(cardId, sellerSurname);
+        UserCard card = userCardRepo.findByIdAndOwnerSurname(cardId, sellerSurname);
         if(card == null) throw new NotFoundException();
         card.setPrice(price);
         userCardRepo.save(card);
