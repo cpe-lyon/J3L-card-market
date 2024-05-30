@@ -22,7 +22,7 @@ public class HttpUtils {
             urlConnection.connect();
 
             int statusCode = urlConnection.getResponseCode();
-            if (statusCode != 200) {
+            if (statusCode == 200) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 String line;
                 StringBuilder responseBody = new StringBuilder();
