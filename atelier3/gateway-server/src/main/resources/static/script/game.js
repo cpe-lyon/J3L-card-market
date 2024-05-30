@@ -14,7 +14,7 @@ function createRoom() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            joinRoom(data.id);
         });
 }
 
@@ -41,7 +41,7 @@ function getRoomsFromAPI() {
                 const nameCell = row.insertCell();
                 nameCell.innerText = gameRoom.name;
                 const playersCell = row.insertCell();
-                playersCell.innerText = `${gameRoom.playersCount}$`;
+                playersCell.innerText = `${gameRoom.playersCount}/2`;
             });
         });
 }
@@ -56,7 +56,7 @@ function joinRoom(roomId) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            location.href = `/game-room/${roomId}`;
         });
 }
 

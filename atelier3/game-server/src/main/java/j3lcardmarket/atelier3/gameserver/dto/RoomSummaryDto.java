@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class RoomSummaryDto {
+    private Integer id;
     private String name;
     private Integer playersCount;
 
@@ -14,6 +15,6 @@ public class RoomSummaryDto {
 
     public RoomSummaryDto fromGameRoomEntity(GameRoomEntity room) {
         int playersCount = room.getOpponent() == null ? 1 : 2;
-        return new RoomSummaryDto(room.getName(), playersCount);
+        return new RoomSummaryDto(room.getId(), room.getName(), playersCount);
     }
 }
