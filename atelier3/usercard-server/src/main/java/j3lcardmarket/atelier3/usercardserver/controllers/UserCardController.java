@@ -52,6 +52,13 @@ public class UserCardController {
         return cardService.getAllByOwner(cardUserInfo.userName())
                 .stream().map(UserCardDto::new).collect(Collectors.toList());
     }
+    @GetMapping("/{username}")
+    @CardAuth
+    @ResponseBody
+    public List<UserCardDto> getAllOwnedByUser(@PathVariable("username") String username) {
+        return cardService.getAllByOwner(username)
+                .stream().map(UserCardDto::new).collect(Collectors.toList());
+    }
 
     @GetMapping("/on-sale")
     @CardAuth
