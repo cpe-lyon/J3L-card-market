@@ -32,6 +32,9 @@ public class UserCardService {
     @Autowired
     private UserIdentifierReferenceRepository userRepo;
 
+    @Autowired
+    private HttpUtils httpUtils;
+
     public List<UserCard> getAllByOwner(String ownerSurname) {
         return userCardRepo.findAllByOwnerSurname(ownerSurname);
     }
@@ -43,7 +46,7 @@ public class UserCardService {
     private boolean checkCardExisting(int cardId){
         String url = cardServiceUrl.endsWith("/") ? cardServiceUrl : cardServiceUrl+"/";
         url += String.format("api/cards/%d",cardId);
-        return HttpUtils.httpRequest(url) != null;
+        return httpUtils.httpRequest(url) != null;
     }
 
 
@@ -64,7 +67,7 @@ public class UserCardService {
     private List<Integer> pickStarterCards(String username){
         String url = cardServiceUrl.endsWith("/") ? cardServiceUrl : cardServiceUrl+"/";
         url += "api/pickStarterCards";
-        String res = HttpUtils.httpRequest(url);
+        String res = httpUtils.httpRequest(url);
         if (res != null) throw new RuntimeException("Request failed");
         return Arrays.stream(res.split(";")).map(Integer::parseInt).collect(Collectors.toList());
     }

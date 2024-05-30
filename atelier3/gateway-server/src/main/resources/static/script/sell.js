@@ -126,7 +126,7 @@ function buildUserCard(){
      * @type {HTMLSelectElement}
      */
     const cardsSelect = document.querySelector("#cardsSelect");
-    fetch(`/api/cards/${cardsSelect.value}/user-card`, {
+    fetch(`/api/usercards/${cardsSelect.value}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

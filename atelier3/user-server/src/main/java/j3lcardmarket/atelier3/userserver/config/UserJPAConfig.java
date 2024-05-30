@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @Configuration
-@EnableJpaRepositories(basePackages = { "j3lcardmarket.atelier3.userserver.repositories", "j3lcardmarket.atelier3.commons.repositories"})
+@EnableJpaRepositories(basePackages = { "j3lcardmarket.atelier3.userserver.repositories"})
 @EntityScan(basePackages = "j3lcardmarket.atelier3.commons.models")
 class UserJPAConfig {}

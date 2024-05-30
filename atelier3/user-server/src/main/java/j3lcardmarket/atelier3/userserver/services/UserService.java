@@ -30,6 +30,9 @@ public class UserService extends UserUtils {
     @Autowired
     UserIdentifierRepository repo;
 
+    @Autowired
+    private HttpUtils httpUtils;
+
     public Integer getBalance(String username) {
         Optional<UserIdentifier> user = repo.findById(username);
         if (user.isEmpty()) return -1;
@@ -50,7 +53,7 @@ public class UserService extends UserUtils {
 
         String url = usercardServiceUrl.endsWith("/") ? usercardServiceUrl : usercardServiceUrl +"/";
         url += String.format("api/usercards/init/%s",username);
-        String res = HttpUtils.httpRequest(url, "POST");
+        String res = httpUtils.httpRequest(url, "POST");
         if(res == null) throw new RuntimeException();
         return savedUser.getSurname();
     }

@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
 import j3lcardmarket.atelier3.commons.utils.CardAuth;
 import j3lcardmarket.atelier3.gameserver.dto.CreateGameRoomDto;
-import j3lcardmarket.atelier3.gameserver.dto.RoomDto;
+import j3lcardmarket.atelier3.gameserver.dto.GameRoomDto;
 import j3lcardmarket.atelier3.gameserver.dto.RoomSummaryDto;
 import j3lcardmarket.atelier3.gameserver.services.GameRoomService;
 import jakarta.validation.Valid;
@@ -26,32 +26,46 @@ public class GameRoomController {
         return gameRoomService.getRooms();
     }
 
+    @GetMapping("/{roomId}")
+    @ResponseBody
+    public GameRoomDto getRoom(@PathVariable int roomId) {
+        return gameRoomService.getRoom(roomId);
+    }
+
     @PostMapping
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
-    public RoomSummaryDto createRoom(@Valid @RequestBody CreateGameRoomDto gameRoomDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+    public GameRoomDto createRoom(@Valid @RequestBody CreateGameRoomDto gameRoomDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return gameRoomService.createRoom(cardUserInfo.surname(), gameRoomDto.getName());
     }
 
-    @PutMapping("/{cardId}/join")
+    @PutMapping("/{roomId}/join")
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
-    public RoomSummaryDto joinRoomAsOpponent(@PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return gameRoomService.joinAsOpponent(cardUserInfo.surname(), cardId);
+    public GameRoomDto joinRoomAsOpponent(@PathVariable int roomId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return gameRoomService.joinAsOpponent(cardUserInfo.surname(), roomId);
     }
 
-    @PutMapping("/{cardId}/play")
+    @PutMapping("/{roomId}/select-card/{cardId}")
     @ResponseBody
-    public RoomDto playGame(@PathVariable int cardId) {
-        return gameRoomService.play(cardId);
-    }
-
-    @DeleteMapping("/{cardId}")
     @SecurityRequirement(name = "cardauth")
     @CardAuth
-    public void cancelRoom(@PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        gameRoomService.cancelRoom(cardUserInfo.surname(), cardId);
+    public GameRoomDto selectCard(@PathVariable int roomId, @PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return gameRoomService.selectCard(cardUserInfo.surname(), roomId, cardId);
+    }
+
+    @PutMapping("/{roomId}/play")
+    @ResponseBody
+    public GameRoomDto playGame(@PathVariable int roomId) {
+        return gameRoomService.play(roomId);
+    }
+
+    @DeleteMapping("/{roomId}")
+    @SecurityRequirement(name = "cardauth")
+    @CardAuth
+    public GameRoomDto cancelRoom(@PathVariable int roomId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return gameRoomService.cancelRoom(cardUserInfo.surname(), roomId);
     }
 }

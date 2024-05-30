@@ -1,0 +1,58 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Start MySQL with Docker Compose
+        run: |
+          docker-compose -f atelier3/docker-compose.yml up -d
+          export DB_PASSWORD=$DB_PASSWORD
+
+      - name: Install Commons with Maven
+        run: mvn -B install --file atelier3/commons/pom.xml
+
+      - name: Verify Card
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_CARD_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.cardserver --file ./atelier3/card-server/pom.xml
+
+      #- name: Verify Auth with Maven
+      #  run: mvn -B verify --file atelier3/auth-server/pom.xml
+
+      - name: Verify Game
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_GAME_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.gameserver --file ./atelier3/game-server/pom.xml
+
+      - name: Verify User
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_USER_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.userserver --file ./atelier3/user-server/pom.xml
+
+      #- name: Verify Discovery with Maven
+      #  run: mvn -B verify --file atelier3/discovery-server/pom.xml
+
+      - name: Verify Usercard
+        run: mvn -B verify --file atelier3/usercard-server/pom.xml
+

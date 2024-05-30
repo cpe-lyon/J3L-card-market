@@ -11,8 +11,7 @@ class UserCardTest {
 
     @BeforeEach
     public void setUp() {
-        Card card = new Card(1, "Dracofeu");
-        dracofeu = new UserCard(card);
+        dracofeu = new UserCard(1, "Dracofeu");
     }
 
     @Test

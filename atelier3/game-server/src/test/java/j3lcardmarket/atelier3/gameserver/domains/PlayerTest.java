@@ -15,20 +15,16 @@ class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        Card dracofeu = new Card(1, "Dracofeu");
-        Card pikachu = new Card(2, "Pikachu");
+        userCardDracofeu = new UserCard(1, "Dracofeu");
+        userCardPikachu = new UserCard(2, "Pikachu");
 
-        userCardDracofeu = new UserCard(dracofeu);
-        userCardPikachu = new UserCard(pikachu);
-
-        User josse = new User("Josse", List.of(userCardDracofeu));
-        jossePlayer = new Player(josse);
+        jossePlayer = new Player("Josse");
     }
 
     @Test
     void testSelectCard() {
         // When
-        jossePlayer.selectCard(userCardDracofeu);
+        jossePlayer.selectCard(userCardDracofeu, List.of(userCardDracofeu, userCardPikachu));
 
         // Then
         assertEquals(userCardDracofeu.getId(), jossePlayer.getSelectedCard().getId());
@@ -37,7 +33,7 @@ class PlayerTest {
     @Test
     void testSelectCardNotOwned() {
         // When / Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> jossePlayer.selectCard(userCardPikachu));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> jossePlayer.selectCard(userCardPikachu, List.of(userCardDracofeu)));
         assertEquals("Player does not own this card", exception.getMessage());
     }
 
@@ -47,7 +43,7 @@ class PlayerTest {
         assertTrue(jossePlayer.hasNoSelectedCard());
 
         // When
-        jossePlayer.selectCard(userCardDracofeu);
+        jossePlayer.selectCard(userCardDracofeu, List.of(userCardDracofeu, userCardPikachu));
 
         // Then
         assertFalse(jossePlayer.hasNoSelectedCard());
@@ -59,7 +55,7 @@ class PlayerTest {
         userCardDracofeu.looseEnergy(100);
 
         // When / Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> jossePlayer.selectCard(userCardDracofeu));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> jossePlayer.selectCard(userCardDracofeu, List.of(userCardDracofeu, userCardPikachu)));
         assertEquals("Selected card has no energy", exception.getMessage());
     }
 }

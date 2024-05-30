@@ -7,8 +7,8 @@ public class InGameCard extends UserCard {
 
         private Integer hp;
 
-        public InGameCard(UserCard userCard) {
-            super(userCard.getId(), userCard.getName());
+        public InGameCard(Integer userCardId, String cardName) {
+            super(userCardId, cardName);
             this.hp = 100;
         }
 

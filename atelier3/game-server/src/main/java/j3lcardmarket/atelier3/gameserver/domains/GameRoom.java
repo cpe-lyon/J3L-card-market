@@ -1,8 +1,9 @@
 package j3lcardmarket.atelier3.gameserver.domains;
 
-import lombok.Getter;
+import j3lcardmarket.atelier3.commons.models.GameRoomState;
+import lombok.Data;
 
-@Getter
+@Data
 public class GameRoom {
 
     private GameRoomState state;
@@ -14,28 +15,30 @@ public class GameRoom {
         this.state = GameRoomState.INITIAL;
     }
 
-    public void init(User creator, String roomName) {
+    public GameRoom init(String creatorSurname, String roomName) {
         if (this.state != GameRoomState.INITIAL) {
             throw new IllegalStateException("Game room already initialized");
         }
 
-        this.creator = new Player(creator);
+        this.creator = new Player(creatorSurname);
         this.name = roomName;
         this.state = GameRoomState.WAITING_FOR_PLAYERS;
+
+        return this;
     }
 
-    public void joinAsOpponent(User opponent) {
+    public void joinAsOpponent(String opponentSurname) {
         if (this.state != GameRoomState.WAITING_FOR_PLAYERS) {
             throw new IllegalStateException("Cannot join as opponent in current state: " + this.state);
         }
         if (this.opponent != null) {
             throw new IllegalStateException("An opponent has already joined this game room");
         }
-        if (opponent.getSurname().equals(this.creator.getSurname())) {
+        if (opponentSurname.equals(this.creator.getSurname())) {
             throw new IllegalArgumentException("Cannot join a game room as opponent if you are the creator");
         }
 
-        this.opponent = new Player(opponent);
+        this.opponent = new Player(opponentSurname);
         this.state = GameRoomState.READY_TO_START;
     }
 
