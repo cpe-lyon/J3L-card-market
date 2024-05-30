@@ -10,4 +10,5 @@ import java.util.List;
 public interface UserCardRepository extends JpaRepository<UserCard, Integer> {
     List<UserCard> findAllByOwnerSurname(String ownerSurname);
     List<UserCard> findAllByPriceIsNotNullAndOwnerSurnameIsNot(String ownerSurname);
+    UserCard findByCardIdAndOwnerSurname(Integer cardId, String ownerSurname);
 }

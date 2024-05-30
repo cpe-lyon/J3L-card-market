@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
 import j3lcardmarket.atelier3.commons.utils.CardAuth;
 import j3lcardmarket.atelier3.commons.utils.ForbiddenException;
+import j3lcardmarket.atelier3.usercardserver.dto.SellCardDto;
 import j3lcardmarket.atelier3.usercardserver.dto.UserCardDto;
 import j3lcardmarket.atelier3.usercardserver.services.UserCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,4 +63,11 @@ public class UserCardController {
                 .stream().map(UserCardDto::new).collect(Collectors.toList());
     }
 
+    @PutMapping("/{cardId}/sell")
+    @CardAuth
+    @SecurityRequirement(name = "cardauth")
+    @ResponseBody
+    public void sellCard(@PathVariable Integer cardId, @RequestBody SellCardDto sellCardDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo){
+        cardService.sellCard(cardId, sellCardDto.getPrice(),  cardUserInfo.userName());
+    }
 }
