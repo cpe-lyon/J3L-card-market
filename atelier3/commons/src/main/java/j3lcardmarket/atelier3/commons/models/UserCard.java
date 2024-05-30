@@ -24,4 +24,13 @@ public class UserCard {
     public String toString(){
         return String.format("[%d] %s",id,  card.getName());
     }
+
+    public UserCard clone(){
+        UserCard copy = new UserCard();
+        copy.setId(id);
+        copy.setCard(card);
+        copy.setPrice(price);
+        copy.setOwner(owner);
+        return copy;
+    }
 }

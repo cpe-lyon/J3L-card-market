@@ -9,3 +9,11 @@ services:
     restart: always
     ports:
       - 5432:5432
+
+  broker:
+    image: 'camunda/zeebe:latest'
+    command: ['broker', '--gateway-address', 'gateway:26500']
+    ports:
+      - '26500-26501:26500-26501'
+    environment:
+      - JAVA_OPTS=-Xms1G -Xmx1G

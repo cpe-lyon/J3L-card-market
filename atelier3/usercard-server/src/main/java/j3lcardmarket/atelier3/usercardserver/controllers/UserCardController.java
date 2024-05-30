@@ -5,8 +5,10 @@ import j3lcardmarket.atelier3.commons.models.UserInfo;
 import j3lcardmarket.atelier3.commons.utils.CardAuth;
 import j3lcardmarket.atelier3.commons.utils.ForbiddenException;
 import j3lcardmarket.atelier3.usercardserver.dto.SellCardDto;
+import j3lcardmarket.atelier3.usercardserver.dto.EditUserCardDto;
 import j3lcardmarket.atelier3.usercardserver.dto.UserCardDto;
 import j3lcardmarket.atelier3.usercardserver.services.UserCardService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +70,20 @@ public class UserCardController {
     public List<UserCardDto> getAllOnSale(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return cardService.getPurchasableByOwner(cardUserInfo.userName())
                 .stream().map(UserCardDto::new).collect(Collectors.toList());
+    }
+
+    @Value("${orchestrator.token}")
+    String orchestratorToken;
+
+    private String orchestratorHeader(){
+        return String.format("Bearer %s", orchestratorToken);
+    }
+
+    @PostMapping("/{ucardId}/editAndReturnPrevious")
+    public EditUserCardDto changeCard(@RequestHeader("Authorization") String sagaHeader, @Valid @RequestBody EditUserCardDto newCard, @PathVariable Integer ucardId) {
+        if (!sagaHeader.trim().equals(orchestratorHeader().trim()))
+            throw new ForbiddenException();
+        return new EditUserCardDto(cardService.changeCard(ucardId, newCard.getOwner(), newCard.getPrice()));
     }
 
     @PutMapping("/{cardId}/sell")
