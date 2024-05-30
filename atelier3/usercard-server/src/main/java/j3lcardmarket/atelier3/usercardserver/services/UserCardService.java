@@ -87,4 +87,12 @@ public class UserCardService {
             userCardRepo.save(userCard);
         }
     }
+
+    @Transactional
+    public void sellCard(int cardId, int price, String sellerSurname) {
+        UserCard card = userCardRepo.findByIdAndOwnerSurname(cardId, sellerSurname);
+        if(card == null) throw new NotFoundException();
+        card.setPrice(price);
+        userCardRepo.save(card);
+    }
 }
