@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1q5b2nz" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.23.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.5.0">
+  <bpmn:process id="buy-process" name="Buy process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_11phwnk</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="buy-2-task" name="Register transaction">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="buy-2-task" retries="0" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_09pqty8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zk38gk</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_09pqty8" sourceRef="buy-1-task" targetRef="buy-2-task" />
+    <bpmn:serviceTask id="buy-1-task" name="Change owner of UserCard">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="buy-1-task" retries="0" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_11phwnk</bpmn:incoming>
+      <bpmn:outgoing>Flow_09pqty8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="Event_1f9c9mm" attachedToRef="buy-2-task">
+      <bpmn:outgoing>Flow_11en1lq</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_1bg00ie" />
+    </bpmn:boundaryEvent>
+    <bpmn:boundaryEvent id="Event_159znyn" attachedToRef="buy-1-task">
+      <bpmn:compensateEventDefinition id="CompensateEventDefinition_1rhfzvw" />
+    </bpmn:boundaryEvent>
+    <bpmn:serviceTask id="rollback-buy-1-task" name="Change back owner" isForCompensation="true">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="rollback-buy-1-task" retries="0" />
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:intermediateThrowEvent id="Event_0ac10tj">
+      <bpmn:incoming>Flow_11en1lq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fd4ufv</bpmn:outgoing>
+      <bpmn:compensateEventDefinition id="CompensateEventDefinition_1puj60f" activityRef="buy-1-task" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:endEvent id="Event_1xu910e">
+      <bpmn:incoming>Flow_0fd4ufv</bpmn:incoming>
+      <bpmn:incoming>Flow_0zk38gk</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_11en1lq" sourceRef="Event_1f9c9mm" targetRef="Event_0ac10tj" />
+    <bpmn:sequenceFlow id="Flow_11phwnk" sourceRef="StartEvent_1" targetRef="buy-1-task" />
+    <bpmn:sequenceFlow id="Flow_0fd4ufv" sourceRef="Event_0ac10tj" targetRef="Event_1xu910e" />
+    <bpmn:sequenceFlow id="Flow_0zk38gk" sourceRef="buy-2-task" targetRef="Event_1xu910e" />
+    <bpmn:association id="Association_0df6dg8" associationDirection="One" sourceRef="Event_159znyn" targetRef="rollback-buy-1-task" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="buy-process">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kyxxq8_di" bpmnElement="buy-2-task">
+        <dc:Bounds x="410" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0iv6hhg_di" bpmnElement="buy-1-task">
+        <dc:Bounds x="230" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1lyjum7_di" bpmnElement="rollback-buy-1-task">
+        <dc:Bounds x="310" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01qi56e_di" bpmnElement="Event_0ac10tj">
+        <dc:Bounds x="442" y="192" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1xu910e_di" bpmnElement="Event_1xu910e">
+        <dc:Bounds x="552" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0g45b8c_di" bpmnElement="Event_159znyn">
+        <dc:Bounds x="262" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1p6cpe8_di" bpmnElement="Event_1f9c9mm">
+        <dc:Bounds x="442" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_09pqty8_di" bpmnElement="Flow_09pqty8">
+        <di:waypoint x="330" y="120" />
+        <di:waypoint x="410" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11en1lq_di" bpmnElement="Flow_11en1lq">
+        <di:waypoint x="460" y="178" />
+        <di:waypoint x="460" y="192" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11phwnk_di" bpmnElement="Flow_11phwnk">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="230" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fd4ufv_di" bpmnElement="Flow_0fd4ufv">
+        <di:waypoint x="478" y="210" />
+        <di:waypoint x="570" y="210" />
+        <di:waypoint x="570" y="138" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zk38gk_di" bpmnElement="Flow_0zk38gk">
+        <di:waypoint x="510" y="120" />
+        <di:waypoint x="552" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0df6dg8_di" bpmnElement="Association_0df6dg8">
+        <di:waypoint x="280" y="178" />
+        <di:waypoint x="280" y="210" />
+        <di:waypoint x="310" y="210" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

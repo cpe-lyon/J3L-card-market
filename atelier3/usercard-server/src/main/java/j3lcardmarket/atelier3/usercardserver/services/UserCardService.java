@@ -2,6 +2,7 @@ package j3lcardmarket.atelier3.usercardserver.services;
 
 import j3lcardmarket.atelier3.commons.models.UserIdentifier;
 import j3lcardmarket.atelier3.commons.models.UserCard;
+import j3lcardmarket.atelier3.commons.utils.ForbiddenException;
 import j3lcardmarket.atelier3.commons.utils.HttpUtils;
 import j3lcardmarket.atelier3.commons.utils.NotFoundException;
 import j3lcardmarket.atelier3.usercardserver.repositories.CardReferenceRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,5 +88,20 @@ public class UserCardService {
             userCard.setOwner(user);
             userCardRepo.save(userCard);
         }
+    }
+
+    @Transactional
+    public UserCard changeCard(Integer id, String owner, Integer price) {
+        Optional<UserCard> oldUcard = userCardRepo.findById(id);
+        if(oldUcard.isEmpty()) throw new NotFoundException();
+        UserCard toEdit = oldUcard.get().clone();
+        if(
+                toEdit.getOwner().getSurname().equals(owner)
+                        || toEdit.getPrice() == null
+        ) throw new ForbiddenException();
+        toEdit.setOwner(userRepo.getReference(owner));
+        toEdit.setPrice(price);
+        userCardRepo.save(toEdit);
+        return oldUcard.get();
     }
 }
