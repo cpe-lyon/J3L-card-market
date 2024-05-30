@@ -91,6 +91,14 @@ public class UserCardService {
     }
 
     @Transactional
+    public void sellCard(int cardId, int price, String sellerSurname) {
+        UserCard card = userCardRepo.findByIdAndOwnerSurname(cardId, sellerSurname);
+        if(card == null) throw new NotFoundException();
+        card.setPrice(price);
+        userCardRepo.save(card);
+    }
+
+    @Transactional
     public UserCard changeCard(Integer id, String owner, Integer price) {
         Optional<UserCard> oldUcard = userCardRepo.findById(id);
         if(oldUcard.isEmpty()) throw new NotFoundException();

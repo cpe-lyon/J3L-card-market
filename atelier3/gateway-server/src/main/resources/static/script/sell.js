@@ -62,7 +62,6 @@ function sellCard(cardId) {
         },
         body: JSON.stringify({ price: price })
     })
-        .then(response => response.json())
         .then(data => {
             location.reload();
             alert('Card ' + data.card.name + ' has been put on sale for ' + data.price + '$');
@@ -90,18 +89,25 @@ function getCardFromAPI() {
                         updateCardDetails(row, userCard.id);
                     };
                 }
-                const idCell = row.insertCell();
-                idCell.innerText = userCard.id;
-                const nameCell = row.insertCell();
-                nameCell.innerText = userCard.card.name;
-                const imageCell = row.insertCell();
-                if (userCard.card.imageUrl !== null) {
-                    const image = document.createElement('img');
-                    image.src = userCard.card.imageUrl;
-                    image.style.width = '120px';
-                    imageCell.appendChild(image);
-                }
-            });
+
+                fetch(`/api/cards/${userCard.cardId}`, {
+                    method: 'GET'
+                })
+                    .then(response => response.json())
+                    .then(card => {
+                        const idCell = row.insertCell();
+                        idCell.innerText = userCard.id;
+                        const nameCell = row.insertCell();
+                        nameCell.innerText = card.name;
+                        const imageCell = row.insertCell();
+                        if (card.imageUrl !== null) {
+                            const image = document.createElement('img');
+                            image.src = card.imageUrl;
+                            image.style.width = '120px';
+                            imageCell.appendChild(image);
+                        }
+                    });
+                });
         });
 }
 

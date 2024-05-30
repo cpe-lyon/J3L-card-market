@@ -1,12 +1,6 @@
 package j3lcardmarket.atelier3.usercardserver.dto;
 
-import j3lcardmarket.atelier3.commons.models.Card;
 import j3lcardmarket.atelier3.commons.models.UserCard;
-import j3lcardmarket.atelier3.commons.models.UserIdentifier;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 
 @Getter

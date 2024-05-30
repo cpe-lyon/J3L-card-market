@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
 import j3lcardmarket.atelier3.commons.utils.CardAuth;
 import j3lcardmarket.atelier3.commons.utils.ForbiddenException;
+import j3lcardmarket.atelier3.usercardserver.dto.SellCardDto;
 import j3lcardmarket.atelier3.usercardserver.dto.EditUserCardDto;
 import j3lcardmarket.atelier3.usercardserver.dto.UserCardDto;
 import j3lcardmarket.atelier3.usercardserver.services.UserCardService;
@@ -54,6 +55,13 @@ public class UserCardController {
         return cardService.getAllByOwner(cardUserInfo.userName())
                 .stream().map(UserCardDto::new).collect(Collectors.toList());
     }
+    @GetMapping("/{username}")
+    @CardAuth
+    @ResponseBody
+    public List<UserCardDto> getAllOwnedByUser(@PathVariable("username") String username) {
+        return cardService.getAllByOwner(username)
+                .stream().map(UserCardDto::new).collect(Collectors.toList());
+    }
 
     @GetMapping("/on-sale")
     @CardAuth
@@ -78,4 +86,11 @@ public class UserCardController {
         return new EditUserCardDto(cardService.changeCard(ucardId, newCard.getOwner(), newCard.getPrice()));
     }
 
+    @PutMapping("/{cardId}/sell")
+    @CardAuth
+    @SecurityRequirement(name = "cardauth")
+    @ResponseBody
+    public void sellCard(@PathVariable Integer cardId, @RequestBody SellCardDto sellCardDto, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo){
+        cardService.sellCard(cardId, sellCardDto.getPrice(),  cardUserInfo.userName());
+    }
 }
