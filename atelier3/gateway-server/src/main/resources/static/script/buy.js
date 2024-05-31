@@ -10,8 +10,8 @@ function updateCardDetails(row, cardId) {
 }
 
 function buyCard(cardId) {
-    fetch(`/api/usercards/${cardId}/buy`, {
-        method: 'PUT',
+    fetch(`/api/orchestrate/buy/${cardId}`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             ...window.authHeader

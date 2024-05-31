@@ -46,6 +46,9 @@ public class GatewayConfig {
                 .route("api-game", routeSpec -> routeSpec
                         .path("/api/game-rooms/**")
                         .uri("lb://game-server"))
+                .route("api-orchestrate", routeSpec -> routeSpec
+                        .path("/api/orchestrate/**")
+                        .uri("lb://saga-orchestrator"))
             .build();
     }
 }
