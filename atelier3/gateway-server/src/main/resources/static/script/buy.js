@@ -10,8 +10,8 @@ function updateCardDetails(row, cardId) {
 }
 
 function buyCard(cardId) {
-    fetch(`/api/usercards/${cardId}/buy`, {
-        method: 'PUT',
+    fetch(`/api/orchestrate/buy/${cardId}`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             ...window.authHeader
@@ -40,19 +40,25 @@ function getCardFromAPI() {
                 row.onclick = function() {
                     updateCardDetails(row, userCard.id);
                 };
-                const idCell = row.insertCell();
-                idCell.innerText = userCard.card.id;
-                const nameCell = row.insertCell();
-                nameCell.innerText = userCard.card.name;
-                const priceCell = row.insertCell();
-                priceCell.innerText = `${userCard.price}$`;
-                const imageCell = row.insertCell();
-                if (userCard.card.imageUrl !== null) {
-                    const image = document.createElement('img');
-                    image.src = userCard.card.imageUrl;
-                    image.style.width = '120px';
-                    imageCell.appendChild(image);
-                }
+                fetch(`/api/cards/${userCard.cardId}`, {
+                    method: 'GET'
+                })
+                    .then(response => response.json())
+                    .then(card => {
+                        const idCell = row.insertCell();
+                        idCell.innerText = userCard.id;
+                        const nameCell = row.insertCell();
+                        nameCell.innerText = card.name;
+                        const priceCell = row.insertCell();
+                        priceCell.innerText = userCard.price;
+                        const imageCell = row.insertCell();
+                        if (card.imageUrl !== null) {
+                            const image = document.createElement('img');
+                            image.src = card.imageUrl;
+                            image.style.width = '120px';
+                            imageCell.appendChild(image);
+                        }
+                    });
             });
         });
 }

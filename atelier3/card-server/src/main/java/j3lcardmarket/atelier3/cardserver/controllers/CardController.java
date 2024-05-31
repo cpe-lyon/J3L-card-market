@@ -1,6 +1,7 @@
 package j3lcardmarket.atelier3.cardserver.controllers;
 
 import j3lcardmarket.atelier3.cardserver.dto.CardDto;
+import j3lcardmarket.atelier3.cardserver.dto.CreateCardDto;
 import j3lcardmarket.atelier3.cardserver.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,12 @@ public class CardController {
 
     @Autowired
     CardService cardService;
+
+    @PostMapping
+    @ResponseBody
+    public void create(@RequestBody CreateCardDto cardDto) {
+        cardService.createCard(cardDto.getName(), cardDto.getImageUrl(), 50, 50, 50, null);
+    }
 
     @GetMapping
     @ResponseBody
