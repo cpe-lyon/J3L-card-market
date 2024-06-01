@@ -37,7 +37,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_CARD_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.cardserver --file ./atelier3/card-server/pom.xml
 
-      - name: Verify Card
+      - name: Verify Auth
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_AUTH_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.authserver --file ./atelier3/auth-server/pom.xml
@@ -52,7 +52,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_USER_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.userserver --file ./atelier3/user-server/pom.xml
 
-      - name: Verify Card
+      - name: Verify Usercard
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_USERCARD_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.usercard --file ./atelier3/usercard-server/pom.xml
