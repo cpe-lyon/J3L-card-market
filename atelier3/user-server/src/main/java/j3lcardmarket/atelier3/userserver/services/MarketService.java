@@ -53,7 +53,8 @@ public class MarketService {
 
         buyer.setBalance(buyer.getBalance() - price);
         owner.setBalance(owner.getBalance() + price);
-
+        userRepo.save(buyer);
+        userRepo.save(owner);
         return transactionRepo.save(transaction);
     }
 

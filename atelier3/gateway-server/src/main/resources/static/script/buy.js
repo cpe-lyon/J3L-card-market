@@ -17,8 +17,7 @@ function buyCard(cardId) {
             ...window.authHeader
         }
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(res => {
             location.reload();
             alert('Bought ' + data.userCard.card.name + ' for ' + data.price + '$');
         });

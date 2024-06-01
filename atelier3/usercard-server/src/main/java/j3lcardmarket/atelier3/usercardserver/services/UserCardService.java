@@ -42,7 +42,8 @@ public class UserCardService {
     }
 
     public List<UserCard> getPurchasableByOwner(String ownerSurname) {
-        return userCardRepo.findAllByPriceIsNotNullAndOwnerSurnameIsNot(ownerSurname);
+        return userCardRepo.findAllByPriceIsNotNullAndPriceGreaterThanEqualAndOwnerSurnameIsNot
+                (1,ownerSurname);
     }
 
     private UserCard unsafeCreateUserCard(int cardId, String creatorSurname){
@@ -102,10 +103,12 @@ public class UserCardService {
     }
 
     @Transactional
-    public UserCard changeCard(Integer id, String owner, Integer price) {
+    public UserCard changeCard(Integer id, String owner, Integer price, boolean force) {
         Optional<UserCard> oldUcard = userCardRepo.findById(id);
         if(oldUcard.isEmpty()) throw new NotFoundException();
         UserCard toEdit = oldUcard.get().clone();
+        UserCard toReturn = oldUcard.get().clone();
+        if(toEdit.getPrice() == 0 && !force) throw new ForbiddenException();
         if(
                 toEdit.getOwner().getSurname().equals(owner)
                         || toEdit.getPrice() == null
@@ -113,6 +116,6 @@ public class UserCardService {
         toEdit.setOwner(userRepo.getReference(owner));
         toEdit.setPrice(price);
         userCardRepo.save(toEdit);
-        return oldUcard.get();
+        return toReturn;
     }
 }

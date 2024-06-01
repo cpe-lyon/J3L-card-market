@@ -27,8 +27,6 @@ import java.util.stream.Collectors;
 @Component
 public class CreateUserWorker {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CreateUserWorker.class.getName());
-
     @Autowired
     private JobClient jobClient;
 
@@ -43,54 +41,65 @@ public class CreateUserWorker {
 
     private URI getUsersUri(ActivatedJob job) throws IOException {
         String userId = job.getVariable("userid").toString();
-        LOGGER.info("REQUEST FOR USER "+userId);
         return restHttpUtils.buildGatewayUri(String.format("/api/users/%s", userId));
     }
 
     @ZeebeWorker(type = "createuser-2-task")
-    public void createUser(ActivatedJob job) throws IOException {
-        URI uri = getUsersUri(job);
-
-        restHttpUtils.sendRequest(uri, HttpMethod.POST, null, Object.class);
-        jobClient.newCompleteCommand(job.getKey()).send();
+    public void createUser(ActivatedJob job) {
+        try {
+            URI uri = getUsersUri(job);
+            restHttpUtils.sendRequest(uri, HttpMethod.POST, null, Object.class);
+            jobClient.newCompleteCommand(job.getKey()).send();
+        }catch (IOException exception){
+            jobClient.newThrowErrorCommand(job.getKey()).errorCode(exception.getMessage()).send();
+        }
     }
 
     @ZeebeWorker(type = "createuser-2-task-rollback")
-    public void deleteUser(ActivatedJob job) throws IOException {
-        URI uri = getUsersUri(job);
-        restHttpUtils.sendRequest(uri, HttpMethod.DELETE, null, Object.class);
-        jobClient.newCompleteCommand(job.getKey()).send();
+    public void deleteUser(ActivatedJob job){
+        try {
+            URI uri = getUsersUri(job);
+            restHttpUtils.sendRequest(uri, HttpMethod.DELETE, null, Object.class);
+            jobClient.newCompleteCommand(job.getKey()).send();
+        }catch (IOException exception){
+            jobClient.newThrowErrorCommand(job.getKey()).errorCode(exception.getMessage()).send();
+        }
     }
 
     @ZeebeWorker(type = "createuser-3-task")
-    public void giveCards(ActivatedJob job) throws IOException {
-        LOGGER.info("REGISTERING TRANSACTION");
-        String userId = job.getVariable("userid").toString();
-        String rawCardIds = job.getVariable("cardIds").toString();
+    public void giveCards(ActivatedJob job) {
+        try{
+            String userId = job.getVariable("userid").toString();
+            String rawCardIds = job.getVariable("cardIds").toString();
 
-        List<Integer> cardIds = Arrays.stream(rawCardIds.split(";")).map(Integer::parseInt).collect(Collectors.toList());
-        if(cardIds.size() != 5) throw new IOException("cardIds variable must contain 5 ids");
+            List<Integer> cardIds = Arrays.stream(rawCardIds.split(";")).map(Integer::parseInt).collect(Collectors.toList());
+            if(cardIds.size() != 5) throw new IOException("cardIds variable must contain 5 ids");
 
-        URI uri = restHttpUtils.buildGatewayUri(String.format("/api/usercards/starter/%s", userId));
+            URI uri = restHttpUtils.buildGatewayUri(String.format("/api/usercards/starter/%s", userId));
 
-        restHttpUtils.sendRequest(uri, HttpMethod.POST, cardIds, Object.class);
+            restHttpUtils.sendRequest(uri, HttpMethod.POST, cardIds, Object.class);
 
-        // Compléter la tâche
-        jobClient.newCompleteCommand(job.getKey()).send();
+            // Compléter la tâche
+            jobClient.newCompleteCommand(job.getKey()).send();
+        }catch (IOException exception){
+            jobClient.newThrowErrorCommand(job.getKey()).errorCode(exception.getMessage()).send();
+        }
     }
 
     @ZeebeWorker(type = "createuser-1-task")
-    public void getFiveCards(ActivatedJob job) throws IOException {
-        LOGGER.info("CHANGING BACK OWNER");
+    public void getFiveCards(ActivatedJob job) {
+        try{
+            URI uri = restHttpUtils.buildGatewayUri("/api/cards/pickStarterCards");
 
-        URI uri = restHttpUtils.buildGatewayUri("/api/cards/pickStarterCards");
+            //No need for IOException if failling because we count the ids anyway
+            //No need for header auth
+            String ids = restHttpUtils.httpRequest(uri.toString());
+            if(ids.split(";").length != 5) throw new IOException("Need 5 cards");
 
-        //No need for IOException if failling because we count the ids anyway
-        //No need for header auth
-        String ids = restHttpUtils.httpRequest(uri.toString());
-        if(ids.split(";").length != 5) throw new IOException("Need 5 cards");
-
-        // Compléter la tâche
-        jobClient.newCompleteCommand(job.getKey()).variable("cardIds", ids).send();
+            // Compléter la tâche
+            jobClient.newCompleteCommand(job.getKey()).variable("cardIds", ids).send();
+        }catch (IOException exception){
+            jobClient.newThrowErrorCommand(job.getKey()).errorCode(exception.getMessage()).send();
+        }
     }
 }

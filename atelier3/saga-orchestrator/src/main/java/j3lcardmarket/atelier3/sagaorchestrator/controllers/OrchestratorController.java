@@ -32,13 +32,15 @@ public class OrchestratorController {
     @ResponseBody
     @SecurityRequirement(name="cardauth")
     public String runBuyProcess(@PathVariable Integer usercardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        zeebeClient
+        ProcessInstanceResult evt = zeebeClient
                 .newCreateInstanceCommand()
                 .bpmnProcessId("buy-process")
                 .latestVersion()
                 .variables(Map.of("usercardId", usercardId, "buyer", cardUserInfo.userName()))
                 .withResult()
                 .send().join();
+        Object error = evt.getVariablesAsMap().get("error");
+        if (error != null) throw new RuntimeException(error.toString());
         return "OK";
     }
 
@@ -51,7 +53,7 @@ public class OrchestratorController {
     public String runCreateUserProcess(@RequestParam("user") String user, @RequestHeader("Authorization") String authHeader) throws IOException, ExecutionException, InterruptedException {
         if(!authHeader.startsWith("Bearer") || !authHeader.substring("Bearer".length()).trim().equals(authToken.trim()))
             throw new ForbiddenException();
-        ProcessInstanceResult event = zeebeClient
+        ProcessInstanceResult evt = zeebeClient
                 .newCreateInstanceCommand()
                 .bpmnProcessId("createuser-process")
                 .latestVersion()
@@ -59,6 +61,8 @@ public class OrchestratorController {
                 .withResult()
                 .requestTimeout(Duration.ofSeconds(30))
                 .send().join();
+        Object error = evt.getVariablesAsMap().get("error");
+        if (error != null) throw new RuntimeException(error.toString());
         return "OK";
     }
 }
