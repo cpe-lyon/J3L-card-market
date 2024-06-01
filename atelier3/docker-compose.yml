@@ -17,3 +17,9 @@ services:
       - '26500-26501:26500-26501'
     environment:
       - JAVA_OPTS=-Xms1G -Xmx1G
+      - ZEEBE_BROKER_LOG_LEVEL=DEBUG
+      - ZEEBE_BROKER_LOG4J_CONFIGURATION=log4j-messaging.xml
+      - ZEEBE_DEBUG=true
+    # Zeebe will send terminated event to localhost
+    extra_hosts:
+      - "localhost:172.17.0.1"

@@ -18,9 +18,7 @@ public class AuthConfig {
         return new AuthHandler(service) {
             @Override
             protected void onLog(TimedUserInfo userInfo) {
-                ((UserService)service).newCardUser(userInfo.userName(), (userId) -> {
-
-                });
+                ((UserService)service).newCardUser(userInfo.userName());
             }
         };
     }

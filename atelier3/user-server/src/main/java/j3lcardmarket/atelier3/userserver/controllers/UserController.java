@@ -2,6 +2,7 @@ package j3lcardmarket.atelier3.userserver.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.commons.utils.CardAuth;
+import j3lcardmarket.atelier3.commons.utils.SagaChecker;
 import j3lcardmarket.atelier3.userserver.dto.UserInfoDto;
 import j3lcardmarket.atelier3.userserver.services.UserService;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
@@ -31,5 +32,21 @@ public class UserController {
     @SecurityRequirement(name = "cardauth")
     public Integer getBalance(@RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         return userService.getBalance(cardUserInfo.userName());
+    }
+
+
+    @Autowired SagaChecker checker;
+
+    @PostMapping("/{user}")
+    public void createUser(@PathVariable String user) {
+        checker.checkSagaAuth();
+        userService.newCardUser(user);
+    }
+
+
+    @DeleteMapping("/{user}")
+    public void deleteUser(@PathVariable String user) {
+        checker.checkSagaAuth();
+        userService.removeUser(user);
     }
 }

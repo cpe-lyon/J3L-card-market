@@ -1,7 +1,5 @@
 const searchParams = new URLSearchParams(location.search.substr(1));
 
-const redirectUrl = searchParams.has("redirect")? searchParams.get("redirect") : HOME_URL;
-
 /**
  * @type {Element[]}
  */
@@ -50,9 +48,7 @@ form.addEventListener("submit", event => {
         surname: formData.get("surname"),
         avatarUrl: formData.get("avatarUrl")
     } : {};
-    const urlParams = new URLSearchParams();
-    urlParams.set("redirect", redirectUrl)
-    fetch(isRegister ? `/api/auth/register?${urlParams}`: `/api/auth/login?${urlParams}`, {
+    fetch(isRegister ? `/api/auth/register`: `/api/auth/login`, {
         redirect: "manual",
         method: form.method,
         body: JSON.stringify(params),
@@ -63,7 +59,8 @@ form.addEventListener("submit", event => {
         }
     }).then(async res => {
         if (res.status !== 200) throw res.body;
-        const url = new URL(redirectUrl);
+        const url = new URL(window.location);
+        url.pathname = "/";
         url.searchParams.set("token",await res.text());
         location.href = url.toString();
     }).catch(reason => console.error(reason));

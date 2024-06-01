@@ -36,14 +36,15 @@
       <bpmn:outgoing>Flow_0fd4ufv</bpmn:outgoing>
       <bpmn:compensateEventDefinition id="CompensateEventDefinition_1puj60f" activityRef="buy-1-task" />
     </bpmn:intermediateThrowEvent>
-    <bpmn:endEvent id="Event_1xu910e">
-      <bpmn:incoming>Flow_0fd4ufv</bpmn:incoming>
-      <bpmn:incoming>Flow_0zk38gk</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_11en1lq" sourceRef="Event_1f9c9mm" targetRef="Event_0ac10tj" />
     <bpmn:sequenceFlow id="Flow_11phwnk" sourceRef="StartEvent_1" targetRef="buy-1-task" />
     <bpmn:sequenceFlow id="Flow_0fd4ufv" sourceRef="Event_0ac10tj" targetRef="Event_1xu910e" />
     <bpmn:sequenceFlow id="Flow_0zk38gk" sourceRef="buy-2-task" targetRef="Event_1xu910e" />
+    <bpmn:endEvent id="Event_1xu910e">
+      <bpmn:incoming>Flow_0fd4ufv</bpmn:incoming>
+      <bpmn:incoming>Flow_0zk38gk</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_0vl51ib" />
+    </bpmn:endEvent>
     <bpmn:association id="Association_0df6dg8" associationDirection="One" sourceRef="Event_159znyn" targetRef="rollback-buy-1-task" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -65,7 +66,7 @@
       <bpmndi:BPMNShape id="Event_01qi56e_di" bpmnElement="Event_0ac10tj">
         <dc:Bounds x="442" y="192" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1xu910e_di" bpmnElement="Event_1xu910e">
+      <bpmndi:BPMNShape id="Event_0y2koav_di" bpmnElement="Event_1xu910e">
         <dc:Bounds x="552" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0g45b8c_di" bpmnElement="Event_159znyn">

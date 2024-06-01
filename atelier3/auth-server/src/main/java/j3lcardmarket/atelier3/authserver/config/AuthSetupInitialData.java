@@ -22,24 +22,6 @@ public class AuthSetupInitialData {
 
     @PostConstruct
     public void initialize() {
-        if (uRepo.existsById("jorge")) return;
-        registerService.register(new User(new BasicAuthInfo() {
-            @Override
-            public String getUsername() {
-                return "jorge";
-            }
-
-            @Override
-            public String getPassword() {
-                return "jorge";
-            }
-
-            @Override
-            public String serialize() {
-                return "jorge:jorge";
-            }
-        }, "Jorge Truchon", "https://media.tenor.com/YXrwVxTIpZEAAAAC/truchon-jorge-truchon.gif"));
-
         if (uRepo.existsById("xavier")) return;
         registerService.register(new User(new BasicAuthInfo() {
             @Override
@@ -56,7 +38,8 @@ public class AuthSetupInitialData {
             public String serialize() {
                 return "xavier:xavier";
             }
-        }, "Xavier", "https://varnam.my/wp-content/uploads/2021/01/FB_IMG_1605666747087-2.jpg"));
+        }, "Xavier", "https://varnam.my/wp-content/uploads/2021/01/FB_IMG_1605666747087-2.jpg"),
+                false);
 
     }
 
