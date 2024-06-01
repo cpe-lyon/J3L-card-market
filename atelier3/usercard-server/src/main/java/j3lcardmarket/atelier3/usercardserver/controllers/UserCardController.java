@@ -72,9 +72,9 @@ public class UserCardController {
 
     @Autowired SagaChecker sagaChecker;
     @PostMapping("/{ucardId}/editAndReturnPrevious")
-    public EditUserCardDto changeCard(@Valid @RequestBody EditUserCardDto newCard, @PathVariable Integer ucardId) {
+    public EditUserCardDto changeCard(@Valid @RequestBody EditUserCardDto newCard, @PathVariable Integer ucardId, @RequestParam(required = false) String force) {
         sagaChecker.checkSagaAuth();
-        return new EditUserCardDto(cardService.changeCard(ucardId, newCard.getOwner(), newCard.getPrice()));
+        return new EditUserCardDto(cardService.changeCard(ucardId, newCard.getOwner(), newCard.getPrice(), force != null && force.equals("true")));
     }
 
     @PutMapping("/{cardId}/sell")

@@ -31,14 +31,14 @@ public class TransactionController {
     @Autowired SagaChecker checker;
 
     @PostMapping
-    public Transaction create(@Valid @RequestBody CreateTransactionDTO transactionDto) {
+    public TransactionDto create(@Valid @RequestBody CreateTransactionDTO transactionDto) {
         checker.checkSagaAuth();
-        return marketService.saveTransaction(
+        return new TransactionDto(marketService.saveTransaction(
                 transactionDto.getUserCardId(),
                 transactionDto.getBuyerId(),
                 transactionDto.getSellerId(),
                 transactionDto.getPrice()
-        );
+        ));
     }
 
     @GetMapping()
