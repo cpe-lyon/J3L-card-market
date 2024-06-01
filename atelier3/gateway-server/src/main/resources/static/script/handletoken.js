@@ -1,4 +1,4 @@
-const loginUrl = `${HOME_URL}/login`
+const loginUrl = `/login`
 
 const currentUrl = new URL(location.href);
 if (currentUrl.searchParams.has("token")){
@@ -37,6 +37,12 @@ window.loginRedirectHandler = async (res) => {
 
 fetch("/api/users", {redirect: "manual", headers: authHeader})
     .then(loginRedirectHandler)
+    .then(res => {
+        if(res.status == 503){
+            document.querySelector("body").innerText = "Service Unavailable";
+        }
+        return res;
+    })
     .then(res => res.json())
     .then(userInfoDto => {
         updateProfile(userInfoDto);

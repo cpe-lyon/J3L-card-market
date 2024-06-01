@@ -2,6 +2,7 @@ package j3lcardmarket.atelier3.userserver.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.commons.utils.CardAuth;
+import j3lcardmarket.atelier3.commons.utils.SagaChecker;
 import j3lcardmarket.atelier3.userserver.dto.CreateTransactionDTO;
 import j3lcardmarket.atelier3.userserver.dto.TransactionDto;
 import j3lcardmarket.atelier3.commons.models.Transaction;
@@ -23,18 +24,15 @@ public class TransactionController {
     @Autowired
     MarketService marketService;
 
-    @Value("${userservice.transaction.token}")
-    String transactionToken;
 
     @Value("${cardmanager.admin.username}")
     String adminUsername;
 
-    @PostMapping
-    public Transaction create(@Valid @RequestBody CreateTransactionDTO transactionDto, @RequestHeader("Authorization") String authHeader) {
-        if(!authHeader.startsWith("Bearer ")) throw new ForbiddenException();
-        String token = authHeader.substring("Bearer".length()).trim();
-        if(!token.equals(transactionToken)) throw new ForbiddenException();
+    @Autowired SagaChecker checker;
 
+    @PostMapping
+    public Transaction create(@Valid @RequestBody CreateTransactionDTO transactionDto) {
+        checker.checkSagaAuth();
         return marketService.saveTransaction(
                 transactionDto.getUserCardId(),
                 transactionDto.getBuyerId(),

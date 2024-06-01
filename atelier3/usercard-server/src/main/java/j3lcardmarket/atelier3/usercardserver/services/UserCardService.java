@@ -45,13 +45,6 @@ public class UserCardService {
         return userCardRepo.findAllByPriceIsNotNullAndOwnerSurnameIsNot(ownerSurname);
     }
 
-    private boolean checkCardExisting(int cardId){
-        String url = cardServiceUrl.endsWith("/") ? cardServiceUrl : cardServiceUrl+"/";
-        url += String.format("api/cards/%d",cardId);
-        return httpUtils.httpRequest(url) != null;
-    }
-
-
     private UserCard unsafeCreateUserCard(int cardId, String creatorSurname){
         UserCard card = new UserCard();
         card.setCard(cardRepo.getReference(cardId));
@@ -62,8 +55,18 @@ public class UserCardService {
 
     @Transactional
     public UserCard createUserCard(int cardId, String creatorSurname) {
-        if(!checkCardExisting(cardId)) throw new NotFoundException();
+        //No check needed: admin operation
+        //if(!checkCardExisting(cardId)) throw new NotFoundException();
         return unsafeCreateUserCard(cardId, creatorSurname);
+    }
+
+    @Transactional
+    public void createUserCards(List<Integer> cardIds, String creatorSurname) {
+        //No check needed: admin operation
+        //if(!checkCardExisting(cardId)) throw new NotFoundException();
+        for (Integer cardId : cardIds) {
+            unsafeCreateUserCard(cardId, creatorSurname);
+        }
     }
 
     private List<Integer> pickStarterCards(String username){

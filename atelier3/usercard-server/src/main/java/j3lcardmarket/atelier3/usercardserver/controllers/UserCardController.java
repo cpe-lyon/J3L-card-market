@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
 import j3lcardmarket.atelier3.commons.utils.CardAuth;
 import j3lcardmarket.atelier3.commons.utils.ForbiddenException;
+import j3lcardmarket.atelier3.commons.utils.SagaChecker;
 import j3lcardmarket.atelier3.usercardserver.dto.SellCardDto;
 import j3lcardmarket.atelier3.usercardserver.dto.EditUserCardDto;
 import j3lcardmarket.atelier3.usercardserver.dto.UserCardDto;
@@ -26,18 +27,6 @@ public class UserCardController {
     @Autowired
     UserCardService cardService;
 
-    @Value("${userservice.transaction.token}")
-    String transactionToken;
-
-    @PostMapping("/init/{username}")
-    public void userCardsInit(@RequestHeader("Authorization") String authHeader, String username){
-        if(!authHeader.startsWith("Bearer ")) throw new ForbiddenException();
-        String token = authHeader.substring("Bearer".length()).trim();
-        if(!token.equals(transactionToken)) throw new ForbiddenException();
-
-        cardService.giveFiveRandomCards(username);
-    }
-
     @PostMapping("/{cardId}")
     @CardAuth
     @SecurityRequirement(name = "cardauth")
@@ -45,6 +34,15 @@ public class UserCardController {
     public Integer buildUserCard(@PathVariable Integer cardId , @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
         if(!adminUsername.equals(cardUserInfo.userName())) throw new ForbiddenException();
         return cardService.createUserCard(cardId, cardUserInfo.userName()).getId();
+    }
+
+    @Autowired SagaChecker checker;
+
+    @PostMapping("/starter/{userId}")
+    @ResponseBody
+    public void buildUserCards(@RequestBody List<Integer> cardIds, @PathVariable String userId) {
+        checker.checkSagaAuth();
+        cardService.createUserCards(cardIds, userId);
     }
 
     @GetMapping("/owned")
@@ -72,17 +70,10 @@ public class UserCardController {
                 .stream().map(UserCardDto::new).collect(Collectors.toList());
     }
 
-    @Value("${orchestrator.token}")
-    String orchestratorToken;
-
-    private String orchestratorHeader(){
-        return String.format("Bearer %s", orchestratorToken);
-    }
-
+    @Autowired SagaChecker sagaChecker;
     @PostMapping("/{ucardId}/editAndReturnPrevious")
-    public EditUserCardDto changeCard(@RequestHeader("Authorization") String sagaHeader, @Valid @RequestBody EditUserCardDto newCard, @PathVariable Integer ucardId) {
-        if (!sagaHeader.trim().equals(orchestratorHeader().trim()))
-            throw new ForbiddenException();
+    public EditUserCardDto changeCard(@Valid @RequestBody EditUserCardDto newCard, @PathVariable Integer ucardId) {
+        sagaChecker.checkSagaAuth();
         return new EditUserCardDto(cardService.changeCard(ucardId, newCard.getOwner(), newCard.getPrice()));
     }
 
