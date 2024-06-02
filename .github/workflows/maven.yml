@@ -56,3 +56,12 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_USERCARD_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=j3lcardmarket.atelier3.usercard --file ./atelier3/usercard-server/pom.xml
+
+      - name: Verify Discovery with Maven
+        run: mvn -B verify --file atelier3/discovery-service/pom.xml
+
+      - name: Verify Gateway with Maven
+        run: mvn -B verify --file atelier3/gateway-server/pom.xml
+
+      - name: Verify Saga with Maven
+        run: mvn -B verify --file atelier3/saga-orchestrator/pom.xml

@@ -23,6 +23,7 @@
 
 ## Ateliers
 [Atelier 2](./docs/atelier2.md)
+
 | Action                      | Statut  |
 |-----------------------------|---------|
 | Création d’utilisateur et connexion| <div align="center">✅</div> |
@@ -30,3 +31,16 @@
 | Page d'achat d'une carte| <div align="center">✅</div> |
 | Page de vente d'une carte| <div align="center">✅</div> |
 | Page de visualisation des transactions| <div align="center">✅</div> |
+
+
+## Ateliers
+[Atelier 3](./docs/atelier3.md)
+
+| Action                      | Statut  |
+|-----------------------------|---------|
+| Séparation en microservices | <div align="center">✅</div> |
+| Tests                       | <div align="center">✅</div> |
+| Gateway                     | <div align="center">✅</div> |
+| Discovery                   | <div align="center">✅</div> |
+| Orchestrator                | <div align="center">✅</div> |
+| Game                        | <div align="center">✅</div> |
