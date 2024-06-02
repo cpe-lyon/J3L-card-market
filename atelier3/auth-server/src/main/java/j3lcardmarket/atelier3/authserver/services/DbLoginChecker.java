@@ -38,6 +38,9 @@ public class DbLoginChecker implements LoginChecker<UserInfo, User> {
     @Value("${auth.token}")
     String authToken;
 
+    @Autowired
+    RestTemplate restTemplate;
+
 
     @SneakyThrows
     @Override
@@ -53,6 +56,8 @@ public class DbLoginChecker implements LoginChecker<UserInfo, User> {
     public UserInfo register(User info){
         return register(info, true);
     }
+
+
 
     @SneakyThrows
     public UserInfo register(User info, boolean initCards){
@@ -77,7 +82,7 @@ public class DbLoginChecker implements LoginChecker<UserInfo, User> {
                         new MultiValueMapAdapter<>(
                                 Map.of("Authorization", Collections.singletonList("Bearer " + authToken))
                         ));
-                String res = new RestTemplate().postForObject(uri, request, String.class);
+                String res = restTemplate.postForObject(uri, request, String.class);
                 if(!res.equals("OK")) throw new IOException("Wrong http response body");
             } catch (Exception e) {
                 repo.delete(saved);

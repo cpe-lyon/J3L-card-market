@@ -8,8 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.web.client.RestTemplate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -23,12 +25,16 @@ class DbLoginCheckerTest {
 
     private User user;
 
+    @Mock
+    RestTemplate restTemplate;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         user = new User();
         user.setUserName("testUser");
         user.setPassword("testPassword");
+        dbLoginChecker.gatewayUrl = "http://testurl";
     }
 
     @Test
@@ -45,8 +51,10 @@ class DbLoginCheckerTest {
     @Test
     void testRegister() {
         User expectedUser = new User();
+        expectedUser.setUserName("testUser");
         when(repo.save(any(User.class))).thenReturn(expectedUser);
         when(repo.existsById(anyString())).thenReturn(false);
+        when(restTemplate.postForObject(eq("http://testurl/api/orchestrate/register?user=testUser"), any(), eq(String.class))).thenReturn("OK");
 
         UserInfo actualUserInfo = dbLoginChecker.register(user);
 
