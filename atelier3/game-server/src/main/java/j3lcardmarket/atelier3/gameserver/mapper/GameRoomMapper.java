@@ -55,7 +55,7 @@ public class GameRoomMapper {
         }
 
         if (gameRoom.getWinnerSurname() != null) {
-            gameRoomEntity.setWinnerSurname(gameRoomEntity.getWinnerSurname());
+            gameRoomEntity.setWinnerSurname(gameRoom.getWinnerSurname());
         }
 
         return gameRoomEntity;

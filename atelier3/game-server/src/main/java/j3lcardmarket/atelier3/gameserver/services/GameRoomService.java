@@ -79,7 +79,6 @@ public class GameRoomService {
         GameRoom room = gameRoomMapper.fromEntity(roomEntity);
         room.executeGame();
         GameRoomEntity roomToSave = gameRoomMapper.toEntity(room, roomEntity.getId());
-        System.out.println("winner: " + roomToSave.getWinnerSurname());
         playerCardRepo.save(roomToSave.getCreatorCard());
         if (roomToSave.getOpponentCard() != null) {
             playerCardRepo.save(roomToSave.getOpponentCard());

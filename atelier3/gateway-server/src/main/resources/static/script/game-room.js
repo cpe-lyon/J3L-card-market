@@ -102,6 +102,7 @@ document.getElementById('play-button').onclick = function() {
     playGame();
 };
 
+getRoomFromAPI();
 getCardsFromAPI();
 
 setInterval(function() {
