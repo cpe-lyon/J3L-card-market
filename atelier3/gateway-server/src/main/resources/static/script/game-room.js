@@ -11,7 +11,7 @@ function getRoomFromAPI() {
         })
 }
 
-function getCardFromAPI() {
+function getCardsFromAPI() {
     fetch('/api/usercards/owned', {
         method: 'GET',
         headers: {
@@ -20,26 +20,33 @@ function getCardFromAPI() {
         }
     })
         .then(response => response.json())
-        .then(data => {
+        .then(userCards => {
+            console.log(userCards);
             const table = document.getElementById('playable-card-table');
-            data.forEach(userCard => {
+            userCards.forEach(userCard => {
+                console.log(userCard);
                 const row = table.insertRow();
                 row.onclick = function() {
-                    selectCard(row, userCard.id);
-                };
-                const idCell = row.insertCell();
-                idCell.innerText = userCard.card.id;
-                const nameCell = row.insertCell();
-                nameCell.innerText = userCard.card.name;
-                const priceCell = row.insertCell();
-                priceCell.innerText = `${userCard.price}$`;
-                const imageCell = row.insertCell();
-                if (userCard.card.imageUrl !== null) {
-                    const image = document.createElement('img');
-                    image.src = userCard.card.imageUrl;
-                    image.style.width = '120px';
-                    imageCell.appendChild(image);
+                    selectCard(row, userCard.cardId);
                 }
+
+                fetch(`/api/cards/${userCard.cardId}`, {
+                    method: 'GET'
+                })
+                    .then(response => response.json())
+                    .then(card => {
+                        const idCell = row.insertCell();
+                        idCell.innerText = userCard.id;
+                        const nameCell = row.insertCell();
+                        nameCell.innerText = card.name;
+                        const imageCell = row.insertCell();
+                        if (card.imageUrl !== null) {
+                            const image = document.createElement('img');
+                            image.src = card.imageUrl;
+                            image.style.width = '120px';
+                            imageCell.appendChild(image);
+                        }
+                    });
             });
         });
 }
@@ -48,7 +55,7 @@ function playGame() {
     const roomId = getRoomId();
 
     fetch(`/api/game-rooms/${roomId}/play`, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             ...window.authHeader
@@ -64,7 +71,7 @@ function playGame() {
 function selectCard(row, cardId) {
     const roomId = getRoomId();
     fetch(`/api/game-rooms/${roomId}/select-card/${cardId}`, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             ...window.authHeader
@@ -91,4 +98,4 @@ document.getElementById('play-button').onclick = function() {
 };
 
 getRoomFromAPI();
-getCardFromAPI();
+getCardsFromAPI();

@@ -40,7 +40,7 @@ public class GameRoomController {
         return gameRoomService.createRoom(cardUserInfo.surname(), gameRoomDto.getName());
     }
 
-    @PutMapping("/{roomId}/join")
+    @PostMapping("/{roomId}/join")
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
@@ -48,15 +48,15 @@ public class GameRoomController {
         return gameRoomService.joinAsOpponent(cardUserInfo.surname(), roomId);
     }
 
-    @PutMapping("/{roomId}/select-card/{cardId}")
+    @PostMapping("/{roomId}/select-card/{userCardId}")
     @ResponseBody
     @SecurityRequirement(name = "cardauth")
     @CardAuth
-    public GameRoomDto selectCard(@PathVariable int roomId, @PathVariable int cardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
-        return gameRoomService.selectCard(cardUserInfo.surname(), roomId, cardId);
+    public GameRoomDto selectCard(@PathVariable int roomId, @PathVariable int userCardId, @RequestAttribute("cardUserInfo") UserInfo cardUserInfo) {
+        return gameRoomService.selectCard(cardUserInfo.surname(), roomId, userCardId);
     }
 
-    @PutMapping("/{roomId}/play")
+    @PostMapping("/{roomId}/play")
     @ResponseBody
     public GameRoomDto playGame(@PathVariable int roomId) {
         return gameRoomService.play(roomId);

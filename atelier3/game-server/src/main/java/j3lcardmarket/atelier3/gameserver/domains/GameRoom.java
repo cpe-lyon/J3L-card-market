@@ -10,6 +10,7 @@ public class GameRoom {
     private Player creator;
     private Player opponent;
     private String name;
+    private String winnerSurname;
 
     public GameRoom() {
         this.state = GameRoomState.INITIAL;
@@ -52,6 +53,12 @@ public class GameRoom {
 
         Fight fight = new Fight(creator, opponent);
         fight.execute();
+
+        if (this.creator.getSelectedCard().getHp() == 0) {
+            this.winnerSurname = this.opponent.getSurname();
+        } else {
+            this.winnerSurname = this.creator.getSurname();
+        }
 
         this.state = GameRoomState.COMPLETED;
     }
