@@ -9,7 +9,7 @@ public class Fight {
         this.player2 = player2;
     }
 
-    public void execute() {
+    public Player execute() {
         Player winner = Math.random() > 0.5 ? player1 : player2;
         Player looser = winner == player1 ? player2 : player1;
 
@@ -19,5 +19,7 @@ public class Fight {
         int winnerLostHp = (int) (Math.random() * 10);
         winner.getSelectedCard().looseHp(winnerLostHp);
         winner.getSelectedCard().looseEnergy(10);
+
+        return winner;
     }
 }

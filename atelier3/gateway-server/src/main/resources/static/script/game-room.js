@@ -5,6 +5,10 @@ function getRoomFromAPI() {
         .then(response => response.json())
         .then(data => {
             document.getElementById('title').innerText = data.name;
+            if (data?.winnerSurname !== null && data?.winnerSurname !== undefined) {
+                alert(`Winner: ${data.winnerSurname}`);
+                location.href = '/game';
+            }
         })
         .catch(() => {
             location.href = '/game';
@@ -63,7 +67,8 @@ function playGame() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            alert(`Winner: ${data.winnerSurname}`);
+            location.href = '/game';
         });
 
 }
@@ -97,5 +102,8 @@ document.getElementById('play-button').onclick = function() {
     playGame();
 };
 
-getRoomFromAPI();
 getCardsFromAPI();
+
+setInterval(function() {
+    getRoomFromAPI();
+}, 5000);

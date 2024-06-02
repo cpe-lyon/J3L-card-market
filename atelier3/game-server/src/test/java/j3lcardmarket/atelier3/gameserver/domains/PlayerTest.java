@@ -24,17 +24,10 @@ class PlayerTest {
     @Test
     void testSelectCard() {
         // When
-        jossePlayer.selectCard(userCardDracofeu, List.of(userCardDracofeu, userCardPikachu));
+        jossePlayer.selectCard(userCardDracofeu);
 
         // Then
         assertEquals(userCardDracofeu.getId(), jossePlayer.getSelectedCard().getId());
-    }
-
-    @Test
-    void testSelectCardNotOwned() {
-        // When / Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> jossePlayer.selectCard(userCardPikachu, List.of(userCardDracofeu)));
-        assertEquals("Player does not own this card", exception.getMessage());
     }
 
     @Test
@@ -43,7 +36,7 @@ class PlayerTest {
         assertTrue(jossePlayer.hasNoSelectedCard());
 
         // When
-        jossePlayer.selectCard(userCardDracofeu, List.of(userCardDracofeu, userCardPikachu));
+        jossePlayer.selectCard(userCardDracofeu);
 
         // Then
         assertFalse(jossePlayer.hasNoSelectedCard());
@@ -55,7 +48,7 @@ class PlayerTest {
         userCardDracofeu.looseEnergy(100);
 
         // When / Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> jossePlayer.selectCard(userCardDracofeu, List.of(userCardDracofeu, userCardPikachu)));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> jossePlayer.selectCard(userCardDracofeu));
         assertEquals("Selected card has no energy", exception.getMessage());
     }
 }

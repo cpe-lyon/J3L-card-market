@@ -1,21 +1,17 @@
 package j3lcardmarket.atelier3.gameserver.services;
 
-import com.google.gson.Gson;
 import j3lcardmarket.atelier3.commons.models.GameRoomEntity;
 import j3lcardmarket.atelier3.commons.models.GameRoomState;
-import j3lcardmarket.atelier3.commons.utils.HttpUtils;
 import j3lcardmarket.atelier3.gameserver.domains.GameRoom;
 import j3lcardmarket.atelier3.gameserver.domains.UserCard;
-import j3lcardmarket.atelier3.gameserver.dto.CardDto;
 import j3lcardmarket.atelier3.gameserver.dto.GameRoomDto;
 import j3lcardmarket.atelier3.gameserver.dto.RoomSummaryDto;
-import j3lcardmarket.atelier3.gameserver.dto.UserCardDto;
 import j3lcardmarket.atelier3.gameserver.mapper.GameRoomMapper;
 import j3lcardmarket.atelier3.gameserver.repositories.GameRoomRepository;
+import j3lcardmarket.atelier3.gameserver.repositories.PlayerCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,10 +21,10 @@ public class GameRoomService {
     private GameRoomRepository gameRoomRepo;
 
     @Autowired
-    private GameRoomMapper gameRoomMapper;
+    private PlayerCardRepository playerCardRepo;
 
     @Autowired
-    HttpUtils httpUtils;
+    private GameRoomMapper gameRoomMapper;
 
     public List<RoomSummaryDto> getRooms() {
         List<GameRoomEntity> rooms = gameRoomRepo.findAllByStateIsNotOrStateIsNot(GameRoomState.CANCELLED, GameRoomState.COMPLETED);
@@ -59,39 +55,22 @@ public class GameRoomService {
         GameRoomEntity roomEntity = gameRoomRepo.findById(roomId).orElseThrow(() -> new IllegalArgumentException("Room not found"));
         GameRoom room = gameRoomMapper.fromEntity(roomEntity);
 
+        UserCard cardToSelect = new UserCard(userCardId, "card");
+
         if (room.getCreator().getSurname().equals(playerSurname)) {
-            List<UserCardDto> cardsOwnedDto;
-            String UserCards = httpUtils.httpRequest("/api/usercards/"+room.getCreator().getSurname(),"GET");
-            cardsOwnedDto = List.of(new Gson().fromJson(UserCards, UserCardDto.class));
-
-            List<UserCard> cardsOwned = new ArrayList<>();
-            for (UserCardDto userCardDto : cardsOwnedDto) {
-                String cardInfoJson = httpUtils.httpRequest("/api/cards/"+userCardDto.getCardId(),"GET");
-                CardDto cardInfoDto = new Gson().fromJson(cardInfoJson, CardDto.class);
-                cardsOwned.add(new UserCard(userCardDto.getId(), cardInfoDto.getName()));
-            }
-
-            UserCard cardToSelect = cardsOwned.stream().filter(card -> card.getId() == userCardId).findFirst().orElseThrow(() -> new IllegalArgumentException("Card not found"));
-            room.getCreator().selectCard(cardToSelect, cardsOwned);
-
-        } else if (room.getOpponent() != null && room.getOpponent().getSurname().equals(playerSurname)) {
-            List<UserCardDto> cardsOwnedDto;
-            String UserCards = httpUtils.httpRequest("/api/usercards/"+room.getOpponent().getSurname(),"GET");
-            cardsOwnedDto = List.of(new Gson().fromJson(UserCards, UserCardDto.class));
-
-            List<UserCard> cardsOwned = new ArrayList<>();
-            for (UserCardDto userCardDto : cardsOwnedDto) {
-                String cardInfoJson = httpUtils.httpRequest("/api/cards/"+userCardDto.getCardId(),"GET");
-                CardDto cardInfoDto = new Gson().fromJson(cardInfoJson, CardDto.class);
-                cardsOwned.add(new UserCard(userCardDto.getId(), cardInfoDto.getName()));
-            }
-
-            UserCard cardToSelect = cardsOwned.stream().filter(card -> card.getId() == userCardId).findFirst().orElseThrow(() -> new IllegalArgumentException("Card not found"));
-            room.getOpponent().selectCard(cardToSelect, cardsOwned);
+            room.getCreator().selectCard(cardToSelect);
+        } else if (room.getOpponent().getSurname().equals(playerSurname)) {
+            room.getOpponent().selectCard(cardToSelect);
+        } else {
+            throw new IllegalArgumentException("Player not found in room");
         }
 
-        // il faut save dans la table PLayerCard aussi
-        GameRoomEntity savedRoom = gameRoomRepo.save(gameRoomMapper.toEntity(room, roomEntity.getId()));
+        GameRoomEntity roomToSave = gameRoomMapper.toEntity(room, roomEntity.getId());
+        playerCardRepo.save(roomToSave.getCreatorCard());
+        if (roomToSave.getOpponentCard() != null) {
+            playerCardRepo.save(roomToSave.getOpponentCard());
+        }
+        GameRoomEntity savedRoom = gameRoomRepo.save(roomToSave);
         return gameRoomMapper.fromEntity(savedRoom);
     }
 
@@ -99,8 +78,13 @@ public class GameRoomService {
         GameRoomEntity roomEntity = gameRoomRepo.findById(roomId).orElseThrow(() -> new IllegalArgumentException("Room not found"));
         GameRoom room = gameRoomMapper.fromEntity(roomEntity);
         room.executeGame();
-        // TODO: adapt return
-        GameRoomEntity savedRoom = gameRoomRepo.save(gameRoomMapper.toEntity(room, roomEntity.getId()));
+        GameRoomEntity roomToSave = gameRoomMapper.toEntity(room, roomEntity.getId());
+        System.out.println("winner: " + roomToSave.getWinnerSurname());
+        playerCardRepo.save(roomToSave.getCreatorCard());
+        if (roomToSave.getOpponentCard() != null) {
+            playerCardRepo.save(roomToSave.getOpponentCard());
+        }
+        GameRoomEntity savedRoom = gameRoomRepo.save(roomToSave);
         return gameRoomMapper.fromEntity(savedRoom);
     }
 
@@ -114,5 +98,4 @@ public class GameRoomService {
         GameRoomEntity savedRoom = gameRoomRepo.save(gameRoomMapper.toEntity(room, roomEntity.getId()));
         return gameRoomMapper.fromEntity(savedRoom);
     }
-
 }

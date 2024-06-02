@@ -52,14 +52,9 @@ public class GameRoom {
         }
 
         Fight fight = new Fight(creator, opponent);
-        fight.execute();
+        Player winner = fight.execute();
 
-        if (this.creator.getSelectedCard().getHp() == 0) {
-            this.winnerSurname = this.opponent.getSurname();
-        } else {
-            this.winnerSurname = this.creator.getSurname();
-        }
-
+        this.winnerSurname = winner.getSurname();
         this.state = GameRoomState.COMPLETED;
     }
 

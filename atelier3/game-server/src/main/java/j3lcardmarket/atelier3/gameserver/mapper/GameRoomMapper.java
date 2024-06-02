@@ -40,7 +40,6 @@ public class GameRoomMapper {
             gameRoomEntity.setCreatorCard(creatorCardEntity);
         }
 
-
         if (gameRoom.getOpponent() != null && gameRoom.getOpponent().getSelectedCard() != null) {
             PlayerCardEntity opponentCardEntity = new PlayerCardEntity();
 
@@ -53,6 +52,10 @@ public class GameRoomMapper {
             opponentCardEntity.setCardName(gameRoom.getOpponent().getSelectedCard().getName());
 
             gameRoomEntity.setOpponentCard(opponentCardEntity);
+        }
+
+        if (gameRoom.getWinnerSurname() != null) {
+            gameRoomEntity.setWinnerSurname(gameRoomEntity.getWinnerSurname());
         }
 
         return gameRoomEntity;
@@ -78,6 +81,10 @@ public class GameRoomMapper {
                 opponent.setSelectedCard(opponentCard);
             }
             gameRoom.setOpponent(opponent);
+        }
+
+        if (gameRoomEntity.getWinnerSurname() != null) {
+            gameRoom.setWinnerSurname(gameRoomEntity.getWinnerSurname());
         }
 
         return gameRoom;
