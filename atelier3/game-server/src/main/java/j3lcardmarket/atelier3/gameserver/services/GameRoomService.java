@@ -1,15 +1,14 @@
 package j3lcardmarket.atelier3.gameserver.services;
 
-import com.google.gson.Gson;
-import io.swagger.v3.core.util.Json;
 import j3lcardmarket.atelier3.commons.models.GameRoomEntity;
-import j3lcardmarket.atelier3.commons.utils.HttpUtils;
+import j3lcardmarket.atelier3.commons.models.GameRoomState;
 import j3lcardmarket.atelier3.gameserver.domains.GameRoom;
 import j3lcardmarket.atelier3.gameserver.domains.UserCard;
 import j3lcardmarket.atelier3.gameserver.dto.GameRoomDto;
 import j3lcardmarket.atelier3.gameserver.dto.RoomSummaryDto;
 import j3lcardmarket.atelier3.gameserver.mapper.GameRoomMapper;
 import j3lcardmarket.atelier3.gameserver.repositories.GameRoomRepository;
+import j3lcardmarket.atelier3.gameserver.repositories.PlayerCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +21,13 @@ public class GameRoomService {
     private GameRoomRepository gameRoomRepo;
 
     @Autowired
-    private GameRoomMapper gameRoomMapper;
+    private PlayerCardRepository playerCardRepo;
 
     @Autowired
-    HttpUtils httpUtils;
+    private GameRoomMapper gameRoomMapper;
 
     public List<RoomSummaryDto> getRooms() {
-        List<GameRoomEntity> rooms = gameRoomRepo.findAll();
+        List<GameRoomEntity> rooms = gameRoomRepo.findAllByStateIsNotOrStateIsNot(GameRoomState.CANCELLED, GameRoomState.COMPLETED);
         return rooms.stream().map(room -> new RoomSummaryDto().fromGameRoomEntity(room)).toList();
     }
 
@@ -52,26 +51,26 @@ public class GameRoomService {
         return gameRoomMapper.fromEntity(savedRoom);
     }
 
-    public GameRoomDto selectCard(String playerSurname, int roomId, int cardId) {
+    public GameRoomDto selectCard(String playerSurname, int roomId, int userCardId) {
         GameRoomEntity roomEntity = gameRoomRepo.findById(roomId).orElseThrow(() -> new IllegalArgumentException("Room not found"));
         GameRoom room = gameRoomMapper.fromEntity(roomEntity);
 
-        UserCard cardToSelect = new UserCard();
-        String CardInfo = httpUtils.httpRequest("/api/cards/"+cardId,"GET");
-        new Gson().fromJson(CardInfo, UserCard.class);
+        UserCard cardToSelect = new UserCard(userCardId, "card");
+
         if (room.getCreator().getSurname().equals(playerSurname)) {
-            List<UserCard> cardsOwned;
-            String UserCards = httpUtils.httpRequest("/api/usercards/"+room.getCreator().getSurname(),"GET");
-            cardsOwned = List.of(new Gson().fromJson(UserCards, UserCard.class));
-            room.getCreator().selectCard(cardToSelect, cardsOwned);
+            room.getCreator().selectCard(cardToSelect);
         } else if (room.getOpponent().getSurname().equals(playerSurname)) {
-            List<UserCard> cardsOwned;
-            String UserCards = httpUtils.httpRequest("/api/usercards/"+room.getOpponent().getSurname(),"GET");
-            cardsOwned = List.of(new Gson().fromJson(UserCards, UserCard.class));
-            room.getOpponent().selectCard(cardToSelect, cardsOwned);
+            room.getOpponent().selectCard(cardToSelect);
+        } else {
+            throw new IllegalArgumentException("Player not found in room");
         }
 
-        GameRoomEntity savedRoom = gameRoomRepo.save(gameRoomMapper.toEntity(room, roomEntity.getId()));
+        GameRoomEntity roomToSave = gameRoomMapper.toEntity(room, roomEntity.getId());
+        playerCardRepo.save(roomToSave.getCreatorCard());
+        if (roomToSave.getOpponentCard() != null) {
+            playerCardRepo.save(roomToSave.getOpponentCard());
+        }
+        GameRoomEntity savedRoom = gameRoomRepo.save(roomToSave);
         return gameRoomMapper.fromEntity(savedRoom);
     }
 
@@ -79,8 +78,12 @@ public class GameRoomService {
         GameRoomEntity roomEntity = gameRoomRepo.findById(roomId).orElseThrow(() -> new IllegalArgumentException("Room not found"));
         GameRoom room = gameRoomMapper.fromEntity(roomEntity);
         room.executeGame();
-        // TODO: adapt return
-        GameRoomEntity savedRoom = gameRoomRepo.save(gameRoomMapper.toEntity(room, roomEntity.getId()));
+        GameRoomEntity roomToSave = gameRoomMapper.toEntity(room, roomEntity.getId());
+        playerCardRepo.save(roomToSave.getCreatorCard());
+        if (roomToSave.getOpponentCard() != null) {
+            playerCardRepo.save(roomToSave.getOpponentCard());
+        }
+        GameRoomEntity savedRoom = gameRoomRepo.save(roomToSave);
         return gameRoomMapper.fromEntity(savedRoom);
     }
 
@@ -94,5 +97,4 @@ public class GameRoomService {
         GameRoomEntity savedRoom = gameRoomRepo.save(gameRoomMapper.toEntity(room, roomEntity.getId()));
         return gameRoomMapper.fromEntity(savedRoom);
     }
-
 }

@@ -3,7 +3,6 @@ package j3lcardmarket.atelier3.authserver.services;
 import j3lcardmarket.atelier3.authserver.models.User;
 import j3lcardmarket.atelier3.authserver.repositories.UserRepository;
 import j3lcardmarket.atelier3.commons.models.UserInfo;
-import j3lcardmarket.atelier3.commons.utils.HttpUtils;
 import j3lcardmarket.atelier3.commons.utils.LoginChecker;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +10,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMapAdapter;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.io.IOException;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.security.spec.KeySpec;
 import java.util.Collections;
 import java.util.Map;
@@ -41,7 +36,6 @@ public class DbLoginChecker implements LoginChecker<UserInfo, User> {
     @Autowired
     RestTemplate restTemplate;
 
-
     @SneakyThrows
     @Override
     public UserInfo checkLogin(User info) {
@@ -56,8 +50,6 @@ public class DbLoginChecker implements LoginChecker<UserInfo, User> {
     public UserInfo register(User info){
         return register(info, true);
     }
-
-
 
     @SneakyThrows
     public UserInfo register(User info, boolean initCards){

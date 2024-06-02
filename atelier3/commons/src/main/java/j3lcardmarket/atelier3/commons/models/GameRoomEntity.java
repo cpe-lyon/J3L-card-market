@@ -24,4 +24,6 @@ public class GameRoomEntity {
 
     @OneToOne
     private PlayerCardEntity opponentCard;
+
+    private String winnerSurname;
 }

@@ -6,8 +6,6 @@ import j3lcardmarket.atelier3.commons.models.GameRoomState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 class GameRoomTest {
     private GameRoom gameRoom;
     private UserCard dracofeu;
@@ -83,8 +81,8 @@ class GameRoomTest {
         // Given
         gameRoom.init("Josse", "Room1");
         gameRoom.joinAsOpponent("Leo");
-        gameRoom.getCreator().selectCard(dracofeu, List.of(dracofeu, pikachu));
-        gameRoom.getOpponent().selectCard(pikachu, List.of(dracofeu, pikachu));
+        gameRoom.getCreator().selectCard(dracofeu);
+        gameRoom.getOpponent().selectCard(pikachu);
 
         // When
         gameRoom.executeGame();

@@ -14,10 +14,7 @@ public class Player {
         this.surname = surname;
     }
 
-    public void selectCard(UserCard cardToSelect, List<UserCard> cardsOwned) {
-        if (!cardsOwned.contains(cardToSelect)) {
-            throw new IllegalArgumentException("Player does not own this card");
-        }
+    public void selectCard(UserCard cardToSelect) {
         if (cardToSelect.getEnergy() <= 0) {
             throw new IllegalArgumentException("Selected card has no energy");
         }
