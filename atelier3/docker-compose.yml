@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+        POSTGRES_DB: cards
+        POSTGRES_USER: ouaf
+        POSTGRES_PASSWORD: ouaf
+    restart: always
+    ports:
+      - 5432:5432
+
+  broker:
+    image: 'camunda/zeebe:latest'
+    command: ['broker', '--gateway-address', 'gateway:26500']
+    ports:
+      - '26500-26501:26500-26501'
+    environment:
+      - JAVA_OPTS=-Xms1G -Xmx1G
+      - ZEEBE_BROKER_LOG_LEVEL=DEBUG
+      - ZEEBE_BROKER_LOG4J_CONFIGURATION=log4j-messaging.xml
+      - ZEEBE_DEBUG=true
+    # Zeebe will send terminated event to localhost
+    extra_hosts:
+      - "localhost:172.17.0.1"

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="profile">
+  <span>User</span>
+  <strong class="admin">[ADMIN]</strong>
+  <img src="../images/default-user.png" alt="Profile Icon" width="30">
+</div>
+<div id="header"></div>
+<script>
+  $(function() {
+    $("#header").load("../components/header.html");
+  });
+</script>
+<div class="container">
+  <h1>GAME ROOMS</h1>
+  <div class="game">
+    <div class="room-creation">
+      <label for="room-name">Room Name: </label>
+      <input id="room-name" placeholder="Name" required>
+      <button id="creation-button">Create Room</button>
+    </div>
+    <table id="room-table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Players</th>
+      </tr>
+      </thead>
+      <tbody id="room-table__body"></tbody>
+    </table>
+  </div>
+</div>
+<script src="../script/environment.js"></script>
+<script src="../script/handletoken.js"></script>
+<script src="../script/game.js"></script>
+</body>
+</html>
